@@ -1,5 +1,5 @@
 # Universal Skin Server (Node.js)
-[![Dependency Status](https://david-dm.org/simon300000/UniSkinServer.svg)](https://david-dm.org/simon300000/UniSkinServer)  
+[![Dependency Status](https://david-dm.org/simon300000/UniSkinServerNode.svg)](https://david-dm.org/simon300000/UniSkinServerNode)  
 Node.js重写   
 以GPLv2协议发布
 
