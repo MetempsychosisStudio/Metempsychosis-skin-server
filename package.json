@@ -1,0 +1,23 @@
+{
+  "name": "uniskinserver",
+  "version": "1.0.0",
+  "description": "UniSkinServerNodeReload",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simon300000/UniSkinServer.git"
+  },
+  "author": "simon3000/RecursiveG",
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/simon300000/UniSkinServer/issues"
+  },
+  "homepage": "https://github.com/simon300000/UniSkinServer#readme",
+  "dependencies": {
+    "compression": "^1.6.1",
+    "express": "^4.13.4"
+  }
+}
