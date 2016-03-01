@@ -1,5 +1,5 @@
 var express = require('express');
-var web = express();
+var app = express();
 var compression = require('compression');
 var fs = require('fs');
 setting = new Object();
@@ -44,31 +44,32 @@ function checkConfig() {
 var SHA256 = require('./script/SHA256.js');
 
 
-web.all(/json/, compression(), express.static('data/players'));
 
-web.post(/upload/, function(req, res, next) {
+app.all(/json/, compression(), express.static('data/players'));
+
+app.post(/upload/, function(req, res, next) {
     req.body.username
 });
 
-web.all(/indexcss/, compression(), function(req, res, next) {
+app.all(/indexcss/, compression(), function(req, res, next) {
     res.sendFile('index.css', {
         root: 'public/'
     });
 });
 
-web.all(/indexjs/, compression(), function(req, res, next) {
+app.all(/indexjs/, compression(), function(req, res, next) {
     res.sendFile('index.js', {
         root: 'public/'
     });
 });
 
-web.all(/favicon/, compression(), function(req, res, next) {
+app.all(/favicon/, compression(), function(req, res, next) {
     res.sendFile('favicon.ico', {
         root: 'public/'
     });
 });
 
-web.all('/', compression(), function(req, res, next) {
+app.all('/', compression(), function(req, res, next) {
     res.sendFile('index.html', {
         root: 'public/'
     });
@@ -76,7 +77,7 @@ web.all('/', compression(), function(req, res, next) {
 
 
 function openServer() {
-    var server = web.listen(setting.port, function() {
+    var server = app.listen(setting.port, function() {
         var host = server.address().address;
         var port = server.address().port;
         console.log('皮肤服务器开启 http://%s:%s', host, port);
