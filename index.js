@@ -41,7 +41,7 @@ function checkConfig() {
     });
 }
 
-var SHA256 = require('./script/SHA256.js');
+var SHA256 = require('./script/SHA256.js')
 
 
 
