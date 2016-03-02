@@ -48,7 +48,7 @@ var SHA256 = require('./script/SHA256.js');
 app.all(/json/, compression(), express.static('data/players'));
 
 app.post(/upload/, function(req, res, next) {
-    req.body.username
+    login(req.body.username, req.body.pass)
 });
 
 app.all(/indexcss/, compression(), function(req, res, next) {
