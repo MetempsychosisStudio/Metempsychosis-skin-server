@@ -51,6 +51,14 @@ app.post(/upload/, function(req, res, next) {
     login(req.body.username, req.body.pass)
 });
 
+app.post(/login/, function(req, res, next) {
+    login(req.body.username, req.body.pass)
+});
+
+app.post(/register/, function(req, res, next) {
+    reg(req.body.username, req.body.pass, req.body.rpass)
+});
+
 app.all(/indexcss/, compression(), function(req, res, next) {
     res.sendFile('index.css', {
         root: 'public/'
