@@ -1,6 +1,6 @@
 # Universal Skin Server (Node.js)
-[![Dependency Status](https://david-dm.org/simon300000/UniSkinServerNode.svg)](https://david-dm.org/simon300000/UniSkinServerNode)  
-Node.js重写   
+[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)  
+Nodejs重写     
 以GPLv2协议发布
 
 ### Universal Skin API 计划
