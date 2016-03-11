@@ -1,3 +1,4 @@
+"use strict";
 function SHA256(s) {
     var chrsz = 8;
     var hexcase = 0;

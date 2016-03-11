@@ -9,6 +9,7 @@ if (fs.existsSync('./data') == false) {
         if (err) throw err;
         fs.mkdir('./data/players', function(err) {
             if (err) throw err;
+"use strict";
             checkConfig()
         })
     })

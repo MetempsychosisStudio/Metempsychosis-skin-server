@@ -1,4 +1,5 @@
 var fs = require('fs');
+"use strict";
 
 function login(username, password) {
     fs.readFile('./data/players.json', function(fileData) {
