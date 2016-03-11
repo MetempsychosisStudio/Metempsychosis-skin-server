@@ -1,47 +1,40 @@
-var express = require('express');
-var compression = require('compression');
-var fs = require('fs');
-var SHA256 = require('./script/SHA256.js')
-var app = express();
-setting = new Object();
-if (fs.existsSync('./data') == false) {
-    fs.mkdir('./data', function(err) {
-        if (err) throw err;
-        fs.mkdir('./data/players', function(err) {
-            if (err) throw err;
 "use strict";
+let express = require('express')
+let compression = require('compression')
+let fs = require('fs')
+let SHA256 = require('./script/SHA256.js')
+let app = express()
+let reg = require('./script/reg.js')
+let login = require('./script/login.js')
+let checkReg = require('./script/checkReg.js')
+
+
+fs.stat('./data', function(err, stats) {
+    fs.stat('./data/players', function(err, playerStats) {
+        fs.stat('./data/players.json', function(err, JSONStats) {
+            if (stats == undefined) {
+                fs.mkdirSync('./data')
+            }
+            if (playerStats == undefined) {
+                fs.mkdirSync('./data/players')
+            }
+            if (JSONStats == undefined) {
+                fs.writeFileSync('./data/players.json', JSON.stringify([]));
+                console.log('用户数据创建成功');
+            }
             checkConfig()
         })
     })
-} else {
-    if (fs.existsSync('./data/players') == false) {
-        fs.mkdir('./data/players', function(err) {
-            if (err) throw err;
-            checkConfig()
-        })
-    } else {
-        checkConfig()
-    }
-}
+})
 
 function checkConfig() {
-    var login = require('./script/login.js');
-    var reg = require('./script/reg.js');
-    fs.exists('./config.js', function(exists) {
-        if (exists) {
-            require('./config.js');
-            console.log("配置文件读取成功");
-            openServer();
-        } else {
+    fs.stat('./config.js', function(err, stats) {
+        if (stats == undefined) {
+            fs.writeFileSync('./config.js','"use strict";\nlet setting = {}\n//配置文件 (别改上面的)\n\n//访问端口号\nsetting.port = 8080\n\n\n\n\n//不要改下面的东西\nfunction settingOut() {\nreturn setting\n}\nmodule.exports = settingOut;')
             console.log('创建配置文件: config.js');
-            fs.writeFile('./config.js', '//配置文件\n\n//访问端口号\nsetting.port = 8080', function(err) {
-                if (err) throw err;
-                require('./config.js');
-                console.log("配置文件读取成功");
-                openServer();
-            })
         }
-    });
+        openServer();
+    })
 }
 
 function openServer() {
@@ -85,11 +78,12 @@ function openServer() {
     serverDone()
 }
 
-
 function serverDone() {
-    var server = app.listen(setting.port, function() {
-        var host = server.address().address;
-        var port = server.address().port;
+    let setting = require('./config.js');
+    console.log("配置文件读取成功");
+    let server = app.listen(setting().port, function() {
+        let host = server.address().address;
+        let port = server.address().port;
         console.log('皮肤服务器开启 http://%s:%s', host, port);
     });
 }
