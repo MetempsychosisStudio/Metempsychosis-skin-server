@@ -7,7 +7,7 @@ let app = express()
 let reg = require('./script/reg.js')
 let login = require('./script/login.js')
 let checkReg = require('./script/checkReg.js')
-
+var setting
 
 fs.stat('./data', function(err, stats) {
     fs.stat('./data/players', function(err, playerStats) {
@@ -30,14 +30,36 @@ fs.stat('./data', function(err, stats) {
 function checkConfig() {
     fs.stat('./config.js', function(err, stats) {
         if (stats == undefined) {
-            fs.writeFileSync('./config.js','"use strict";\nlet setting = {}\n//配置文件 (别改上面的)\n\n//访问端口号\nsetting.port = 8080\n\n\n\n\n//不要改下面的东西\nfunction settingOut() {\nreturn setting\n}\nmodule.exports = settingOut;')
-            console.log('创建配置文件: config.js');
+            console.log('创建配置文件...');
+            let defaultConfig = []
+            defaultConfig.push('"use strict";')
+            defaultConfig.push('let setting = {};setting.server = {};setting.interface = {}')
+            defaultConfig.push('//配置文件 (别改上面的)')
+            defaultConfig.push('')
+            defaultConfig.push('//服务器端口号')
+            defaultConfig.push('setting.server.port = 8080')
+            defaultConfig.push('')
+            defaultConfig.push('//网页标题')
+            defaultConfig.push('setting.interface.title = "皮肤服务器"')
+            defaultConfig.push('')
+            defaultConfig.push('')
+            defaultConfig.push('')
+            defaultConfig.push('')
+            defaultConfig.push('//不要改下面的东西')
+            defaultConfig.push('function settingOut() {')
+            defaultConfig.push('return setting')
+            defaultConfig.push('}')
+            defaultConfig.push('module.exports = settingOut;')
+            fs.writeFileSync('./config.js', defaultConfig.join('\n'));
+            console.log('config.js 创建成功');
         }
         openServer();
     })
 }
 
 function openServer() {
+    setting = require('./config.js');
+    console.log("配置文件读取成功");
     app.all(/json/, compression(), express.static('data/players'));
 
     app.post(/upload/, function(req, res, next) {
@@ -64,6 +86,10 @@ function openServer() {
         });
     });
 
+    app.all(/indexsetting/, compression(), function(req, res, next) {
+        res.end('$("title").html(' + setting().interface.title + ')');
+    });
+
     app.all(/favicon/, compression(), function(req, res, next) {
         res.sendFile('favicon.ico', {
             root: 'public/'
@@ -79,11 +105,9 @@ function openServer() {
 }
 
 function serverDone() {
-    let setting = require('./config.js');
-    console.log("配置文件读取成功");
-    let server = app.listen(setting().port, function() {
+    let server = app.listen(setting().server.port, function() {
         let host = server.address().address;
         let port = server.address().port;
-        console.log('皮肤服务器开启 http://%s:%s', host, port);
+        console.log('服务器开启 http://%s:%s', host, port);
     });
 }
