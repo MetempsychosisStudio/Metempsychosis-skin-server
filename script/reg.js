@@ -10,9 +10,10 @@ function reg(username, password, rPassword) {
     }
     if (password == rPassword) {
         let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
-        newUser = new Object();
+        let newUser = new Object();
         newUser.name = username
         newUser.pass = password
+        newUser.update = new Date().getTime()
         userInfo.push(newUser)
         fs.writeFileSync('./data/players.json', JSON.stringify(userInfo));
         console.log('新用户: ' + username);
