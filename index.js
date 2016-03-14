@@ -3,56 +3,59 @@ let express = require('express')
 let compression = require('compression')
 let fs = require('fs')
 let SHA256 = require('./script/SHA256.js')
+let bodyParser = require('body-parser')
 let app = express()
-let reg = require('./script/reg.js')
-let login = require('./script/login.js')
-let checkReg = require('./script/checkReg.js')
-let getJSON = require('./script/getJSON.js')
+let userScript
 var setting
-
 
 function openServer() {
     setting = require('./config.js');
     console.log("配置文件读取成功");
     app.all(/json/, compression(), function(req, res, next) {
-        res.end(getJSON('simon3000'))
+        res.end(userScript.getJSON('simon3000'))
     });
 
-    app.post(/upload/, function(req, res, next) {
-        login(req.body.username, req.body.pass)
+    app.post(/upload/, bodyParser.urlencoded({
+        extended: true
+    }), bodyParser.json(), function(req, res, next) {
+        userScript.login(req.body.username, req.body.pass)
     });
 
-    app.post(/login/, function(req, res, next) {
-        login(req.body.username, req.body.pass)
+    app.post(/login/, bodyParser.urlencoded({
+        extended: true
+    }), bodyParser.json(), function(req, res, next) {
+        userScript.login(req.body.username, req.body.pass)
     });
 
-    app.post(/register/, function(req, res, next) {
-        reg(req.body.username, req.body.pass, req.body.rpass)
+    app.post(/register/, bodyParser.urlencoded({
+        extended: true
+    }), bodyParser.json(), function(req, res, next) {
+        res.end(userScript.reg(req.body.username, req.body.pass, req.body.rpass))
     });
 
-    app.all(/indexcss/, compression(), function(req, res, next) {
+    app.get(/indexcss/, compression(), function(req, res, next) {
         res.sendFile('index.css', {
             root: 'public/'
         });
     });
 
-    app.all(/indexjs/, compression(), function(req, res, next) {
+    app.get(/indexjs/, compression(), function(req, res, next) {
         res.sendFile('index.js', {
             root: 'public/'
         });
     });
 
-    app.all(/indexsetting/, compression(), function(req, res, next) {
-        res.end('$("title").html(' + setting().interface.title + ')');
+    app.get(/indexsetting/, compression(), function(req, res, next) {
+        res.end('$("title").html("' + setting().interface.title + '")');
     });
 
-    app.all(/favicon/, compression(), function(req, res, next) {
+    app.get(/favicon/, compression(), function(req, res, next) {
         res.sendFile('favicon.ico', {
             root: 'public/'
         });
     });
 
-    app.all('/', compression(), function(req, res, next) {
+    app.use(compression(), function(req, res, next) {
         res.sendFile('index.html', {
             root: 'public/'
         });
@@ -95,7 +98,6 @@ function serverDone() {
         let host = server.address().address;
         let port = server.address().port;
         console.log('服务器开启 http://%s:%s', host, port);
-        reg('simon3000','233','233')
     });
 }
 
@@ -112,6 +114,7 @@ fs.stat('./data', function(err, stats) {
                 fs.writeFileSync('./data/players.json', JSON.stringify([]));
                 console.log('用户数据创建成功');
             }
+            userScript = require('./script/reg.js')
             checkConfig()
         })
     })
