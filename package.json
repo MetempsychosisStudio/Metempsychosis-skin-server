@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simon300000/UniSkinServerNode.git"
+    "url": "git+https://github.com/MetempsychosisStudio/Metempsychosis-skin-server.git"
   },
   "author": "simon3000/RecursiveG",
   "license": "GPL-2.0",
   "bugs": {
-    "url": "https://github.com/simon300000/UniSkinServerNode/issues"
+    "url": "https://github.com/MetempsychosisStudio/Metempsychosis-skin-server/issues"
   },
-  "homepage": "https://github.com/simon300000/UniSkinServerNode#readme",
+  "homepage": "https://github.com/MetempsychosisStudio/Metempsychosis-skin-server#readme",
   "dependencies": {
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
