@@ -4,7 +4,7 @@ let fs = require('fs');
 let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
 let script = {}
 
-function checkReg(username) {
+let checkReg = (username) => {
     for (let x of userInfo) {
         if (x.name == username) {
             return true
