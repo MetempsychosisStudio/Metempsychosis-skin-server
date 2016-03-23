@@ -6,28 +6,8 @@ let SHA256 = require('./script/SHA256.js')
 let bodyParser = require('body-parser')
 let app = express()
 let userScript
-var setting
+let setting
 
-//for (var i = 0; i < 10; i++) {
-//    let random = 0
-//    for (var k = 0; k < 100000; k++) {
-//        random += Math.random()
-//        let w = []
-//        for (var b = 0; b < 10; b++) {
-//            let c
-//            for (var l = 0; l < 10; l++) {
-//                c += Math.random()
-//            }
-//            w[b] = c
-//        }
-//        w.forEach(function(e) {
-//            for (var v = 0; v < e; v++) {
-//                Math.random()
-//            }
-//        })
-//    }
-//    console.log(SHA256(SHA256(SHA256(SHA256(i + 'w' + random)) + SHA256(SHA256(i + 'w' + SHA256(SHA256(i + 'w' + random)))))));
-//}
 
 fs.stat('./data', (err, stats) => {
     fs.stat('./data/players', (err, playerStats) => {

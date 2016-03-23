@@ -1,7 +1,7 @@
 {
-  "name": "uniskinservernode",
+  "name": "meteskinserver",
   "version": "1.0.0",
-  "description": "UniSkinServerWithNode",
+  "description": "Metempsychosis-skin-server",
   "main": "index.js",
   "scripts": {
     "test": "node index"
