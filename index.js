@@ -10,8 +10,11 @@ let setting
 
 
 fs.stat('./data', (err, stats) => {
+    if (err) throw err;
     fs.stat('./data/players', (err, playerStats) => {
+        if (err) throw err;
         fs.stat('./data/players.json', (err, JSONStats) => {
+            if (err) throw err;
             if (stats == undefined) {
                 fs.mkdirSync('./data')
             }
@@ -25,6 +28,7 @@ fs.stat('./data', (err, stats) => {
             userScript = require('./script/reg.js')
 
             fs.stat('./config.js', (err, stats) => {
+                if (err) throw err;
                 if (stats == undefined) {
                     console.log('创建配置文件...');
                     let defaultConfig = []
