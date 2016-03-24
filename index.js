@@ -12,7 +12,7 @@ console.log("配置文件读取成功");
 let userScript = require('./script/reg.js')
 
 app.get(/uskapi/, compression(), (req, res, next) => {
-    res.end(userScript.getJSONUniSkinAPI('simon3000'))
+    //res.end(userScript.getJSONUniSkinAPI('simon3000'))
 });
 
 app.get(/cslapi/, compression(), (req, res, next) => {
@@ -29,6 +29,7 @@ app.get(/usernamepng/, compression(), (req, res, next) => {
 
 app.get(/textures/, compression(), express.static('data/textures'), (req, res, next) => {
     res.status(404)
+    res.end()
 })
 
 app.post(/upload/, bodyParser.urlencoded({
