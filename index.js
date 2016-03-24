@@ -10,9 +10,26 @@ require('./script/init.js');
 let setting = require('./config.js');
 console.log("配置文件读取成功");
 let userScript = require('./script/reg.js')
-app.all(/json/, compression(), (req, res, next) => {
-    res.end(userScript.getJSON('simon3000'))
+
+app.get(/uskapi/, compression(), (req, res, next) => {
+    res.end(userScript.getJSONUniSkinAPI('simon3000'))
 });
+
+app.get(/cslapi/, compression(), (req, res, next) => {
+    //res.end(userScript.getJSON('simon3000'))
+});
+
+app.get(/json/, compression(), (req, res, next) => {
+    //res.end(userScript.getJSON('simon3000'))
+});
+
+app.get(/usernamepng/, compression(), (req, res, next) => {
+    //res.end(userScript.getJSON('simon3000'))
+});
+
+app.get(/textures/, compression(), express.static('data/textures'), (req, res, next) => {
+    res.status(404)
+})
 
 app.post(/upload/, bodyParser.urlencoded({
     extended: true

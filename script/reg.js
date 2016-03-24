@@ -1,7 +1,7 @@
 "use strict";
 let SHA256 = require('./SHA256.js')
 let fs = require('fs');
-let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
+let userInfo = []//JSON.parse(fs.readFileSync('./data/players.json'))
 let script = {}
 
 let checkReg = (username) => {
@@ -13,7 +13,7 @@ let checkReg = (username) => {
     return false
 }
 
-script.reg = function(username, password, rPassword) {
+script.reg = (username, password, rPassword) => {
     if (password != rPassword) {
         return 'notSame'
     } else if (checkReg(username) == true) {
@@ -31,11 +31,11 @@ script.reg = function(username, password, rPassword) {
     }
 }
 
-script.login = function(username, password) {
+script.login = (username, password) => {
     let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
 }
 
-script.getJSON = function get(username) {
+script.getJSONUniSkinAPI = (username) => {
     let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
     let JSONFile = {}
     JSONFile.errno = 1

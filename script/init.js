@@ -29,29 +29,10 @@ try {
 }
 
 try {
-    fs.statSync('./data')
+    fs.statSync('./textures')
 } catch (e) {
     if (e.errno !== -2) {
         throw errno(e.errno)
     }
-    fs.mkdirSync('./data')
-}
-
-try {
-    fs.statSync('./data/players')
-} catch (e) {
-    if (e.errno !== -2) {
-        throw errno(e.errno)
-    }
-    fs.mkdirSync('./data/players')
-}
-
-try {
-    fs.statSync('./data/players.json')
-} catch (e) {
-    if (e.errno !== -2) {
-        throw errno(e.errno)
-    }
-    fs.writeFileSync('./data/players.json', JSON.stringify([]))
-    console.log('用户数据创建成功');
+    fs.mkdirSync('./textures')
 }
