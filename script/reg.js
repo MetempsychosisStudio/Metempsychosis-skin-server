@@ -1,17 +1,39 @@
 "use strict";
 let SHA256 = require('./SHA256.js')
-let fs = require('fs');
-let userInfo = []//JSON.parse(fs.readFileSync('./data/players.json'))
 let script = {}
+const low = require('lowdb')
+const storage = require('lowdb/file-sync')
+let ecc = require('eccjs');
+const db = low('db.json', {
+    storage
+})
 
-let checkReg = (username) => {
-    for (let x of userInfo) {
-        if (x.name == username) {
-            return true
-        }
-    }
-    return false
+if (db('users').find({
+        username: 'simon30002'
+    }) == undefined) {
+    db('users').push({
+        username: 'simon30002',
+        password: '123456'
+    })
 }
+
+db('users').chain().find({
+    username: 'simon3000'
+}).assign({
+    password: 'hi!'
+}).value()
+
+db('users').chain().find({
+    username: 'simon3000'
+}).assign({
+    justTry: 'hi!'
+}).value()
+
+db('users').chain().find({
+    username: 'simon3000'
+}).assign({
+    justTry: undefined
+}).value()
 
 script.reg = (username, password, rPassword) => {
     if (password != rPassword) {
@@ -36,10 +58,11 @@ script.login = (username, password) => {
 }
 
 script.getJSONUniSkinAPI = (username) => {
-    let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
-    let JSONFile = {}
-    JSONFile.errno = 1
-    JSONFile.msg = '未注册'
+    let json = {}
+    json.errno = 1
+    json.msg = '找不到皮肤'
+    return json
+
     for (var i = 0; i < userInfo.length; i++) {
         if (userInfo[i].name == username) {
             if (userInfo[i].skins != undefined || userInfo[i].cape != undefined) {
@@ -58,5 +81,8 @@ script.getJSONUniSkinAPI = (username) => {
     return JSON.stringify(JSONFile)
 }
 
+script.getECC = () => {
+    return db('eccKey').find().enc
+}
 
 module.exports = script;

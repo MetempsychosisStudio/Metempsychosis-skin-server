@@ -1,0 +1,52 @@
+body {
+    width: 100%;
+}
+
+.cover {
+    position: fixed;
+    bottom: 0px;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    z-index: 1000;
+    display: none;
+}
+
+.loginControl {
+    border-style: solid;
+    border-color: rgb(91, 167, 153);
+    border-width: 2px;
+    border-radius: 6px;
+    margin-top: 123px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 46%;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+    .loginControl {
+        margin-top: 32px;
+        margin-left: 28px;
+        margin-right: 28px;
+        width: auto;
+    }
+}
+
+@-webkit-keyframes blurin {
+    0% {
+        -webkit-filter: blur(0px);
+    }
+    100% {
+        -webkit-filter: blur(1px);
+    }
+}
+
+@-webkit-keyframes blurout {
+    0% {
+        -webkit-filter: blur(1px);
+    }
+    100% {
+        -webkit-filter: blur(0px);
+    }
+}
