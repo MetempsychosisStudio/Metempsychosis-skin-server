@@ -1,0 +1,6 @@
+{
+  "name": "Metempsychosis-skin-server",
+  "tagline": "Just a wired open-source Minecraft skin server written in javascript.",
+  "body": "# Universal Skin Server (Node.js)\r\n[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)  \r\nNodejs重写     \r\n以GPLv2协议发布\r\n\r\n### Universal Skin API 计划\r\n相关描述请见MCBBS [Universal Skin API 计划](http://www.mcbbs.net/thread-366248-1-1.html)\r\n\r\n### Universal Skin Mod\r\n请见[UniSkinMod](https://github.com/RecursiveG/UniSkinMod)\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
