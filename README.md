@@ -1,5 +1,6 @@
 # Universal Skin Server (Node.js)
-[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)  
+[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server) [![Code Climate](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badges/gpa.svg)](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
+
 Nodejs重写     
 以GPLv2协议发布
 
