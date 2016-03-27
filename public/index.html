@@ -3,13 +3,13 @@
 
 <head>
     <meta charset="utf-8">
-    <title>皮肤服务器</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" href="favicon" type="image/x-icon" />
     <link rel="shortcut icon" href="favicon" type="image/x-icon" />
     <script src="//cdn.bootcss.com/jquery/2.2.0/jquery.min.js"></script>
     <link href="//cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="jquery-labelauty.css">
     <script type="text/javascript">
         var loaded = {}
 
@@ -21,7 +21,6 @@
             }
         }
     </script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="ecc.min.js"></script>
 
     <!--[if lt IE 9]>
@@ -36,17 +35,49 @@
             <div class="container-fluid">
             </div>
         </div>
-        {{>cover}}
+        {{>cover}} {{>login}}
     </script>
 
     <script type="text/spacebars" name="cover">
-        <div class="cover">
+        <div id="cover" class="cover">
+        </div>
+    </script>
 
-            <div class="loginControl">
-            
-            </div>
-
-            {{#if notLogin}} {{else}} {{/if}}
+    <script type="text/spacebars" name="login">
+        <div class="loginControl cover">
+            <form class="form-horizontal loginForm">
+                <div class="usernameForm form-group {{usernameCheck}}">
+                    <label for="username" class="col-sm-2 control-label">用户名</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="username" placeholder="游戏使用名字" data-toggle="popover">
+                    </div>
+                </div>
+                <div class="passwordForm form-group {{passwordCheck}}">
+                    <label for="password" class="col-sm-2 control-label">密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control password" id="password" placeholder="密码">
+                    </div>
+                </div>
+                {{#if register}}
+                <div class="password2Form form-group {{password2Check}}">
+                    <label for="password2" class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control password" id="password2" placeholder="再输入一遍→_→" data-toggle="popover">
+                    </div>
+                </div>{{/if}}
+                <div class="form-group">
+                    <a href="#" class="col-sm-2 control-label newUser">{{#if register}}登陆{{else}}新用户?{{/if}}</a>
+                    <div class="col-sm-10">
+                        <input type="checkbox" checked id="jizhu" data-labelauty="记住我">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">{{#if register}}注册{{else}}登陆{{/if}}</button>
+                        <button class="btn btn-danger" id="closeLogin">取消</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </script>
 
@@ -62,8 +93,6 @@
                     </button>
                     <a class="navbar-brand" href="#"></a>
                 </div>
-
-
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Home</a></li>
@@ -93,6 +122,15 @@
     <script type="text/javascript">
         function downloadJSAtOnload() {
             NProgress.done()
+            $("#jizhu").labelauty();
+            $('[data-toggle="popover"]').popover()
+            document.getElementById('closeLogin').onclick = function() {
+                    $('.content').css('animation-name', 'blurout')
+                    $('.content').css('animation-duration', '270ms')
+                    $('.content').css('-webkit-animation-name', 'blurout')
+                    $('.content').css('-webkit-animation-duration', '270ms')
+                    $('.cover').fadeOut(300)
+                }
                 //$("#onlyOnline").labelauty();
                 //var element = document.createElement("script");
                 //element.src = "js/echarts.min.js";
@@ -108,17 +146,12 @@
                 //    doneProgress()
                 //}
                 //document.head.appendChild(element);
-                //var element = document.createElement("script");
-                //element.src = "//cdn.bootcss.com/brain/0.6.3/brain.min.js";
-                //element.onload = function() {
-                //    loaded.brain = true
-                //    doneProgress()
-                //}
-                //document.head.appendChild(element);
         }
         window.onload = downloadJSAtOnload;
     </script>
 </body>
 <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js" onload="NProgress.start()"></script>
+<script src="jquery-labelauty.js"></script>
+<script src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js" charset="utf-8"></script>
 
 </html>

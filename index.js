@@ -10,7 +10,9 @@ console.log("=> 配置文件读取成功");
 let userScript = require('./script/reg.js')
 let parseUrl = require('parseurl')
 let interfaceJS = []
-interfaceJS.push('$("title").html("' + setting.interface.title + '")')
+interfaceJS.push('var element = document.createElement("title")')
+interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
+interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
 
@@ -18,7 +20,7 @@ interfaceJS = interfaceJS.join('\n')
 app.use(compression())
 app.use('/textures', express.static('data/textures'))
 
-app.get(/uskapi/, (req, res, next) => {
+app.get(/uskapi\//, (req, res, next) => {
     let path = parseUrl(req).pathname
     if (path.indexOf('.json') !== -1) {
         path = path.match(/[^/]+\.json/)
@@ -37,7 +39,7 @@ app.get(/uskapi/, (req, res, next) => {
     //res.end(userScript.getJSONUniSkinAPI('simon3000'))
 });
 
-app.get(/cslapi/, (req, res, next) => {
+app.get(/cslapi\//, (req, res, next) => {
     //res.end(userScript.getJSON('simon3000'))
 });
 
@@ -51,15 +53,25 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.post(/upload/, (req, res, next) => {
-    userScript.login(req.body.username, req.body.pass)
+    if (req.body.username !== '' || req.body.username !== undefined) {
+
+    }
 });
 
 app.post(/login/, (req, res, next) => {
-    userScript.login(req.body.username, req.body.pass)
+    if (req.body.username !== '' || req.body.username !== undefined) {
+
+    }
 });
 
 app.post(/register/, (req, res, next) => {
-    res.end(userScript.reg(req.body.username, req.body.pass, req.body.rpass))
+    res.end(userScript.reg(req.body.aec))
+});
+
+app.post(/isRegister/, (req, res, next) => {
+    if (req.body.username !== '' || req.body.username !== undefined) {
+        res.end(String(userScript.check(req.body.username)))
+    }
 });
 
 app.get(/indexsetting/, (req, res, next) => {

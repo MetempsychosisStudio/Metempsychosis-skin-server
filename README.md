@@ -1,7 +1,9 @@
-# Universal Skin Server (Node.js)
-
+# Metempsychosis skin server
 [![Join the chat at https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server](https://badges.gitter.im/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server) [![Code Climate](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badges/gpa.svg)](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
+[![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)
+[![Code Climate](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badges/gpa.svg)](https://codeclimate.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
+[![Issue Stats](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badge/pr?style=flat)](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
+[![Issue Stats](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badge/issue?style=flat)](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
 
 Nodejs重写     
 以GPLv2协议发布

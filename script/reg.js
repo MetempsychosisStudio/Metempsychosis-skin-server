@@ -35,20 +35,24 @@ db('users').chain().find({
     justTry: undefined
 }).value()
 
-script.reg = (username, password, rPassword) => {
-    if (password != rPassword) {
+script.reg = (aec) => {
+    let newUser = JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+    if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
+        return 'lost'
+    }
+    if (newUser.password != newUser.rPassword) {
         return 'notSame'
-    } else if (checkReg(username) == true) {
+    } else if (newUser.username == '') {
+        return 'lostUsername'
+    } else if (!script.check(newUser.username)) {
         return 'repeat'
-    } else if (password == rPassword) {
-        let newUser = new Object();
-        newUser.name = username
-        newUser.pass = password
-        newUser.update = new Date().getTime()
-        userInfo.push(newUser)
-        fs.writeFile('./data/players.json', JSON.stringify(userInfo), function(e) {
-            console.log('新用户: ' + username);
-        });
+    } else {
+        db('users').push({
+            username: newUser.username,
+            password: newUser.password,
+            update: new Date().getTime()
+        })
+        console.log('新用户: ' + newUser.username);
         return 'done'
     }
 }
@@ -79,6 +83,12 @@ script.getJSONUniSkinAPI = (username) => {
         }
     }
     return JSON.stringify(JSONFile)
+}
+
+script.check = (username) => {
+    return !db('users').find({
+        username: username
+    })
 }
 
 script.getECC = () => {
