@@ -8,48 +8,21 @@ const db = low('db.json', {
     storage
 })
 
-if (db('users').find({
-        username: 'simon30002'
-    }) == undefined) {
-    db('users').push({
-        username: 'simon30002',
-        password: '123456'
-    })
-}
-
-db('users').chain().find({
-    username: 'simon3000'
-}).assign({
-    password: 'hi!'
-}).value()
-
-db('users').chain().find({
-    username: 'simon3000'
-}).assign({
-    justTry: 'hi!'
-}).value()
-
-db('users').chain().find({
-    username: 'simon3000'
-}).assign({
-    justTry: undefined
-}).value()
-
 script.reg = (aec) => {
     let newUser = JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
-        return 'lost'
-    }
-    if (newUser.password != newUser.rPassword) {
-        return 'notSame'
-    } else if (newUser.username == '') {
-        return 'lostUsername'
+        return 'lostElement'
+    } else if (newUser.password != newUser.rPassword) {
+        return 'passwordNotSame'
+    } else if (!newUser.username.match(/^\w+$/)) {
+        return 'illegalUsername'
     } else if (!script.check(newUser.username)) {
         return 'repeat'
     } else {
         db('users').push({
             username: newUser.username,
             password: newUser.password,
+            _username: newUser.username.toLowerCase(),
             update: new Date().getTime()
         })
         console.log('新用户: ' + newUser.username);
@@ -58,7 +31,7 @@ script.reg = (aec) => {
 }
 
 script.login = (username, password) => {
-    let userInfo = JSON.parse(fs.readFileSync('./data/players.json'))
+
 }
 
 script.getJSONUniSkinAPI = (username) => {
@@ -87,7 +60,7 @@ script.getJSONUniSkinAPI = (username) => {
 
 script.check = (username) => {
     return !db('users').find({
-        username: username
+        _username: username.toLowerCase()
     })
 }
 
