@@ -81,11 +81,11 @@ if (Math.random() < 0.2) {
     console.log(';,;,,;ftjLi;tL.          iiiiiiif.....:ttLiiiiiiDEEEEKtiiiiiiL      f;,,,,,,,,,,');
     console.log(',;,;;Lffj;;,jG:          iiiiiiji.......:LiiiiiiDEEEKWLiiiiiiL      f;,,,,,,,,,,');
     console.log(',;,;,,,,,,,,fD:          jiiiiiL.........fiiiiiiEEKEEKKiiiiiiL      j;,,,,,,,,,,');
-} else if (Math.random() < 0.6) {
+} else if (Math.random() < 0.55) {
     console.log('╔╗ ┬ ┬  ┌─┐┬┌┬┐┌─┐┌┐┌╔═╗╔═╗╔═╗╔═╗');
     console.log('╠╩╗└┬┘  └─┐│││││ ││││ ═╣║ ║║ ║║ ║');
     console.log('╚═╝ ┴   └─┘┴┴ ┴└─┘┘└┘╚═╝╚═╝╚═╝╚═╝');
-} else if (Math.random() < 0.5) {
+} else if (Math.random() < 0.7) {
     console.log(' ______                _                   ________ ______  ______  ______ ');
     console.log('(____  \              (_)                 (_______// __   |/ __   |/ __   |');
     console.log(' ____)  )_   _     ___ _ ____   ___  ____    ____ | | //| | | //| | | //| |');
