@@ -190,7 +190,7 @@ Template.login.events({
                 checkUsername()
             } else if (checkPassword()) {
                 $.post('register', {
-                    aec: ecc.encrypt(ECCKey, JSON.stringify({
+                    aec: ECCencrypt(JSON.stringify({
                         username: $('#username').val(),
                         password: $('#password').val(),
                         rPassword: $('#password2').val()
