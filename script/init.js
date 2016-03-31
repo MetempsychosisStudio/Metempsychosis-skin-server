@@ -48,7 +48,7 @@ try {
     defaultConfig.push('//配置文件 (别改上面的)')
     defaultConfig.push('')
     defaultConfig.push('//服务器端口号')
-    defaultConfig.push('setting.server.port = 8080')
+    defaultConfig.push('setting.server.port = 2333')
     defaultConfig.push('')
     defaultConfig.push('//网页标题')
     defaultConfig.push('setting.interface.title = "皮肤服务器"')
