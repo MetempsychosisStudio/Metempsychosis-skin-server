@@ -9,6 +9,7 @@ let setting = require('./config.js');
 console.log("=> 配置文件读取成功");
 let userScript = require('./script/reg.js')
 let parseUrl = require('parseurl')
+let favicon = require('serve-favicon');
 let interfaceJS = []
 interfaceJS.push('var element = document.createElement("title")')
 interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
@@ -17,6 +18,7 @@ interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
 
 
+app.use(favicon('public/favicon.ico'));
 app.use(compression())
 app.use('/textures', express.static('data/textures'))
 
@@ -76,12 +78,6 @@ app.post(/isRegister/, (req, res, next) => {
 
 app.get(/indexsetting/, (req, res, next) => {
     res.end(interfaceJS);
-});
-
-app.get(/favicon/, (req, res, next) => {
-    res.sendFile('favicon.ico', {
-        root: 'public/'
-    });
 });
 
 app.use(express.static('public'));
