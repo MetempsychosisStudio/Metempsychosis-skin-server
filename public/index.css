@@ -33,9 +33,10 @@ body {
     top: 20%;
     z-index: 1002;
     padding: 10px;
+    padding-top: 16px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .loginControl {
         top: 45px;
         width: 86%;
