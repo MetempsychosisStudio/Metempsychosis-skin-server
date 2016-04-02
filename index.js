@@ -10,6 +10,8 @@ console.log("=> 配置文件读取成功");
 const userScript = require('./script/reg.js')
 const parseUrl = require('parseurl')
 const favicon = require('serve-favicon');
+const readline = require('readline');
+const rl = readline.createInterface(process.stdin, process.stdout)
 let interfaceJS = []
 interfaceJS.push('var element = document.createElement("title")')
 interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
@@ -81,8 +83,26 @@ app.get(/indexsetting/, (req, res, next) => {
 });
 
 app.use(express.static('public'));
-let server = app.listen(setting.server.port, () => {
-    let host = server.address().address;
-    let port = server.address().port;
-    console.log('\n=> 服务器开启 http://%s:%s', host, port);
+const server = app.listen(setting.server.port, () => {
+    const host = server.address().address;
+    const port = server.address().port;
+    console.log(`\n=> 服务器开启 http://:${host}${port}`);
+    console.log('\n输入help来查看帮助');
+    rl.setPrompt('=> ');
+    rl.prompt();
+    rl.on('line', (e) => {
+        let command = e.trim().split(' ')
+        switch (command[0]) {
+            case 'hello':
+                console.log('world!');
+                break;
+            default:
+                console.log('\n输入help来查看帮助');
+                break;
+        }
+        rl.prompt();
+    })
+    rl.on('close', () => {
+        process.exit(0);
+    });
 });
