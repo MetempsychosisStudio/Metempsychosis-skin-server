@@ -49,6 +49,17 @@ script.login = (aec) => {
     }
 }
 
+script.changePassword = (username, password) => {
+    if (script.check(username)) {
+        return 'userNotExist'
+    } else {
+        db('users').chain().find({
+            username: username
+        }).assign({
+            password: password
+        }).value()
+        return true
+    }
 }
 
 /*

@@ -10,6 +10,7 @@ console.log("=> 配置文件读取成功");
 const userScript = require('./script/reg.js')
 const parseUrl = require('parseurl')
 const favicon = require('serve-favicon');
+const pack = require("./package.json");
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout)
 let interfaceJS = []
@@ -18,7 +19,6 @@ interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
 interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
-
 
 app.use(favicon('public/favicon.ico'));
 app.use(compression())
@@ -83,24 +83,84 @@ app.get(/indexsetting/, (req, res, next) => {
 });
 
 app.use(express.static('public'));
+
+
+const command = (input) => {
+    let cmd = input.trim().split(' ')
+    let force = false
+    if (input.trim().match(/-.+$/) != null) {
+        force = input.trim().match(/-.+$/)[0].replace('-', '').indexOf('f') != -1
+    }
+    switch (cmd[0]) {
+        case 'u':
+        case 'user':
+            switch (cmd[1]) {
+                case 'c':
+                case 'changepassword':
+                    switch (cmd[2]) {
+                        case undefined:
+                            console.log('请输入用户名和密码');
+                            console.log('> user ' + cmd[1] + ' 用户名 密码');
+                            console.log('🌰: user ' + cmd[1] + ' simon3000 123456');
+                            break;
+                        case '-h':
+                            console.log('改密码→_→');
+                            break;
+                        default:
+                            if (cmd[3] == undefined) {
+                                console.log('请输入新密码');
+                            } else {
+                                switch (userScript.changePassword(cmd[2], cmd[3])) {
+                                    case true:
+                                        console.log('密码更改成功');
+                                        break;
+                                    case 'userNotExist':
+                                        console.log('用户不存在');
+                                        break;
+                                    default:
+                                        console.log('不明原因错误');
+                                }
+                            }
+                    }
+                    break;
+                case '-h':
+                    console.log('user的帮助');
+                    break;
+                case undefined:
+                    command('user -h')
+                    break;
+                default:
+                    console.log('找不到指令: ' + cmd[1]);
+                    command('user -h')
+            }
+            break;
+        case 'help':
+        case '?':
+            console.log(pack.name + '@' + pack.version);
+            console.log('└─┬ user (u)');
+            console.log('  ├── register (r)');
+            console.log('  ├── delete (d)');
+            console.log('  └── changepassword (c)');
+            console.log('输入 "指令 -h" 来查看详细帮助');
+            break;
+        default:
+            console.log('找不到指令: ' + cmd[0]);
+            break;
+    }
+    rl.prompt();
+}
+
+
 const server = app.listen(setting.server.port, () => {
     const host = server.address().address;
     const port = server.address().port;
     console.log(`\n=> 服务器开启 http://:${host}${port}`);
-    console.log('\n输入help来查看帮助');
+    console.log('\n输入help或?来查看帮助');
     rl.setPrompt('=> ');
     rl.prompt();
     rl.on('line', (e) => {
-        let command = e.trim().split(' ')
-        switch (command[0]) {
-            case 'hello':
-                console.log('world!');
-                break;
-            default:
-                console.log('\n输入help来查看帮助');
-                break;
-        }
-        rl.prompt();
+        console.log();
+        command(e)
     })
     rl.on('close', () => {
         process.exit(0);
