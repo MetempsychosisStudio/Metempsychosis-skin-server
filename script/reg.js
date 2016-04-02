@@ -8,6 +8,12 @@ const db = low('db.json', {
     storage
 })
 
+script.check = (username) => {
+    return !db('users').find({
+        _username: username.toLowerCase()
+    })
+}
+
 script.reg = (aec) => {
     let newUser = JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
@@ -30,10 +36,22 @@ script.reg = (aec) => {
     }
 }
 
-script.login = (username, password) => {
+script.login = (aec) => {
+    let user = JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+    if (script.check(user.username)) {
+        return 'userNotExist'
+    } else if (db('users').find({
+            username: user.username
+        }).password === user.password) {
+        return 'good'
+    } else {
+        return 'bad'
+    }
+}
 
 }
 
+/*
 script.getJSONUniSkinAPI = (username) => {
     let json = {}
     json.errno = 1
@@ -57,12 +75,7 @@ script.getJSONUniSkinAPI = (username) => {
     }
     return JSON.stringify(JSONFile)
 }
-
-script.check = (username) => {
-    return !db('users').find({
-        _username: username.toLowerCase()
-    })
-}
+*/
 
 script.getECC = () => {
     return db('eccKey').find().enc
