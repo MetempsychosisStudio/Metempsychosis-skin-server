@@ -1,7 +1,7 @@
 "use strict";
-let fs = require('fs');
-let errno = require('./errno.js');
-let ecc = require('eccjs');
+const fs = require('fs');
+const errno = require('./errno.js');
+const ecc = require('eccjs');
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
 const db = low('db.json', {

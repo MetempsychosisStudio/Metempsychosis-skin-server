@@ -1,15 +1,15 @@
 "use strict";
-let express = require('express')
-let compression = require('compression')
-let bodyParser = require('body-parser')
-let app = express()
-let errno = require('./script/errno.js');
+const express = require('express')
+const compression = require('compression')
+const bodyParser = require('body-parser')
+const app = express()
+const errno = require('./script/errno.js');
 require('./script/init.js');
-let setting = require('./config.js');
+const setting = require('./config.js');
 console.log("=> 配置文件读取成功");
-let userScript = require('./script/reg.js')
-let parseUrl = require('parseurl')
-let favicon = require('serve-favicon');
+const userScript = require('./script/reg.js')
+const parseUrl = require('parseurl')
+const favicon = require('serve-favicon');
 let interfaceJS = []
 interfaceJS.push('var element = document.createElement("title")')
 interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
