@@ -95,6 +95,40 @@ const command = (input) => {
         case 'u':
         case 'user':
             switch (cmd[1]) {
+                case 'r':
+                case 'register':
+                    switch (cmd[2]) {
+                        case undefined:
+                            console.log('请输入用户名和密码');
+                            console.log('> ' + input.trim() + ' 用户名 密码');
+                            console.log('🌰: ' + input.trim() + ' simon3000 123456');
+                            break;
+                        case '-h':
+                            console.log('注册用户→_→');
+                            break;
+                        default:
+                            if (cmd[3] == undefined) {
+                                console.log('请输入密码');
+                            } else {
+                                switch (userScript.reg({
+                                    username: cmd[2],
+                                    password: cmd[3],
+                                    rPassword: cmd[3]
+                                })) {
+                                    case 'done':
+                                        break;
+                                    case 'illegalUsername':
+                                        console.log('非法用户名');
+                                        break;
+                                    case 'repeat':
+                                        console.log('用户已存在');
+                                        break;
+                                    default:
+                                        console.log('不明原因错误');
+                                }
+                            }
+                    }
+                    break;
                 case 'c':
                 case 'changepassword':
                     switch (cmd[2]) {
