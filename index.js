@@ -95,6 +95,27 @@ const command = (input) => {
         case 'u':
         case 'user':
             switch (cmd[1]) {
+                case 'd':
+                case 'delete':
+                    switch (cmd[2]) {
+                        case undefined:
+                            console.log('请输入要删除的用户名');
+                            break;  
+                        case '-h':
+                            console.log('删除用户');
+                            break;
+                        default:
+                            switch (userScript.remove(cmd[2])) {
+                                case 'done':
+                                    break;
+                                case 'userNotExist':
+                                    console.log('用户不存在');
+                                    break;
+                                default:
+                                    console.log('不明原因错误');
+                            }
+                    }
+                    break;
                 case 'r':
                 case 'register':
                     switch (cmd[2]) {
