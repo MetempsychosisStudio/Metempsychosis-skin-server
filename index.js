@@ -159,8 +159,12 @@ const server = app.listen(setting.server.port, () => {
     rl.setPrompt('=> ');
     rl.prompt();
     rl.on('line', (e) => {
-        console.log();
-        command(e)
+        if (e.trim().match(/^ *$/) !== null) {
+            rl.prompt();
+        } else {
+            console.log();
+            command(e)
+        }
     })
     rl.on('close', () => {
         process.exit(0);
