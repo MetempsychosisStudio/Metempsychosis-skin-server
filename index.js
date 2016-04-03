@@ -69,7 +69,7 @@ app.post(/login/, (req, res, next) => {
 });
 
 app.post(/register/, (req, res, next) => {
-    res.end(userScript.reg(req.body.aec))
+    res.end(userScript.reg(userScript.decrypt(req.body.aec)))
 });
 
 app.post(/isRegister/, (req, res, next) => {
