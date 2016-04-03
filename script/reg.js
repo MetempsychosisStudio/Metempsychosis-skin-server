@@ -37,8 +37,7 @@ script.reg = (newUser) => {
     }
 }
 
-script.login = (aec) => {
-    let user = JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+script.login = (user) => {
     if (script.check(user.username)) {
         return 'userNotExist'
     } else if (db('users').find({
