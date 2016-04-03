@@ -200,6 +200,7 @@ const command = (input) => {
         case '?':
             console.log(pack.name + '@' + pack.version);
             console.log('└─┬ user (u)');
+            console.log('  ├── find (f)');
             console.log('  ├── register (r)');
             console.log('  ├── delete (d)');
             console.log('  └── changepassword (c)');
