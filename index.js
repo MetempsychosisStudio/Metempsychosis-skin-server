@@ -100,9 +100,12 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入要删除的用户名');
-                            break;  
-                        case '-h':
+                            break;
+                        case '?':
+                        case 'help':
                             console.log('删除用户');
+                            console.log('> ' + input.trim() + ' 用户名');
+                            console.log('🌰: ' + input.trim() + ' simon3000');
                             break;
                         default:
                             switch (userScript.remove(cmd[2])) {
@@ -121,11 +124,12 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码');
+                            break;
+                        case '?':
+                        case 'help':
+                            console.log('注册用户→_→');
                             console.log('> ' + input.trim() + ' 用户名 密码');
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
-                            break;
-                        case '-h':
-                            console.log('注册用户→_→');
                             break;
                         default:
                             if (cmd[3] == undefined) {
@@ -155,11 +159,12 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码');
+                            break;
+                        case '?':
+                        case 'help':
+                            console.log('改密码→_→');
                             console.log('> ' + input.trim() + ' 用户名 密码');
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
-                            break;
-                        case '-h':
-                            console.log('改密码→_→');
                             break;
                         default:
                             if (cmd[3] == undefined) {
@@ -178,16 +183,18 @@ const command = (input) => {
                             }
                     }
                     break;
-                case '-h':
-                    console.log('user的帮助');
-                    break;
                 case undefined:
-                    command('user -h')
+                case '?':
+                case 'help':
+                    console.log('user的帮助');
                     break;
                 default:
                     console.log('找不到指令: ' + cmd[1]);
                     command('user -h')
             }
+            break;
+        case 'stop':
+            process.exit(0);
             break;
         case 'help':
         case '?':
@@ -196,7 +203,7 @@ const command = (input) => {
             console.log('  ├── register (r)');
             console.log('  ├── delete (d)');
             console.log('  └── changepassword (c)');
-            console.log('输入 "指令 -h" 来查看详细帮助');
+            console.log('输入 "指令 ' + cmd[0] + '" 来查看详细帮助');
             break;
         default:
             console.log('找不到指令: ' + cmd[0]);
