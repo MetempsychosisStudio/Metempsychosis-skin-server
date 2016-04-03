@@ -100,8 +100,8 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码');
-                            console.log('> user ' + cmd[1] + ' 用户名 密码');
-                            console.log('🌰: user ' + cmd[1] + ' simon3000 123456');
+                            console.log('> ' + input.trim() + ' 用户名 密码');
+                            console.log('🌰: ' + input.trim() + ' simon3000 123456');
                             break;
                         case '-h':
                             console.log('改密码→_→');
