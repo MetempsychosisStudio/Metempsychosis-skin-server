@@ -37,6 +37,17 @@ script.reg = (newUser) => {
     }
 }
 
+script.remove = (user) => {
+    if (script.check(user)) {
+        return 'userNotExist'
+    } else {
+        console.log('删除用户: ' + db('users').remove({
+            _username: user.toLowerCase()
+        })[0].username);
+        return 'done'
+    }
+}
+
 script.login = (user) => {
     if (script.check(user.username)) {
         return 'userNotExist'
