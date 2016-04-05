@@ -190,7 +190,7 @@ const command = (input) => {
                     break;
                 default:
                     console.log('找不到指令: ' + cmd[1]);
-                    command('user -h')
+                    command('user ?')
             }
             break;
         case 'stop':
