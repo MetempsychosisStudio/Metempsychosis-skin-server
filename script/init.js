@@ -38,9 +38,6 @@ try {
 try {
     fs.statSync('./config.js')
 } catch (e) {
-    if (e.errno !== -2) {
-        throw errno(e.errno)
-    }
     console.log('=> 创建配置文件...');
     let defaultConfig = []
     defaultConfig.push('"use strict";')
@@ -65,17 +62,11 @@ try {
 try {
     fs.statSync('./data')
 } catch (e) {
-    if (e.errno !== -2) {
-        throw errno(e.errno)
-    }
     fs.mkdirSync('./data')
 }
 
 try {
     fs.statSync('./data/textures')
 } catch (e) {
-    if (e.errno !== -2) {
-        throw errno(e.errno)
-    }
     fs.mkdirSync('./data/textures')
 }
