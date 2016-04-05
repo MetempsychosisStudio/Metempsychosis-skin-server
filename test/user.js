@@ -8,7 +8,6 @@ try {
     fs.unlinkSync('db.json')
 }
 
-var setting = require('../config.js');
 var app = require('../index');
 var assert = require("assert");
 var request = require('supertest')(app);
@@ -21,6 +20,7 @@ var db = low('db.json', {
         read: storage.read
     }
 })
+var setting = require('../config.js');
 
 function enecc(e) {
     return ecc.encrypt(db('eccKey').find().enc, e)
