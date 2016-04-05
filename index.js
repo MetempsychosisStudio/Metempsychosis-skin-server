@@ -236,3 +236,5 @@ const server = app.listen(setting.server.port, () => {
         process.exit(0);
     });
 });
+
+module.exports = app;
