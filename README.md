@@ -1,5 +1,5 @@
 # Metempsychosis skin server [![Build Status](https://travis-ci.org/MetempsychosisStudio/Metempsychosis-skin-server.svg?branch=master)](https://travis-ci.org/MetempsychosisStudio/Metempsychosis-skin-server) [![Build status](https://ci.appveyor.com/api/projects/status/bvdgxif2ma1vq534?svg=true)](https://ci.appveyor.com/project/simon300000/metempsychosis-skin-server)
------
+
 [![Join the chat at https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server](https://badges.gitter.im/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)
 
