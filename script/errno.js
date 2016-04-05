@@ -81,7 +81,7 @@ if (Math.random() < 0.2) {
     console.log(';,;,,;ftjLi;tL.          iiiiiiif.....:ttLiiiiiiDEEEEKtiiiiiiL      f;,,,,,,,,,,');
     console.log(',;,;;Lffj;;,jG:          iiiiiiji.......:LiiiiiiDEEEKWLiiiiiiL      f;,,,,,,,,,,');
     console.log(',;,;,,,,,,,,fD:          jiiiiiL.........fiiiiiiEEKEEKKiiiiiiL      j;,,,,,,,,,,');
-} else if (Math.random() < 0.55) {
+} else if (Math.random() < 0.65) {
     console.log('╔╗ ┬ ┬  ┌─┐┬┌┬┐┌─┐┌┐┌╔═╗╔═╗╔═╗╔═╗');
     console.log('╠╩╗└┬┘  └─┐│││││ ││││ ═╣║ ║║ ║║ ║');
     console.log('╚═╝ ┴   └─┘┴┴ ┴└─┘┘└┘╚═╝╚═╝╚═╝╚═╝');
