@@ -4,9 +4,11 @@ try {
     fs.statSync('db.json')
 } catch (e) {
     fs.writeFileSync('db.json', '');
+} finally {
+    fs.unlinkSync('db.json')
 }
-fs.unlinkSync('db.json')
 
+var setting = require('../config.js');
 var app = require('../index');
 var assert = require("assert");
 var request = require('supertest')(app);
@@ -111,64 +113,66 @@ describe('User', function() {
                 });
             });
         })
-        it('should return "passwordNotSame" when "password" and "rPassword" is not same', function(done) {
-            request.post('/register').send({
-                aec: enecc(JSON.stringify({
-                    username: 'simon3000',
-                    password: '123456',
-                    rPassword: '1234567'
-                }))
-            }).expect(200, function(err, res) {
-                should.not.exist(err);
-                res.text.should.containEql('passwordNotSame');
-                done();
+        describe('passwordNotSame', function() {
+            it('should return "passwordNotSame" when "password" and "rPassword" is not same', function(done) {
+                request.post('/register').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'simon3000',
+                        password: '123456',
+                        rPassword: '1234567'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('passwordNotSame');
+                    done();
+                });
             });
-        });
-        it('should return "done" when user successfully registered', function(done) {
-            request.post('/register').send({
-                aec: enecc(JSON.stringify({
-                    username: 'simon3000',
-                    password: '123456',
-                    rPassword: '123456'
-                }))
-            }).expect(200, function(err, res) {
-                should.not.exist(err);
-                res.text.should.containEql('done');
-                done();
+        })
+        describe('should return "done" when user successfully registered', function() {
+            it('simon3000', function(done) {
+                request.post('/register').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'simon3000',
+                        password: '123456',
+                        rPassword: '123456'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('done');
+                    done();
+                });
             });
-        });
-        it('should return "repeat" when user already registered', function(done) {
-            request.post('/register').send({
-                aec: enecc(JSON.stringify({
-                    username: 'simon3000',
-                    password: '123456',
-                    rPassword: '123456'
-                }))
-            }).expect(200, function(err, res) {
-                should.not.exist(err);
-                res.text.should.containEql('repeat');
-                done();
+            it('kbc_000', function(done) {
+                request.post('/register').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'kbc_000',
+                        password: '233-=<<./sNDBd',
+                        rPassword: '233-=<<./sNDBd'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('done');
+                    done();
+                });
             });
-        });
-        it('should return "false" when username is already been registered', function(done) {
-            request.post('/isRegister').send({
-                username: 'SIMon3000'
-            }).expect(200, function(err, res) {
-                should.not.exist(err);
-                res.text.should.containEql('false');
-                done();
+            it('should return "repeat" when user already registered', function(done) {
+                request.post('/register').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'simon3000',
+                        password: '123456',
+                        rPassword: '123456'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('repeat');
+                    done();
+                });
             });
-        });
-        it('should return "true" when username is not yet been registered', function(done) {
-            request.post('/isRegister').send({
-                username: 'simon'
-            }).expect(200, function(err, res) {
-                should.not.exist(err);
-                res.text.should.containEql('true');
-                done();
-            });
-        });
+        })
     });
+});
+
+describe('interface', function() {
     describe('Check register', function() {
         it('should return "false" when username is already been registered', function(done) {
             request.post('/isRegister').send({
@@ -189,4 +193,38 @@ describe('User', function() {
             });
         });
     });
-});
+    describe('Page setting', function() {
+        it('Page title', function(done) {
+            request.get('/indexsetting').expect(200, function(err, res) {
+                should.not.exist(err)
+                var document = {}
+                document.head = {}
+                document.head.appendChild = function() {}
+                document.createElement = function() {
+                    return {
+                        innerHTML: 233
+                    }
+                }
+                eval(res.text)
+                element.innerHTML.should.containEql(setting.interface.title)
+                done()
+            })
+        })
+        it('ECCKey', function(done) {
+            request.get('/indexsetting').expect(200, function(err, res) {
+                should.not.exist(err)
+                var document = {}
+                document.head = {}
+                document.head.appendChild = function() {}
+                document.createElement = function() {
+                    return {
+                        innerHTML: 233
+                    }
+                }
+                eval(res.text)
+                ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(ECCKey, 'hello world!')).should.containEql('hello world!')
+                done()
+            })
+        })
+    })
+})
