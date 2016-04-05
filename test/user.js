@@ -8,16 +8,13 @@ try {
     fs.unlinkSync('db.json')
 }
 
-var app = require('../index');
 var assert = require("assert");
-var request = require('supertest')(app);
+var request = require('supertest')(require('../index'));
 var should = require("should");
-var low = require('lowdb')
-var storage = require('lowdb/file-sync')
 var ecc = require('eccjs');
-var db = low('db.json', {
+var db = require('lowdb')('db.json', {
     storage: {
-        read: storage.read
+        read: require('lowdb/file-sync').read
     }
 })
 var setting = require('../config.js');
