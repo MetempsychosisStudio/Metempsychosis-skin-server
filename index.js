@@ -52,9 +52,12 @@ app.get(/usernamepng/, (req, res, next) => {
 });
 
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
+    limit: '2mb'
 }))
-app.use(bodyParser.json())
+app.use(bodyParser.json({
+    limit: '2mb'
+}))
 
 app.post(/upload/, (req, res, next) => {
     if (req.body.username !== '' || req.body.username !== undefined) {
