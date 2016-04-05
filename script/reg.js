@@ -19,33 +19,34 @@ script.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
 script.reg = (newUser) => {
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
         return 'lostElement'
-    } else if (newUser.password != newUser.rPassword) {
-        return 'passwordNotSame'
-    } else if (!newUser.username.match(/^\w+$/)) {
-        return 'illegalUsername'
-    } else if (!script.check(newUser.username)) {
-        return 'repeat'
-    } else {
-        db('users').push({
-            username: newUser.username,
-            password: newUser.password,
-            _username: newUser.username.toLowerCase(),
-            update: new Date().getTime()
-        })
-        console.log('新用户: ' + newUser.username);
-        return 'done'
     }
+    if (newUser.password != newUser.rPassword) {
+        return 'passwordNotSame'
+    }
+    if (!newUser.username.match(/^\w+$/)) {
+        return 'illegalUsername'
+    }
+    if (!script.check(newUser.username)) {
+        return 'repeat'
+    }
+    db('users').push({
+        username: newUser.username,
+        password: newUser.password,
+        _username: newUser.username.toLowerCase(),
+        update: new Date().getTime()
+    })
+    console.log('新用户: ' + newUser.username);
+    return 'done'
 }
 
 script.remove = (user) => {
     if (script.check(user)) {
         return 'userNotExist'
-    } else {
-        console.log('删除用户: ' + db('users').remove({
-            _username: user.toLowerCase()
-        })[0].username);
-        return 'done'
     }
+    console.log('删除用户: ' + db('users').remove({
+        _username: user.toLowerCase()
+    })[0].username);
+    return 'done'
 }
 
 script.login = (user) => {
@@ -99,8 +100,6 @@ script.getJSONUniSkinAPI = (username) => {
 }
 */
 
-script.getECC = () => {
-    return db('eccKey').find().enc
-}
+script.getECC = () => db('eccKey').find().enc
 
 module.exports = script;
