@@ -1,5 +1,6 @@
 # Metempsychosis skin server
 [![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)
+[![Build Status](https://travis-ci.org/MetempsychosisStudio/Metempsychosis-skin-server.svg?branch=master)](https://travis-ci.org/MetempsychosisStudio/Metempsychosis-skin-server)
 [![GitHub release](https://img.shields.io/github/release/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://github.com/MetempsychosisStudio/Metempsychosis-skin-server/releases)
 [![Github All Releases](https://img.shields.io/github/downloads/MetempsychosisStudio/Metempsychosis-skin-server/total.svg)](https://github.com/MetempsychosisStudio/Metempsychosis-skin-server/releases)
 [![Join the chat at https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server](https://badges.gitter.im/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
