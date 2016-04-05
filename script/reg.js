@@ -1,9 +1,9 @@
 "use strict";
-let SHA256 = require('./SHA256.js')
+const SHA256 = require('./SHA256.js')
 let script = {}
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
-let ecc = require('eccjs');
+const ecc = require('eccjs');
 const db = low('db.json', {
     storage
 })
