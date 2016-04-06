@@ -2,6 +2,7 @@
 
 [![Join the chat at https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server](https://badges.gitter.im/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://gitter.im/MetempsychosisStudio/Metempsychosis-skin-server?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Dependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server)
+[![devDependency Status](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server/dev-status.svg)](https://david-dm.org/MetempsychosisStudio/Metempsychosis-skin-server#info=devDependencies)
 
 [![Issue](https://img.shields.io/github/issues-raw/MetempsychosisStudio/Metempsychosis-skin-server.svg)](https://github.com/MetempsychosisStudio/Metempsychosis-skin-server/issues)
 [![Issue Stats](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server/badge/issue?style=flat)](http://www.issuestats.com/github/MetempsychosisStudio/Metempsychosis-skin-server)
