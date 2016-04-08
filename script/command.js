@@ -14,6 +14,13 @@ const command = (input) => {
         case 'u':
         case 'user':
             switch (cmd[1]) {
+                case 'f':
+                case 'find':
+                    const users = userScript.find()
+                    for (var i = 0; i < users.length; i++) {
+                        console.log(i + '.  ' + users[i]);
+                    }
+                    break;
                 case 'd':
                 case 'delete':
                     switch (cmd[2]) {

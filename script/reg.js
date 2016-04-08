@@ -16,6 +16,10 @@ script.check = (username) => {
 
 script.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
 
+script.find = () => {
+    return db('users').map('username')
+}
+
 script.reg = (newUser) => {
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
         return 'lostElement'
