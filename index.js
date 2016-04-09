@@ -73,13 +73,23 @@ app.post(/login/, (req, res, next) => {
     }
 });
 
+app.post(/isRegister/, (req, res, next) => {
+    if (req.body.username !== '' || req.body.username !== undefined) {
+        res.end(String(userScript.check(req.body.username)))
+    }
+});
+
 app.post(/register/, (req, res, next) => {
     res.end(userScript.reg(userScript.decrypt(req.body.aec)))
 });
 
-app.post(/isRegister/, (req, res, next) => {
-    if (req.body.username !== '' || req.body.username !== undefined) {
-        res.end(String(userScript.check(req.body.username)))
+app.post(/changePassword/, (req, res, next) => {
+    let userInfo = userScript.decrypt(req.body.aec)
+    let login = userScript.login(userInfo.username, userInfo.password)
+    if (login === 'good') {
+        res.end(userScript.changePassword(userInfo.username, userInfo.newPassword))
+    } else {
+        res.end(login)
     }
 });
 

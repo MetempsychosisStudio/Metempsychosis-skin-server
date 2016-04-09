@@ -70,11 +70,11 @@ script.changePassword = (username, password) => {
         return 'userNotExist'
     } else {
         db('users').chain().find({
-            username: username
+            _username: username.toLowerCase()
         }).assign({
             password: password
         }).value()
-        return true
+        return "done"
     }
 }
 

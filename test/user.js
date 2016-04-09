@@ -166,6 +166,47 @@ describe('User', function() {
                 });
             });
         })
+        describe('Change password', function() {
+            it('should return "userNotExist" when user not exist', function(done) {
+                request.post('/changePassword').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'simon',
+                        password: '123456',
+                        newPassword: '654321'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('userNotExist');
+                    done();
+                });
+            })
+            it('should return "bad" when old password is incorrect', function(done) {
+                request.post('/changePassword').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'simon3000',
+                        password: '123',
+                        newPassword: '654321'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('bad');
+                    done();
+                });
+            })
+            it('should return "done" when password is changed', function(done) {
+                request.post('/changePassword').send({
+                    aec: enecc(JSON.stringify({
+                        username: 'siMOn3000',
+                        password: '123456',
+                        newPassword: '654321'
+                    }))
+                }).expect(200, function(err, res) {
+                    should.not.exist(err);
+                    res.text.should.containEql('done');
+                    done();
+                });
+            })
+        })
     });
 });
 

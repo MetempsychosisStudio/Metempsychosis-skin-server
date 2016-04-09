@@ -97,7 +97,7 @@ const command = (input) => {
                                 console.log('请输入新密码');
                             } else {
                                 switch (userScript.changePassword(cmd[2], cmd[3])) {
-                                    case true:
+                                    case 'done':
                                         console.log('密码更改成功');
                                         break;
                                     case 'userNotExist':
