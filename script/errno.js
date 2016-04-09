@@ -98,7 +98,6 @@ if (Math.random() < 0.2) {
 }
 
 
-console.log('\n[[[[[ ' + require('process').cwd() + ' ]]]]]\n');
 let errno = (no) => {
     switch (no) {
         case 0:

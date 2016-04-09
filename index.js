@@ -4,6 +4,7 @@ const compression = require('compression')
 const bodyParser = require('body-parser')
 const app = express()
 const errno = require('./script/errno.js');
+console.log('\n「  ' + __dirname + '  」\n');
 require('./script/init.js');
 const setting = require('./config.js');
 console.log("=> 配置文件读取成功");

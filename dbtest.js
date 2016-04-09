@@ -15,7 +15,7 @@ for (let i = 0; i < 1000000000; i++) {
     const b = 1
 }
 console.timeEnd('const')
-*/
+
 
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout);
@@ -51,7 +51,7 @@ rl.prompt();
 
 
 
-/*
+
 
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
@@ -107,3 +107,5 @@ db('users').remove({
     username: 'simon3000'
 })
 */
+
+console.log(__dirname);
