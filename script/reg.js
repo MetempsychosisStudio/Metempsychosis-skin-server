@@ -20,7 +20,7 @@ script.find = () => {
     return db('users').map('username')
 }
 
-script.reg = (newUser) => {
+script.reg = (newUser, log) => {
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
         return 'lostElement'
     }
@@ -39,7 +39,9 @@ script.reg = (newUser) => {
         _username: newUser.username.toLowerCase(),
         update: new Date().getTime()
     })
-    console.log('新用户: ' + newUser.username);
+    if (!log) {
+        console.log('新用户: ' + newUser.username);
+    }
     return 'done'
 }
 
@@ -53,12 +55,12 @@ script.remove = (user) => {
     return 'done'
 }
 
-script.login = (user) => {
-    if (script.check(user.username)) {
+script.login = (username, password) => {
+    if (script.check(username)) {
         return 'userNotExist'
     } else if (db('users').find({
-            username: user.username
-        }).password === user.password) {
+            _username: username.toLowerCase()
+        }).password === password) {
         return 'good'
     } else {
         return 'bad'
