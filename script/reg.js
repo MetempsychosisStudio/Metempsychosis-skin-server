@@ -104,6 +104,8 @@ script.getJSONUniSkinAPI = (username) => {
 }
 */
 
+script.save = () => db.write()
+
 script.getECC = () => db('eccKey').find().enc
 
 module.exports = script;

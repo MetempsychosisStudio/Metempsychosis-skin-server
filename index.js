@@ -107,6 +107,8 @@ const server = app.listen(setting.server.port, () => {
         }
     })
     rl.on('close', () => {
+        console.log('保存数据...');
+        userScript.save()
         process.exit(0);
     });
 });
