@@ -109,3 +109,23 @@ db('users').remove({
 */
 
 console.log(__dirname);
+
+
+let w = (v) => {
+    v++
+    if (v > 17966) {
+        return v
+    } else {
+        return w(v)
+    }
+}
+console.time('fun')
+console.log(w(1));
+console.timeEnd('fun')
+
+console.time('array')
+let a = Array(4294967295)
+for (var i = 0; i < a.length; i++) {
+    a[i] = 0
+}
+console.timeEnd('array')
