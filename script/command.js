@@ -2,6 +2,7 @@
 //const readline = require('readline');
 //const rl = readline.createInterface(process.stdin, process.stdout)
 //rl.setPrompt('=> ');
+const init = require('./init.js')
 const userScript = require('./reg.js')
 const pack = require("../package.json");
 const command = (input) => {

@@ -36,30 +36,6 @@ try {
 }
 
 try {
-    fs.statSync('./config.js')
-} catch (e) {
-    console.log('=> 创建配置文件...');
-    let defaultConfig = []
-    defaultConfig.push('"use strict";')
-    defaultConfig.push('let setting = {};setting.server = {};setting.interface = {}')
-    defaultConfig.push('//配置文件 (别改上面的)')
-    defaultConfig.push('')
-    defaultConfig.push('//服务器端口号')
-    defaultConfig.push('setting.server.port = 2333')
-    defaultConfig.push('')
-    defaultConfig.push('//网页标题')
-    defaultConfig.push('setting.interface.title = "皮肤服务器"')
-    defaultConfig.push('')
-    defaultConfig.push('')
-    defaultConfig.push('')
-    defaultConfig.push('')
-    defaultConfig.push('//不要改下面的东西')
-    defaultConfig.push('module.exports = setting;')
-    fs.writeFileSync('./config.js', defaultConfig.join('\n'));
-    console.log('=> config.js 创建成功');
-}
-
-try {
     fs.statSync('./data')
 } catch (e) {
     fs.mkdirSync('./data')
@@ -69,4 +45,30 @@ try {
     fs.statSync('./data/textures')
 } catch (e) {
     fs.mkdirSync('./data/textures')
+}
+
+module.exports = (setting) => {
+    try {
+        fs.statSync('./config.js')
+    } catch (e) {
+        console.log('=> 创建配置文件...');
+        let defaultConfig = []
+        defaultConfig.push('"use strict";')
+        defaultConfig.push('let setting = {};setting.server = {};setting.interface = {}')
+        defaultConfig.push('//配置文件 (别改上面的)')
+        defaultConfig.push('')
+        defaultConfig.push('//服务器端口号')
+        defaultConfig.push('setting.server.port = 2333')
+        defaultConfig.push('')
+        defaultConfig.push('//网页标题')
+        defaultConfig.push('setting.interface.title = "皮肤服务器"')
+        defaultConfig.push('')
+        defaultConfig.push('')
+        defaultConfig.push('')
+        defaultConfig.push('')
+        defaultConfig.push('//不要改下面的东西')
+        defaultConfig.push('module.exports = setting;')
+        fs.writeFileSync('./config.js', defaultConfig.join('\n'));
+        console.log('=> config.js 创建成功');
+    }
 }
