@@ -106,7 +106,7 @@ db('users').remove({
 db('users').remove({
     username: 'simon3000'
 })
-*/
+
 
 console.log(__dirname);
 
@@ -129,3 +129,5 @@ for (var i = 0; i < a.length; i++) {
     a[i] = 0
 }
 console.timeEnd('array')
+
+*/
