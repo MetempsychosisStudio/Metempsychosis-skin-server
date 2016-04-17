@@ -36,3 +36,4 @@ config.js
 userdata.json
 data
 db.json
+levelDB
