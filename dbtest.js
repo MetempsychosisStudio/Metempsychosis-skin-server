@@ -1,22 +1,26 @@
 "use strict";
+/*
+const level = require('level')
+const db = level('./levelDB', {
+    valueEncoding: 'json'
+});
 
-let level = require('level')
-let db = level('./levelDB');
 
-
-db.put('name', 'LevelUP', function(err) {
-    if (err) return console.log('Ooops!', err) // some kind of I/O error
-
-    // fetch by key
-    db.get('name', function(err, value) {
-        if (err) return console.log('Ooops!', err) // likely the key was not found
-
-        // ta da!
-        console.log('name=' + value)
+for (let i = 0; i < 100000; i++) {
+    db.put('name' + i, {
+        arr: [1, "2", 3],
+        abc: "222"
     })
+}
+
+
+
+db.put('name' + i, {
+    arr: [1, "2", 3],
+    abc: "222"
 })
 
-/*
+
 console.time('let')
 for (let i = 0; i < 1000000000; i++) {
     let b = 1
