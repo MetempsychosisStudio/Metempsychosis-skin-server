@@ -132,6 +132,7 @@ const command = (input) => {
             console.log('  ├── delete (d)');
             console.log('  └── changepassword (c)');
             console.log('输入 "指令 ' + cmd[0] + '" 来查看详细帮助');
+            console.log('\n「  ' + __dirname + '  」\n');
             break;
         default:
             console.log('找不到指令: ' + cmd[0]);
