@@ -1,6 +1,5 @@
 "use strict";
 const SHA256 = require('./SHA256.js')
-let script = {}
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
 const ecc = require('eccjs');
@@ -8,19 +7,19 @@ const db = low('db.json', {
     storage
 })
 
-script.check = (username) => {
+exports.check = (username) => {
     return !db('users').find({
         _username: username.toLowerCase()
     })
 }
 
-script.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+exports.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
 
-script.find = () => {
+exports.find = () => {
     return db('users').map('username')
 }
 
-script.reg = (newUser, log) => {
+exports.reg = (newUser, log) => {
     if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
         return 'lostElement'
     }
@@ -30,7 +29,7 @@ script.reg = (newUser, log) => {
     if (!newUser.username.match(/^\w+$/)) {
         return 'illegalUsername'
     }
-    if (!script.check(newUser.username)) {
+    if (!exports.check(newUser.username)) {
         return 'repeat'
     }
     db('users').push({
@@ -45,8 +44,8 @@ script.reg = (newUser, log) => {
     return 'done'
 }
 
-script.remove = (user) => {
-    if (script.check(user)) {
+exports.remove = (user) => {
+    if (exports.check(user)) {
         return 'userNotExist'
     }
     console.log('删除用户: ' + db('users').remove({
@@ -55,8 +54,8 @@ script.remove = (user) => {
     return 'done'
 }
 
-script.login = (username, password) => {
-    if (script.check(username)) {
+exports.login = (username, password) => {
+    if (exports.check(username)) {
         return 'userNotExist'
     } else if (db('users').find({
             _username: username.toLowerCase()
@@ -67,8 +66,8 @@ script.login = (username, password) => {
     }
 }
 
-script.changePassword = (username, password) => {
-    if (script.check(username)) {
+exports.changePassword = (username, password) => {
+    if (exports.check(username)) {
         return 'userNotExist'
     } else {
         db('users').chain().find({
@@ -81,7 +80,7 @@ script.changePassword = (username, password) => {
 }
 
 /*
-script.getJSONUniSkinAPI = (username) => {
+exports.getJSONUniSkinAPI = (username) => {
     let json = {}
     json.errno = 1
     json.msg = '找不到皮肤'
@@ -106,8 +105,6 @@ script.getJSONUniSkinAPI = (username) => {
 }
 */
 
-script.save = () => db.write()
+exports.save = () => db.write()
 
-script.getECC = () => db('eccKey').find().enc
-
-module.exports = script;
+exports.getECC = () => db('eccKey').find().enc
