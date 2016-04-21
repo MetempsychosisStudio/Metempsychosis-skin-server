@@ -7,20 +7,20 @@ const db = low('db.json', {
     storage
 })
 
-exports.check = (username) => {
+module.exports.check = (username) => {
     return !db('users').find({
         _username: username.toLowerCase()
     })
 }
 
-exports.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
 
-exports.find = () => {
+module.exports.find = () => {
     return db('users').map('username')
 }
 
-exports.reg = (newUser, log) => {
-    if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
+module.exports.reg = (newUser, log) => {
+    if (newUser.username === undefined || newUser.password === undefined || newUser.rPassword === undefined) {
         return 'lostElement'
     }
     if (newUser.password != newUser.rPassword) {
@@ -29,7 +29,7 @@ exports.reg = (newUser, log) => {
     if (!newUser.username.match(/^\w+$/)) {
         return 'illegalUsername'
     }
-    if (!exports.check(newUser.username)) {
+    if (!module.exports.check(newUser.username)) {
         return 'repeat'
     }
     db('users').push({
@@ -44,8 +44,8 @@ exports.reg = (newUser, log) => {
     return 'done'
 }
 
-exports.remove = (user) => {
-    if (exports.check(user)) {
+module.exports.remove = (user) => {
+    if (module.exports.check(user)) {
         return 'userNotExist'
     }
     console.log('删除用户: ' + db('users').remove({
@@ -54,8 +54,8 @@ exports.remove = (user) => {
     return 'done'
 }
 
-exports.login = (username, password) => {
-    if (exports.check(username)) {
+module.exports.login = (username, password) => {
+    if (module.exports.check(username)) {
         return 'userNotExist'
     } else if (db('users').find({
             _username: username.toLowerCase()
@@ -66,8 +66,8 @@ exports.login = (username, password) => {
     }
 }
 
-exports.changePassword = (username, password) => {
-    if (exports.check(username)) {
+module.exports.changePassword = (username, password) => {
+    if (module.exports.check(username)) {
         return 'userNotExist'
     } else {
         db('users').chain().find({
@@ -80,7 +80,7 @@ exports.changePassword = (username, password) => {
 }
 
 /*
-exports.getJSONUniSkinAPI = (username) => {
+module.exports.getJSONUniSkinAPI = (username) => {
     let json = {}
     json.errno = 1
     json.msg = '找不到皮肤'
@@ -105,6 +105,6 @@ exports.getJSONUniSkinAPI = (username) => {
 }
 */
 
-exports.save = () => db.write()
+module.exports.save = () => db.write()
 
-exports.getECC = () => db('eccKey').find().enc
+module.exports.getECC = () => db('eccKey').find().enc

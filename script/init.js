@@ -25,7 +25,7 @@ if (!db('eccKey').find()) {
 }
 
 try {
-    ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(db('eccKey').find().enc, 'hello world!')) !== 'hello world!'
+    ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(db('eccKey').find().enc, 'hello world!'))
 } catch (e) {
     createECC(true, '=> ECC密匙损坏, 重新创建...');
 } finally {
