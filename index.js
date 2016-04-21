@@ -5,9 +5,8 @@ const bodyParser = require('body-parser')
 const app = express()
 const errno = require('./script/errno.js');
 console.log('\n「  ' + __dirname + '  」\n');
-require('./script/init.js')()
-const setting = require('./config.js');
-console.log("=> 配置文件读取成功");
+const setting = require('./script/init.js')
+console.log("=> 配置文件读取成功\n");
 const userScript = require('./script/reg.js')
 const parseUrl = require('parseurl')
 const favicon = require('serve-favicon');

@@ -17,7 +17,7 @@ var db = require('lowdb')('db.json', {
         read: require('lowdb/file-sync').read
     }
 })
-var setting = require('../config.js');
+var setting = require('../script/init.js');
 
 function enecc(e) {
     return ecc.encrypt(db('eccKey').find().enc, e)
