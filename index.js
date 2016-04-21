@@ -10,11 +10,7 @@ const morgan = require('morgan')
 const errno = require('./script/errno.js');
 console.log('\n「  ' + __dirname + '  」\n');
 const setting = require('./script/init.js')
-<<<<<<< HEAD
 console.log("=> 配置文件读取成功\n");
-=======
-console.log("=> 配置文件读取成功");
->>>>>>> origin/master
 const userScript = require('./script/reg.js')
     //const pack = require("./package.json");
 const readline = require('readline');
@@ -27,7 +23,6 @@ interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
 
-<<<<<<< HEAD
 
 if (setting.dev.webLogger) {
     app.use(morgan('combined'))
@@ -42,12 +37,6 @@ if (!setting.dev.noCompression) {
     app.use(compression())
     console.log('✓ gzip压缩');
 }
-=======
-console.log(setting.set());
-
-app.use(favicon('public/favicon.ico'));
-app.use(compression())
->>>>>>> origin/master
 app.use('/textures', express.static('data/textures'))
 
 app.get(/uskapi\//, (req, res, next) => {
