@@ -54,6 +54,7 @@ try {
     let setting = {}
 
     setting.server = {}
+<<<<<<< HEAD
     setting.server.port = 2333
 
     setting.interface = {}
@@ -64,6 +65,12 @@ try {
     setting.dev.noCompression = false
     setting.dev.responseTime = true
 
+=======
+    setting.interface = {}
+
+    setting.server.port = 2333
+    setting.interface.title = '皮肤服务器'
+>>>>>>> origin/master
 
     fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2));
     console.log('=> config.json 创建成功');
