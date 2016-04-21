@@ -1,16 +1,18 @@
 "use strict";
 const express = require('express')
+const app = express()
 const compression = require('compression')
 const bodyParser = require('body-parser')
-const app = express()
+const responseTime = require('response-time')
+const favicon = require('serve-favicon');
+const parseUrl = require('parseurl')
+const morgan = require('morgan')
 const errno = require('./script/errno.js');
 console.log('\n「  ' + __dirname + '  」\n');
 const setting = require('./script/init.js')
 console.log("=> 配置文件读取成功\n");
 const userScript = require('./script/reg.js')
-const parseUrl = require('parseurl')
-const favicon = require('serve-favicon');
-//const pack = require("./package.json");
+    //const pack = require("./package.json");
 const readline = require('readline');
 const rl = readline.createInterface(process.stdin, process.stdout)
 const command = require('./script/command.js')
@@ -21,8 +23,20 @@ interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
 
-app.use(favicon('public/favicon.ico'));
-app.use(compression())
+
+if (setting.dev.webLogger) {
+    app.use(morgan('combined'))
+    console.log('✓ morgan网页访问日志');
+}
+if (setting.dev.responseTime) {
+    app.use(responseTime())
+    console.log('✓ 时间消耗');
+}
+app.use(favicon('public/favicon.ico'))
+if (!setting.dev.noCompression) {
+    app.use(compression())
+    console.log('✓ gzip压缩');
+}
 app.use('/textures', express.static('data/textures'))
 
 app.get(/uskapi\//, (req, res, next) => {
