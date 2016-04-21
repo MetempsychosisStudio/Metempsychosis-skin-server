@@ -12,7 +12,7 @@ function checkPassword() {
         password2Check.set(true)
         $('.password2Form').popover('destroy')
         return true
-    } else if (password2Check.get() == true) {
+    } else if (password2Check.get() === true) {
         password2Check.set(false)
         $('.password2Form').popover({
             content: '两次密码不一样',
@@ -26,9 +26,9 @@ function checkPassword() {
 }
 
 function checkUsername() {
-    if ($('#username').val() == '') {
+    if ($('#username').val() === '') {
         $('.usernameForm').popover('destroy')
-        usernameCheck.set(2)
+        usernameCheck.set(false)
         $('.usernameForm').popover({
             content: '这你必须写',
             container: 'body',
@@ -39,7 +39,7 @@ function checkUsername() {
         $('.usernameForm').popover('show')
     } else if (!$('#username').val().match(/^\w+$/)) {
         $('.usernameForm').popover('destroy')
-        usernameCheck.set(3)
+        usernameCheck.set(false)
         $('.usernameForm').popover({
             content: '用户名只能包含字母, 数字和下划线',
             container: 'body',
@@ -89,9 +89,9 @@ Template.login.helpers({
         return register.get()
     },
     usernameCheck: function() {
-        if (usernameCheck.get() == undefined) {
+        if (usernameCheck.get() === undefined) {
             return ''
-        } else if (usernameCheck.get() == true) {
+        } else if (usernameCheck.get()) {
             return 'has-success'
         } else if (usernameCheck.get() == 'post') {
             return 'has-warning'
@@ -161,16 +161,8 @@ Template.login.events({
         register.set(!register.get())
         usernameCheck.set(undefined)
     },
-    'change .password': function(e) {
-        if ($('#password2').val() != '' && $('#password').val() != '') {
-            checkPassword()
-        } else {
-            password2Check.set(undefined)
-            $('.password2Form').popover('destroy')
-        }
-    },
-    'keyup .password': function(e) {
-        if ($('#password2').val() != '' && $('#password').val() != '') {
+    'input .password': function(e) {
+        if ($('#password2').val() !== '' && $('#password').val() !== '') {
             checkPassword()
         } else {
             password2Check.set(undefined)

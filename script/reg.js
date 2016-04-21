@@ -20,7 +20,7 @@ module.exports.find = () => {
 }
 
 module.exports.reg = (newUser, log) => {
-    if (newUser.username == undefined || newUser.password == undefined || newUser.rPassword == undefined) {
+    if (newUser.username === undefined || newUser.password === undefined || newUser.rPassword === undefined) {
         return 'lostElement'
     }
     if (newUser.password != newUser.rPassword) {

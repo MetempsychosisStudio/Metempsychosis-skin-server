@@ -17,7 +17,7 @@ let d = 0
 console.time('get')
 for (let i = 0; i < 100000; i++) {
     db.get('name' + i, (err, data) => {
-        if (err) throw error
+        if (err) throw err
         d++
         if (d == 100000) {
             console.timeEnd('get')

@@ -8,7 +8,7 @@ const pack = require("../package.json");
 const command = (input) => {
     let cmd = input.trim().split(' ')
     let force = false
-    if (input.trim().match(/-.+$/) != null) {
+    if (input.trim().match(/-.+$/) !== null) {
         force = input.trim().match(/-.+$/)[0].replace('-', '').indexOf('f') != -1
     }
     switch (cmd[0]) {
@@ -59,7 +59,7 @@ const command = (input) => {
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
                             break;
                         default:
-                            if (cmd[3] == undefined) {
+                            if (cmd[3] === undefined) {
                                 console.log('请输入密码');
                             } else {
                                 switch (userScript.reg({
@@ -94,7 +94,7 @@ const command = (input) => {
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
                             break;
                         default:
-                            if (cmd[3] == undefined) {
+                            if (cmd[3] === undefined) {
                                 console.log('请输入新密码');
                             } else {
                                 switch (userScript.changePassword(cmd[2], cmd[3])) {
