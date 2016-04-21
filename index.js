@@ -5,8 +5,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const errno = require('./script/errno.js');
 console.log('\n「  ' + __dirname + '  」\n');
-require('./script/init.js')()
-const setting = require('./config.js');
+const setting = require('./script/init.js')
 console.log("=> 配置文件读取成功");
 const userScript = require('./script/reg.js')
 const parseUrl = require('parseurl')
@@ -21,6 +20,8 @@ interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
 interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
+
+console.log(setting.set());
 
 app.use(favicon('public/favicon.ico'));
 app.use(compression())

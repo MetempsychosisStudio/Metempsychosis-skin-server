@@ -1,19 +1,33 @@
 "use strict";
-/*
 const level = require('level')
 const db = level('./levelDB', {
     valueEncoding: 'json'
 });
 
-
+/*
 for (let i = 0; i < 100000; i++) {
     db.put('name' + i, {
         arr: [1, "2", 3],
         abc: "222"
     })
 }
+*/
 
+let d = 0
+console.time('get')
+for (let i = 0; i < 100000; i++) {
+    db.get('name' + i, (err, data) => {
+        if (err) throw error
+        d++
+        if (d == 100000) {
+            console.timeEnd('get')
+            console.log(process.memoryUsage());
+        }
+        //console.log(data)
+    })
+}
 
+/*
 
 db.put('name' + i, {
     arr: [1, "2", 3],
@@ -151,4 +165,21 @@ for (var i = 0; i < a.length; i++) {
 }
 console.timeEnd('array')
 
+
+
+
+let arr = {}
+let w = (v) => {
+    v++
+    arr[v] = new Array()
+    for (var i = 0; i < 1000; i++) {
+        arr[v].push(Math.random())
+    }
+    if (v > 17966 / 2) {
+        return v
+    } else {
+        return w(v)
+    }
+}
+console.log(w(1));
 */
