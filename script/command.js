@@ -5,6 +5,7 @@
 const errno = require('./errno.js');
 const userScript = require('./reg.js')
 const pack = require("../package.json");
+const sIM = require('./serverInfoManager.js')
 const command = (input) => {
     let cmd = input.trim().split(' ')
     let force = false
@@ -119,9 +120,6 @@ const command = (input) => {
                     console.log('找不到指令: ' + cmd[1]);
                     command('user ?')
             }
-            break;
-        case 'stop':
-            process.exit(0);
             break;
         case 'help':
         case '?':

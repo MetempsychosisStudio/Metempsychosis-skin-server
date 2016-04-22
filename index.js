@@ -25,13 +25,13 @@ const open = () => {
             const input = e.trim()
             if (input.match(/^ *$/)) {
                 rl.prompt();
-            } else if (input.match(/^restart$/) || input.match(/^reload$/)) {
                 delete require.cache[require.resolve("./script/server.js")]
                 delete require.cache[require.resolve("./script/db.js")]
                 delete require.cache[require.resolve("./script/init.js")]
                 delete require.cache[require.resolve("./config.json")]
                 delete require.cache[require.resolve("./script/reg.js")]
                 delete require.cache[require.resolve("./script/command.js")]
+            } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload$/)) {
                 if (input.match(/^reload$/)) {
                     restart = 1
                     console.log('重载...');
