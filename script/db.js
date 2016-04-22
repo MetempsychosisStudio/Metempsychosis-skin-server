@@ -8,5 +8,6 @@ const db = low('db.json', {
 //module.exports.get
 //module.exports.set
 //module.exports.update
+//module.exports.remove
 
 module.exports = db
