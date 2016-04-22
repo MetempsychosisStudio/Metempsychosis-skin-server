@@ -1,17 +1,20 @@
 "use strict";
+require('./index.js')
+
+/*
 const level = require('level')
 const db = level('./levelDB', {
     valueEncoding: 'json'
 });
 
-/*
+
 for (let i = 0; i < 100000; i++) {
     db.put('name' + i, {
         arr: [1, "2", 3],
         abc: "222"
     })
 }
-*/
+
 
 let d = 0
 console.time('get')
@@ -27,7 +30,7 @@ for (let i = 0; i < 100000; i++) {
     })
 }
 
-/*
+
 
 db.put('name' + i, {
     arr: [1, "2", 3],
