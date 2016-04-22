@@ -1,11 +1,7 @@
 "use strict";
 const SHA256 = require('./SHA256.js')
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
 const ecc = require('eccjs');
-const db = low('db.json', {
-    storage
-})
+const db = require('./db.js')
 
 module.exports.check = (username) => {
     return !db('users').find({
