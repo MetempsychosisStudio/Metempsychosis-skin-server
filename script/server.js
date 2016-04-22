@@ -1,8 +1,6 @@
 "use strict";
 const express = require('express')
-//const gracefulExit = require('express-graceful-exit')
 const app = express()
-//app.use(gracefulExit.middleware(app))
 const compression = require('compression')
 const bodyParser = require('body-parser')
 const responseTime = require('response-time')

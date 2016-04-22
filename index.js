@@ -2,6 +2,7 @@
 
 const readline = require('readline');
 const command = require('./script/command.js')
+const enableDestroy = require('server-destroy');
 
 let app = require('./script/server.js');
 let setting = app.setting
@@ -47,7 +48,7 @@ const open = () => {
         })
         rl.on('close', () => {
             console.log('\n=> 关闭服务器...');
-            server.close(() => {
+            server.destroy(() => {
                 console.log('=> 保存数据...');
                 userScript.close().then(() => {
                     if (!restart) {
