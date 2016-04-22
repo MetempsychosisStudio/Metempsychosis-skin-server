@@ -10,7 +10,6 @@
   "plugins": {
     "node": {},
     "modules": {},
-    "es_modules": {},
-    "node-express": {}
+    "es_modules": {}
   }
 }
