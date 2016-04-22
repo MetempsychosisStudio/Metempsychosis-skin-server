@@ -8,14 +8,12 @@ const favicon = require('serve-favicon');
 const parseUrl = require('parseurl')
 const morgan = require('morgan')
 const errno = require('./errno.js');
-console.log('\n「  ' + __dirname + '  」\n');
 const setting = require('./init.js')
-console.log("=> 配置文件读取成功\n");
 const userScript = require('./reg.js')
     //const pack = require("./package.json");
-//const readline = require('readline');
-//const rl = readline.createInterface(process.stdin, process.stdout)
-//const command = require('./command.js')
+    //const readline = require('readline');
+    //const rl = readline.createInterface(process.stdin, process.stdout)
+    //const command = require('./command.js')
 let interfaceJS = []
 interfaceJS.push('var element = document.createElement("title")')
 interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')

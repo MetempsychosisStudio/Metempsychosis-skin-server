@@ -1,9 +1,11 @@
 "use strict";
 
 const readline = require('readline');
-const command = require('./script/command.js')
+let command = require('./script/command.js')
+const sIM = require('./script/serverInfoManager.js')
 const enableDestroy = require('server-destroy');
 
+console.log('\n「  ' + __dirname + '  」\n');
 let app = require('./script/server.js');
 let setting = app.setting
 let userScript = app.userScript
@@ -16,6 +18,7 @@ const open = () => {
         const port = server.address().port;
         console.log(`\n=> 服务器开启 http://:${host}${port}`);
         console.log('\n输入help或?来查看帮助');
+        enableDestroy(server);
         rl.setPrompt('=> ');
         rl.prompt();
         rl.on('line', (e) => {
@@ -27,6 +30,8 @@ const open = () => {
                 delete require.cache[require.resolve("./script/db.js")]
                 delete require.cache[require.resolve("./script/init.js")]
                 delete require.cache[require.resolve("./config.json")]
+                delete require.cache[require.resolve("./script/reg.js")]
+                delete require.cache[require.resolve("./script/command.js")]
                 if (input.match(/^reload$/)) {
                     restart = 1
                     console.log('重载...');
@@ -60,6 +65,7 @@ const open = () => {
                         } else if (restart === 2) {
                             console.log('\n------------------------------------ restart -----------------------------------\n');
                         }
+                        command = require('./script/command.js')
                         app = require('./script/server.js');
                         setting = app.setting
                         userScript = app.userScript

@@ -13,6 +13,8 @@ const db = low('db.json', {
 module.exports = db
 
 module.exports.close = () => new Promise((r, j) => {
-    db.write()
+    //db.write()
     r()
 })
+
+module.exports.ecc = db('eccKey')
