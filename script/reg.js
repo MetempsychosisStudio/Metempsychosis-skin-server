@@ -2,6 +2,7 @@
 const SHA256 = require('./SHA256.js')
 const ecc = require('eccjs');
 const db = require('./db.js')
+const eccDB = db.ecc
 
 module.exports.check = (username) => {
     return !db('users').find({
@@ -9,7 +10,7 @@ module.exports.check = (username) => {
     })
 }
 
-module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(db('eccKey').find().dec, aec))
+module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
 
 module.exports.find = () => {
     return db('users').map('username')
@@ -103,4 +104,4 @@ module.exports.getJSONUniSkinAPI = (username) => {
 
 module.exports.close = db.close
 
-module.exports.getECC = () => db('eccKey').find().enc
+module.exports.getECC = () => eccDB.find().enc

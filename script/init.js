@@ -2,34 +2,32 @@
 const fs = require('fs');
 const errno = require('./errno.js');
 const ecc = require('eccjs');
-const low = require('lowdb')
-const storage = require('lowdb/file-sync')
-const db = low('db.json', {
-    storage
-})
+const db = require('./db.js')
+const eccDB = db.ecc
 
+console.log();
 let createECC = (remove, log) => {
     console.log(log);
     if (remove) {
-        db('eccKey').remove()
+        eccDB.remove()
     }
     let keys = ecc.generate(ecc.ENC_DEC)
-    db('eccKey').push({
+    eccDB.push({
         dec: keys.dec,
         enc: keys.enc
     })
 }
 
-if (!db('eccKey').find()) {
+if (!eccDB.find()) {
     createECC(false, '=> 创建ECC加密密匙...');
 }
 
 try {
-    ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(db('eccKey').find().enc, 'hello world!'))
+    ecc.decrypt(eccDB.find().dec, ecc.encrypt(eccDB.find().enc, 'hello world!'))
 } catch (e) {
     createECC(true, '=> ECC密匙损坏, 重新创建...');
 } finally {
-    if (ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(db('eccKey').find().enc, 'hello world!')) !== 'hello world!') {
+    if (ecc.decrypt(eccDB.find().dec, ecc.encrypt(eccDB.find().enc, 'hello world!')) !== 'hello world!') {
         createECC(true, '=> ECC密匙损坏, 重新创建...');
     }
     console.log('=> ECC密匙校验完成');
@@ -70,6 +68,7 @@ try {
 }
 
 module.exports = require('../config.json')
+console.log("=> 配置文件读取成功\n");
 
 module.exports.set = (setting) => {
     return 'niconiconi'
