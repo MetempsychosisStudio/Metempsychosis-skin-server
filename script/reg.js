@@ -101,6 +101,6 @@ module.exports.getJSONUniSkinAPI = (username) => {
 }
 */
 
-module.exports.save = () => db.write()
+module.exports.close = db.close
 
 module.exports.getECC = () => db('eccKey').find().enc

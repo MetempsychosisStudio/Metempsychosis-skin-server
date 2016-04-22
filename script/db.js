@@ -11,3 +11,8 @@ const db = low('db.json', {
 //module.exports.remove
 
 module.exports = db
+
+module.exports.close = () => new Promise((r, j) => {
+    db.write()
+    r()
+})
