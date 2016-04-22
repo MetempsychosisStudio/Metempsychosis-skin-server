@@ -25,14 +25,12 @@ const open = () => {
             const input = e.trim()
             if (input.match(/^ *$/)) {
                 rl.prompt();
-                delete require.cache[require.resolve("./script/server.js")]
-                delete require.cache[require.resolve("./script/db.js")]
-                delete require.cache[require.resolve("./script/init.js")]
-                delete require.cache[require.resolve("./config.json")]
-                delete require.cache[require.resolve("./script/reg.js")]
-                delete require.cache[require.resolve("./script/command.js")]
             } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload$/)) {
                 if (input.match(/^reload$/)) {
+                    for (var i = 0; i < needReload.length; i++) {
+                        delete require.cache[require.resolve(needReload[i])]
+                    }
+                    //delete require.cache[require.resolve("./script/server.js")]
                     restart = 1
                     console.log('重载...');
                 } else if (input.match(/^restart$/)) {
@@ -77,6 +75,8 @@ const open = () => {
         });
     });
 }
+
+const needReload = ['./script/server.js', './script/db.js', './script/init.js', './config.json', './script/reg.js', './script/command.js']
 
 open()
 
