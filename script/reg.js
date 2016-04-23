@@ -1,80 +1,81 @@
 "use strict";
 const SHA256 = require('./SHA256.js')
-const ecc = require('eccjs');
+const ecc = require('eccjs')
 const db = require('./db.js')
 const eccDB = db.ecc
 
-module.exports.check = (username) => {
-    return !db('users').find({
-        _username: username.toLowerCase()
-    })
-}
+module.exports.check = (username) => new Promise((r, j) => {
+    db.get(username).then((text) => r(!text))
+})
 
-module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
+module.exports.find = () => new Promise((r, j) => {
+    db.map('username').then(r)
+})
 
-module.exports.find = () => {
-    return db('users').map('username')
-}
-
-module.exports.reg = (newUser, log) => {
+module.exports.reg = (newUser, log) => new Promise((r, j) => {
     if (newUser.username === undefined || newUser.password === undefined || newUser.rPassword === undefined) {
-        return 'lostElement'
+        r('lostElement')
+    } else if (newUser.password != newUser.rPassword) {
+        r('passwordNotSame')
+    } else if (!newUser.username.match(/^\w+$/)) {
+        r('illegalUsername')
+    } else {
+        module.exports.check(newUser.username).then((text) => {
+            if (text) {
+                db.set(newUser).then((text) => {
+                    console.log('新用户: ' + text)
+                    r('done')
+                })
+            } else {
+                r('repeat')
+            }
+        })
     }
-    if (newUser.password != newUser.rPassword) {
-        return 'passwordNotSame'
-    }
-    if (!newUser.username.match(/^\w+$/)) {
-        return 'illegalUsername'
-    }
-    if (!module.exports.check(newUser.username)) {
-        return 'repeat'
-    }
-    db('users').push({
-        username: newUser.username,
-        password: newUser.password,
-        _username: newUser.username.toLowerCase(),
-        update: new Date().getTime()
+})
+
+module.exports.remove = (username) => new Promise((r, j) => {
+    module.exports.check(username).then((text) => {
+        if (text) {
+            r('userNotExist')
+        } else {
+            db.remove(username).then((username) => {
+                console.log('删除用户: ' + db.remove(username))
+                r('done')
+            })
+        }
     })
-    if (!log) {
-        console.log('新用户: ' + newUser.username);
-    }
-    return 'done'
-}
+})
 
-module.exports.remove = (user) => {
-    if (module.exports.check(user)) {
-        return 'userNotExist'
-    }
-    console.log('删除用户: ' + db('users').remove({
-        _username: user.toLowerCase()
-    })[0].username);
-    return 'done'
-}
+module.exports.login = (username, password) => new Promise((r, j) => {
+    module.exports.check(username).then((text) => {
+        if (text) {
+            r('userNotExist')
+        } else {
+            db.get(username).then((user) => {
+                if (user.password === password) {
+                    r('good')
+                } else {
+                    r('bad')
+                }
+            })
+        }
+    })
+})
 
-module.exports.login = (username, password) => {
-    if (module.exports.check(username)) {
-        return 'userNotExist'
-    } else if (db('users').find({
-            _username: username.toLowerCase()
-        }).password === password) {
-        return 'good'
-    } else {
-        return 'bad'
-    }
-}
 
-module.exports.changePassword = (username, password) => {
-    if (module.exports.check(username)) {
-        return 'userNotExist'
-    } else {
-        db('users').chain().find({
-            _username: username.toLowerCase()
-        }).assign({
-            password: password
-        }).value()
-        return "done"
-    }
-}
+module.exports.changePassword = (username, password) => new Promise((r, j) => {
+    module.exports.check(username).then((text) => {
+        if (text) {
+            r('userNotExist')
+        } else {
+            db.update(username, {
+                password: password
+            }).then((text) => {
+                r(text)
+            })
+        }
+    })
+})
 
 /*
 module.exports.getJSONUniSkinAPI = (username) => {
@@ -103,5 +104,5 @@ module.exports.getJSONUniSkinAPI = (username) => {
 */
 
 module.exports.close = db.close
-
+module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
 module.exports.getECC = () => eccDB.find().enc

@@ -1,20 +1,48 @@
 "use strict";
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
-const db = low('db.json', {
+const lowDB = low('db.json', {
     storage
 })
 
-//module.exports.get
-//module.exports.set
-//module.exports.update
-//module.exports.remove
+module.exports.set = (newUser) => new Promise((r, j) => {
+    lowDB('users').push({
+        username: newUser.username,
+        password: newUser.password,
+        _username: newUser.username.toLowerCase(),
+        update: new Date().getTime()
+    })
+    r(newUser.username)
+})
 
-module.exports = db
+module.exports.get = (username) => new Promise((r, j) => {
+    r(lowDB('users').find({
+        _username: username.toLowerCase()
+    }))
+})
+
+module.exports.map = (type) => new Promise((r, j) => {
+    r(lowDB('users').map(type))
+})
+
+module.exports.update = (username, value) => new Promise((r, j) => {
+    lowDB('users').chain().find({
+        _username: username.toLowerCase()
+    }).assign(value).value()
+    r('done')
+})
+
+module.exports.remove = (username) => new Promise((r, j) => {
+    r(lowDB('users').remove({
+        _username: username.toLowerCase()
+    })[0].username)
+})
+
+//module.exports = lowDB
 
 module.exports.close = () => new Promise((r, j) => {
-    //db.write()
+    //lowDB.write()
     r()
 })
 
-module.exports.ecc = db('eccKey')
+module.exports.ecc = lowDB('eccKey')

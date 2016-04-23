@@ -18,10 +18,11 @@ const command = (input) => {
             switch (cmd[1]) {
                 case 'f':
                 case 'find':
-                    const users = userScript.find()
-                    for (var i = 0; i < users.length; i++) {
-                        console.log(i + '.  ' + users[i]);
-                    }
+                    userScript.find().then((users) => {
+                        for (var i = 0; i < users.length; i++) {
+                            console.log(i + '.  ' + users[i]);
+                        }
+                    })
                     break;
                 case 'd':
                 case 'delete':
@@ -36,15 +37,17 @@ const command = (input) => {
                             console.log('🌰: ' + input.trim() + ' simon3000');
                             break;
                         default:
-                            switch (userScript.remove(cmd[2])) {
-                                case 'done':
-                                    break;
-                                case 'userNotExist':
-                                    console.log('用户不存在');
-                                    break;
-                                default:
-                                    console.log('不明原因错误');
-                            }
+                            userScript.remove(cmd[2]).then((text) => {
+                                switch (text) {
+                                    case 'done':
+                                        break;
+                                    case 'userNotExist':
+                                        console.log('用户不存在');
+                                        break;
+                                    default:
+                                        console.log('不明原因错误');
+                                }
+                            })
                     }
                     break;
                 case 'r':
@@ -63,22 +66,24 @@ const command = (input) => {
                             if (cmd[3] === undefined) {
                                 console.log('请输入密码');
                             } else {
-                                switch (userScript.reg({
+                                userScript.reg({
                                     username: cmd[2],
                                     password: cmd[3],
                                     rPassword: cmd[3]
-                                })) {
-                                    case 'done':
-                                        break;
-                                    case 'illegalUsername':
-                                        console.log('非法用户名');
-                                        break;
-                                    case 'repeat':
-                                        console.log('用户已存在');
-                                        break;
-                                    default:
-                                        console.log('不明原因错误');
-                                }
+                                }).then((text) => {
+                                    switch (text) {
+                                        case 'done':
+                                            break;
+                                        case 'illegalUsername':
+                                            console.log('非法用户名');
+                                            break;
+                                        case 'repeat':
+                                            console.log('用户已存在');
+                                            break;
+                                        default:
+                                            console.log('不明原因错误');
+                                    }
+                                })
                             }
                     }
                     break;
@@ -98,16 +103,18 @@ const command = (input) => {
                             if (cmd[3] === undefined) {
                                 console.log('请输入新密码');
                             } else {
-                                switch (userScript.changePassword(cmd[2], cmd[3])) {
-                                    case 'done':
-                                        console.log('密码更改成功');
-                                        break;
-                                    case 'userNotExist':
-                                        console.log('用户不存在');
-                                        break;
-                                    default:
-                                        console.log('不明原因错误');
-                                }
+                                userScript.changePassword(cmd[2], cmd[3]).then((text) => {
+                                    switch (text) {
+                                        case 'done':
+                                            console.log('密码更改成功');
+                                            break;
+                                        case 'userNotExist':
+                                            console.log('用户不存在');
+                                            break;
+                                        default:
+                                            console.log('不明原因错误');
+                                    }
+                                })
                             }
                     }
                     break;

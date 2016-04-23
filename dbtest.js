@@ -1,5 +1,40 @@
 "use strict";
-require('./index.js')
+/*
+let www = () => new Promise((r, j) => {
+    r(233)
+    r(456)
+
+})
+
+www().then(console.log)
+
+*/
+/*
+
+const cache = require('memory-cache');
+
+for (var i = 0; i < 100; i++) {
+    cache.put('w' + i, i * 10 + '')
+}
+
+let arr = []
+let www = []
+for (var i = 0; i < 100; i++) {
+    arr.push('w' + Math.round(Math.random() * 100))
+}
+
+console.time('w')
+for (var i = 0; i < arr.length; i++) {
+    www.push(cache.get(arr[i]))
+}
+console.timeEnd('w')
+
+console.log(www);
+
+console.log(cache.get('w1'))
+*/
+
+//require('./index.js')
 
 /*
 const level = require('level')

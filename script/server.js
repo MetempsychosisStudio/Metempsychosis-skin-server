@@ -86,22 +86,28 @@ app.post(/login/, (req, res, next) => {
 
 app.post(/isRegister/, (req, res, next) => {
     if (req.body.username !== '' || req.body.username !== undefined) {
-        res.end(String(userScript.check(req.body.username)))
+        userScript.check(req.body.username).then((text) => {
+            console.log(233);
+            res.end(String(text))
+        })
     }
 });
 
 app.post(/register/, (req, res, next) => {
-    res.end(userScript.reg(userScript.decrypt(req.body.aec)))
+    userScript.reg(userScript.decrypt(req.body.aec)).then((text) => res.end(text))
 });
 
 app.post(/changePassword/, (req, res, next) => {
     let userInfo = userScript.decrypt(req.body.aec)
-    let login = userScript.login(userInfo.username, userInfo.password)
-    if (login === 'good') {
-        res.end(userScript.changePassword(userInfo.username, userInfo.newPassword))
-    } else {
-        res.end(login)
-    }
+    userScript.login(userInfo.username, userInfo.password).then((login) => {
+        if (login === 'good') {
+            userScript.changePassword(userInfo.username, userInfo.newPassword).then((text) => {
+                res.end(text)
+            })
+        } else {
+            res.end(login)
+        }
+    })
 });
 
 app.get(/indexsetting/, (req, res, next) => {

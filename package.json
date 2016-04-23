@@ -27,6 +27,7 @@
     "express": "^4.13.4",
     "level": "^1.4.0",
     "lowdb": "^0.12.5",
+    "memory-cache": "github:simon300000/node-cache",
     "mongodb": "^2.1.16",
     "parseurl": "^1.3.1",
     "response-time": "^2.3.1",
