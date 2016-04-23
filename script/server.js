@@ -30,11 +30,12 @@ if (setting.dev.responseTime) {
     app.use(responseTime())
     console.log('✓ 时间消耗');
 }
-app.use(favicon('public/favicon.ico'))
 if (!setting.dev.noCompression) {
     app.use(compression())
     console.log('✓ gzip压缩');
 }
+app.use(require('express-promise')())
+app.use(favicon('public/favicon.ico'))
 app.use('/textures', express.static('data/textures'))
 
 app.get(/uskapi\//, (req, res, next) => {
@@ -86,28 +87,17 @@ app.post(/login/, (req, res, next) => {
 
 app.post(/isRegister/, (req, res, next) => {
     if (req.body.username !== '' || req.body.username !== undefined) {
-        userScript.check(req.body.username).then((text) => {
-            console.log(233);
-            res.end(String(text))
-        })
+        res.json(userScript.check(req.body.username))
     }
 });
 
 app.post(/register/, (req, res, next) => {
-    userScript.reg(userScript.decrypt(req.body.aec)).then((text) => res.end(text))
+    res.json(userScript.reg(userScript.decrypt(req.body.aec)))
 });
 
 app.post(/changePassword/, (req, res, next) => {
     let userInfo = userScript.decrypt(req.body.aec)
-    userScript.login(userInfo.username, userInfo.password).then((login) => {
-        if (login === 'good') {
-            userScript.changePassword(userInfo.username, userInfo.newPassword).then((text) => {
-                res.end(text)
-            })
-        } else {
-            res.end(login)
-        }
-    })
+    res.json(userScript.changePassword(userInfo.username, userInfo.password, userInfo.newPassword))
 });
 
 app.get(/indexsetting/, (req, res, next) => {

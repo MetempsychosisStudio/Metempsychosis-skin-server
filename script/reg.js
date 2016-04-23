@@ -13,7 +13,7 @@ module.exports.find = () => new Promise((r, j) => {
 })
 
 module.exports.reg = (newUser, log) => new Promise((r, j) => {
-    if (newUser.username === undefined || newUser.password === undefined || newUser.rPassword === undefined) {
+    if (!newUser.username || !newUser.password || !newUser.rPassword) {
         r('lostElement')
     } else if (newUser.password != newUser.rPassword) {
         r('passwordNotSame')
@@ -63,18 +63,31 @@ module.exports.login = (username, password) => new Promise((r, j) => {
 })
 
 
-module.exports.changePassword = (username, password) => new Promise((r, j) => {
-    module.exports.check(username).then((text) => {
-        if (text) {
-            r('userNotExist')
-        } else {
-            db.update(username, {
-                password: password
-            }).then((text) => {
-                r(text)
-            })
-        }
-    })
+module.exports.changePassword = (username, password, newPassword) => new Promise((r, j) => {
+    if (!username || !password || !newPassword) {
+        console.log(username);
+        console.log(password);
+        console.log(newPassword);
+        r('lostElement')
+    } else {
+        module.exports.login(username, password).then((login) => {
+            if (login === 'good') {
+                module.exports.check(username).then((text) => {
+                    if (text) {
+                        r('userNotExist')
+                    } else {
+                        db.update(username, {
+                            password: newPassword
+                        }).then((text) => {
+                            r(text)
+                        })
+                    }
+                })
+            } else {
+                r(login)
+            }
+        })
+    }
 })
 
 /*
