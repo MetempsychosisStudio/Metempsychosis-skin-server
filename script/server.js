@@ -33,7 +33,6 @@ if (!setting.dev.noCompression) {
     app.use(compression())
     console.log('✓ gzip压缩');
 }
-app.use(require('express-promise')())
 app.use(favicon('public/favicon.ico'))
 app.use('/textures', express.static('data/textures'))
 
