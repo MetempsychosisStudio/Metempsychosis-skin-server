@@ -20,7 +20,7 @@ interfaceJS.push('document.head.appendChild(element)')
 interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
 interfaceJS = interfaceJS.join('\n')
 
-
+console.log('✓ 数据库: ' + setting.server.database.type)
 if (setting.dev.webLogger) {
     app.use(morgan('combined'))
     console.log('✓ morgan网页访问日志');

@@ -2,7 +2,7 @@
 const SHA256 = require('./SHA256.js')
 const ecc = require('eccjs')
 const db = require('./db.js')
-const eccDB = db.ecc
+const eccDB = require('./ecc.js')
 
 module.exports.check = (username) => new Promise((r, j) => {
     db.get(username).then((text) => r(!text))

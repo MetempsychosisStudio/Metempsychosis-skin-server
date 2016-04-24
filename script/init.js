@@ -2,8 +2,7 @@
 const fs = require('fs-extra');
 const errno = require('./errno.js');
 const ecc = require('eccjs');
-const db = require('./db.js')
-const eccDB = db.ecc
+const eccDB = require('./ecc.js')
 
 console.log();
 let createECC = (remove, log) => {
@@ -53,6 +52,13 @@ try {
 
     setting.server = {}
     setting.server.port = 2333
+
+    setting.server.database = {}
+    if (process.platform == 'win32') {
+        setting.server.database.type = 'lowdb'
+    } else {
+        setting.server.database.type = 'leveldb'
+    }
 
     setting.interface = {}
     setting.interface.title = '皮肤服务器'

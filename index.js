@@ -78,7 +78,7 @@ const open = () => {
     });
 }
 
-const needReload = ['./script/server.js', './script/db.js', './script/init.js', './config.json', './script/reg.js', './script/command.js', './script/socket.js']
+const needReload = ['./script/server.js', './script/db.js', './script/init.js', './config.json', './script/reg.js', './script/command.js', './script/socket.js', './script/ecc.js']
 
 open()
 
