@@ -15,6 +15,8 @@ if (dbType == 'leveldb') {
     })
 }
 
+console.log('=> 数据库连接成功');
+
 
 module.exports.set = (newUser) => new Promise((r, j) => {
     if (dbType == 'lowdb') {
