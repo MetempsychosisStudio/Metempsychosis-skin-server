@@ -5,6 +5,7 @@ const lowDB = low('db.json', {
     storage
 })
 
+
 module.exports.set = (newUser) => new Promise((r, j) => {
     lowDB('users').push({
         username: newUser.username,

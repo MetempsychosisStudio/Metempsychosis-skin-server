@@ -9,29 +9,62 @@ let www = () => new Promise((r, j) => {
 www().then(console.log)
 
 */
-/*
 
+/*
+const cache = require('memory-cache');
+const cache2 = require('memory-cache');
+cache.life(1000); // Time in ms
+
+cache.put('foo', 'bar');
+cache2.put('foo', 'alive')
+console.log(cache.get('foo')); //bar
+
+
+cache.put('houdini', 'disappear', 2000);
+console.log('Houdini will ' + cache.get('houdini')); //Houdini will disappear
+
+setTimeout(function() {
+    console.log('Houdini is not ' + cache.get('houdini')); //Houdini is not disappear
+    console.log('foo is ' + cache.get('foo')); //foo is null
+    console.log('I\'m still ' + cache2.get('foo'));//I'm still alive
+}, 1500);
+
+setTimeout(function() {
+    console.log('Houdini is ' + cache.get('houdini')); //Houdini is null
+}, 2500);
+*/
+
+/*
 const cache = require('memory-cache');
 
-for (var i = 0; i < 100; i++) {
-    cache.put('w' + i, i * 10 + '')
-}
+cache.maxSize(3);
 
-let arr = []
-let www = []
-for (var i = 0; i < 100; i++) {
-    arr.push('w' + Math.round(Math.random() * 100))
-}
+cache.put('a', 'a');
+cache.put('b', 'b');
+cache.put('c', 'c');
+cache.get('a');
+cache.put('d', 'd');
+cache.put('e', 'e');
 
-console.time('w')
-for (var i = 0; i < arr.length; i++) {
-    www.push(cache.get(arr[i]))
-}
-console.timeEnd('w')
+console.log(cache.get('a')); //a
+console.log(cache.get('b')); //null
+console.log(cache.get('c')); //null
+console.log(cache.get('d')); //d
+console.log(cache.get('e')); //e
 
-console.log(www);
+cache.life(1000); // Time in ms
 
-console.log(cache.get('w1'))
+cache.put('foo', 'bar');
+console.log(cache.get('foo')); //bar
+
+
+cache.put('houdini', 'disappear', 2000);
+console.log('Houdini will ' + cache.get('houdini')); //Houdini will disappear
+
+setTimeout(function() {
+    console.log('Houdini is not ' + cache.get('houdini')); //Houdini is not disappear
+    console.log('foo is ' + cache.get('foo')); //foo is null
+}, 1500);
 */
 
 //require('./index.js')
