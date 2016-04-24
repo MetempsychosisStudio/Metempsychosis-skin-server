@@ -13,7 +13,9 @@ module.exports.find = () => new Promise((r, j) => {
 })
 
 module.exports.reg = (newUser, log) => new Promise((r, j) => {
-    if (!newUser.username || !newUser.password || !newUser.rPassword) {
+    if (typeof newUser !== 'object') {
+        r('error')
+    } else if (!newUser.username || !newUser.password || !newUser.rPassword) {
         r('lostElement')
     } else if (newUser.password != newUser.rPassword) {
         r('passwordNotSame')
@@ -117,5 +119,15 @@ module.exports.getJSONUniSkinAPI = (username) => {
 */
 
 module.exports.close = db.close
-module.exports.decrypt = (aec) => JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
+module.exports.decrypt = (aec) => {
+    let result
+    try {
+        result = JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
+    } catch (e) {
+        console.log('ecc err: ' + e);
+        result = 'err'
+    } finally {
+        return result
+    }
+}
 module.exports.getECC = () => eccDB.find().enc

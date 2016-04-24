@@ -3,6 +3,8 @@ var register = new ReactiveVar(false);
 var usernameCheck = new ReactiveVar(undefined);
 var password2Check = new ReactiveVar(undefined)
 
+var socket = io();
+
 function ECCencrypt(value) {
     return ecc.encrypt(ECCKey, value)
 }
@@ -51,9 +53,7 @@ function checkUsername() {
     } else {
         $('.usernameForm').popover('destroy')
         usernameCheck.set('post')
-        $.post('isRegister', {
-            username: $('#username').val()
-        }, function(e) {
+        socket.emit('isRegister', $('#username').val(), function(e) {
             usernameCheck.set(JSON.parse(e))
             if (e == 'false') {
                 $('.usernameForm').popover({
@@ -67,6 +67,7 @@ function checkUsername() {
             } else {
                 $('.usernameForm').popover('destroy')
             }
+
         })
     }
 }
@@ -181,13 +182,11 @@ Template.login.events({
             if (!$('#username').val().match(/^\w+$/)) {
                 checkUsername()
             } else if (checkPassword()) {
-                $.post('register', {
-                    aec: ECCencrypt(JSON.stringify({
-                        username: $('#username').val(),
-                        password: $('#password').val(),
-                        rPassword: $('#password2').val()
-                    }))
-                }, function(e) {
+                socket.emit('register', ECCencrypt(JSON.stringify({
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    rPassword: $('#password2').val()
+                })), function(e) {
                     console.log(e);
                 })
             }

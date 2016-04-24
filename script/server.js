@@ -2,7 +2,6 @@
 const express = require('express')
 const app = express()
 const compression = require('compression')
-const bodyParser = require('body-parser')
 const responseTime = require('response-time')
 const favicon = require('serve-favicon');
 const parseUrl = require('parseurl')
@@ -63,41 +62,6 @@ app.get(/cslapi\//, (req, res, next) => {
 
 app.get(/usernamepng/, (req, res, next) => {
     //res.end(userScript.getJSON('simon3000'))
-});
-
-app.use(bodyParser.urlencoded({
-    extended: true,
-    limit: '2mb'
-}))
-app.use(bodyParser.json({
-    limit: '2mb'
-}))
-
-app.post(/upload/, (req, res, next) => {
-    if (req.body.username !== '' || req.body.username !== undefined) {
-
-    }
-});
-
-app.post(/login/, (req, res, next) => {
-    if (req.body.username !== '' || req.body.username !== undefined) {
-
-    }
-});
-
-app.post(/isRegister/, (req, res, next) => {
-    if (req.body.username !== '' || req.body.username !== undefined) {
-        res.json(userScript.check(req.body.username))
-    }
-});
-
-app.post(/register/, (req, res, next) => {
-    res.json(userScript.reg(userScript.decrypt(req.body.aec)))
-});
-
-app.post(/changePassword/, (req, res, next) => {
-    let userInfo = userScript.decrypt(req.body.aec)
-    res.json(userScript.changePassword(userInfo.username, userInfo.password, userInfo.newPassword))
 });
 
 app.get(/indexsetting/, (req, res, next) => {
