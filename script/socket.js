@@ -36,7 +36,7 @@ module.exports = (io) => {
 
 
         socket.on('error', (e) => {
-            console.log('socket.io 出错: '+e);
+            console.error('socket.io 出错: ' + e);
         })
     });
 }
