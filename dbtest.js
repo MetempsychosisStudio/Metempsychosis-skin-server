@@ -1,4 +1,12 @@
 "use strict";
+
+const level = require('level')
+const db = level('./levelDB', {
+    valueEncoding: 'json'
+});
+
+db.put('simon', [1, 2, 3])
+
 /*
 let www = () => new Promise((r, j) => {
     r(233)

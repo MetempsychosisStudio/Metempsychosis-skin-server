@@ -1,51 +1,71 @@
 "use strict";
+const _ = require('lodash')
+
 const low = require('lowdb')
 const storage = require('lowdb/file-sync')
 const lowDB = low('db.json', {
     storage
 })
 const level = require('level')
-const db = level('./levelDB')
+const levelDB = level('./levelDB', {
+    valueEncoding: 'json'
+})
 
 
 module.exports.set = (newUser) => new Promise((r, j) => {
-    lowDB('users').push({
+    levelDB.put(newUser.username.toLowerCase(), {
         username: newUser.username,
         password: newUser.password,
-        _username: newUser.username.toLowerCase(),
         update: new Date().getTime()
+    }, (err) => {
+        if (err) console.log('LevelDB!', err)
+        r(newUser.username)
     })
-    r(newUser.username)
 })
 
 module.exports.get = (username) => new Promise((r, j) => {
-    r(lowDB('users').find({
-        _username: username.toLowerCase()
-    }))
+    levelDB.get(username.toLowerCase(), (err, value) => {
+        if (err) r(undefined)
+        r(value)
+    })
 })
 
 module.exports.map = (type) => new Promise((r, j) => {
-    r(lowDB('users').map(type))
+    let users = []
+    levelDB.createKeyStream()
+        .on('data', function(data) {
+            users.push(data)
+        })
+        .on('error', function(err) {
+            console.log('LevelDB!', err)
+        })
+        .on('end', function() {
+            r(users)
+        })
 })
 
-module.exports.update = (username, value) => new Promise((r, j) => {
-    lowDB('users').chain().find({
-        _username: username.toLowerCase()
-    }).assign(value).value()
-    r('done')
+module.exports.update = (username, newValue) => new Promise((r, j) => {
+    levelDB.get(username.toLowerCase(), (err, value) => {
+        if (err) console.log('LevelDB!', err)
+        levelDB.put(username.toLowerCase(), _.assignIn(value, newValue), (err) => {
+            if (err) console.log('LevelDB!', err)
+            r('done')
+        })
+    })
 })
 
 module.exports.remove = (username) => new Promise((r, j) => {
-    r(lowDB('users').remove({
-        _username: username.toLowerCase()
-    })[0].username)
+    levelDB.del(username.toLowerCase(), function(err) {
+        if (err) console.log('LevelDB!', err)
+        r(username)
+    });
 })
 
 //module.exports = lowDB
 
 module.exports.close = () => new Promise((r, j) => {
     //lowDB.write()
-    r()
+    levelDB.close(r)
 })
 
 module.exports.ecc = lowDB('eccKey')
