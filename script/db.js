@@ -102,7 +102,7 @@ module.exports.remove = (username) => new Promise((r, j) => {
 
 module.exports.close = () => new Promise((r, j) => {
     if (dbType == 'lowdb') {
-
+        r()
     } else if (dbType == 'leveldb') {
         //lowDB.write()
         levelDB.close(r)
