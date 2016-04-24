@@ -1,12 +1,7 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 
-try {
-    fs.statSync('db.json')
-} catch (e) {
-    fs.writeFileSync('db.json', '');
-} finally {
-    fs.unlinkSync('db.json')
-}
+fs.removeSync('./db.json')
+fs.removeSync('./levelDB')
 
 var assert = require("assert");
 var request = require('supertest')(require('../index'));

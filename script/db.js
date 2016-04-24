@@ -4,6 +4,8 @@ const storage = require('lowdb/file-sync')
 const lowDB = low('db.json', {
     storage
 })
+const level = require('level')
+const db = level('./levelDB')
 
 
 module.exports.set = (newUser) => new Promise((r, j) => {

@@ -1,5 +1,5 @@
 "use strict";
-const fs = require('fs');
+const fs = require('fs-extra');
 const errno = require('./errno.js');
 const ecc = require('eccjs');
 const db = require('./db.js')
