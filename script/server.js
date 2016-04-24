@@ -13,12 +13,12 @@ const userScript = require('./reg.js')
     //const readline = require('readline');
     //const rl = readline.createInterface(process.stdin, process.stdout)
     //const command = require('./command.js')
-let interfaceJS = []
-interfaceJS.push('var element = document.createElement("title")')
-interfaceJS.push('element.innerHTML = "' + setting.interface.title + '"')
-interfaceJS.push('document.head.appendChild(element)')
-interfaceJS.push('ECCKey = "' + userScript.getECC() + '"')
-interfaceJS = interfaceJS.join('\n')
+let interfaceJS = `
+var element = document.createElement("title")
+element.innerHTML = "${setting.interface.title}"
+document.head.appendChild(element)
+ECCKey = "${userScript.getECC()}"
+`
 
 console.log('✓ 数据库: ' + setting.server.database.type)
 if (setting.dev.webLogger) {
