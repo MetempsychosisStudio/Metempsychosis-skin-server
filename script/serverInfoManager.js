@@ -11,7 +11,7 @@ module.exports = {
 
 let online = module.exports.onlineUsers
 
-module.exports.online = (all) => {
+module.exports.list = (all) => {
     if (all) {
         return online
     } else {
