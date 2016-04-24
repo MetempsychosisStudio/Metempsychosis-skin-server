@@ -40,8 +40,7 @@ const open = () => {
                 rl.close()
             } else {
                 console.log();
-                command(e)
-                rl.prompt();
+                command(e).then(() => rl.prompt())
             }
         })
         rl.on('close', () => {

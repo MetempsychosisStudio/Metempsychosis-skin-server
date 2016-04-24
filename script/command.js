@@ -6,7 +6,8 @@ const errno = require('./errno.js');
 const userScript = require('./reg.js')
 const pack = require("../package.json");
 const sIM = require('./serverInfoManager.js')
-const command = (input) => {
+
+module.exports = (input) => new Promise((r, j) => {
     let cmd = input.trim().split(' ')
     let force = false
     if (input.trim().match(/-.+$/) !== null) {
@@ -22,6 +23,7 @@ const command = (input) => {
                         for (var i = 0; i < users.length; i++) {
                             console.log(i + '.  ' + users[i]);
                         }
+                        r()
                     })
                     break;
                 case 'd':
@@ -29,12 +31,14 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入要删除的用户名');
+                            r()
                             break;
                         case '?':
                         case 'help':
                             console.log('删除用户');
                             console.log('> ' + input.trim() + ' 用户名');
                             console.log('🌰: ' + input.trim() + ' simon3000');
+                            r()
                             break;
                         default:
                             userScript.remove(cmd[2]).then((text) => {
@@ -47,6 +51,7 @@ const command = (input) => {
                                     default:
                                         console.log('不明原因错误');
                                 }
+                                r()
                             })
                     }
                     break;
@@ -55,16 +60,19 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码');
+                            r()
                             break;
                         case '?':
                         case 'help':
                             console.log('注册用户→_→');
                             console.log('> ' + input.trim() + ' 用户名 密码');
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
+                            r()
                             break;
                         default:
                             if (cmd[3] === undefined) {
                                 console.log('请输入密码');
+                                r()
                             } else {
                                 userScript.reg({
                                     username: cmd[2],
@@ -83,6 +91,7 @@ const command = (input) => {
                                         default:
                                             console.log('不明原因错误');
                                     }
+                                    r()
                                 })
                             }
                     }
@@ -92,16 +101,19 @@ const command = (input) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码');
+                            r()
                             break;
                         case '?':
                         case 'help':
                             console.log('改密码→_→');
                             console.log('> ' + input.trim() + ' 用户名 密码');
                             console.log('🌰: ' + input.trim() + ' simon3000 123456');
+                            r()
                             break;
                         default:
                             if (cmd[3] === undefined) {
                                 console.log('请输入新密码');
+                                r()
                             } else {
                                 userScript.changePassword(cmd[2], cmd[3]).then((text) => {
                                     switch (text) {
@@ -114,6 +126,7 @@ const command = (input) => {
                                         default:
                                             console.log('不明原因错误');
                                     }
+                                    r()
                                 })
                             }
                     }
@@ -122,10 +135,11 @@ const command = (input) => {
                 case '?':
                 case 'help':
                     console.log('user的帮助');
+                    r()
                     break;
                 default:
                     console.log('找不到指令: ' + cmd[1]);
-                    command('user ?')
+                    module.exports(cmd[0] + ' ?').then(() => r())
             }
             break;
         case 'help':
@@ -138,13 +152,11 @@ const command = (input) => {
             console.log('  └── changepassword (c)');
             console.log('输入 "指令 ' + cmd[0] + '" 来查看详细帮助');
             console.log('\n「  ' + __dirname + '  」\n');
+            r()
             break;
         default:
             console.log('找不到指令: ' + cmd[0]);
+            r()
             break;
     }
-}
-
-module.exports = (e) => {
-    command(e)
-}
+})
