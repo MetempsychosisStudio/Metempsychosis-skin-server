@@ -31,19 +31,10 @@ const open = () => {
                 rl.prompt();
             } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload$/)) {
                 if (input.match(/^reload$/)) {
-                    for (var i = 0; i < needReload.length; i++) {
-                        delete require.cache[require.resolve(needReload[i])]
-                    }
-                    //delete require.cache[require.resolve("./script/server.js")]
                     restart = 1
                     console.log('重载...');
                 } else if (input.match(/^restart$/)) {
                     restart = 2
-                    for (var cache in require.cache) {
-                        if (require.cache.hasOwnProperty(cache)) {
-                            delete require.cache[cache]
-                        }
-                    }
                     console.log('重启...');
                 }
                 rl.close()
@@ -63,8 +54,16 @@ const open = () => {
                         process.exit(0)
                     } else {
                         if (restart === 1) {
+                            for (var i = 0; i < needReload.length; i++) {
+                                delete require.cache[require.resolve(needReload[i])]
+                            }
                             console.log('\n------------------------------------ reload ------------------------------------\n');
                         } else if (restart === 2) {
+                            for (var cache in require.cache) {
+                                if (require.cache.hasOwnProperty(cache)) {
+                                    delete require.cache[cache]
+                                }
+                            }
                             console.log('\n------------------------------------ restart -----------------------------------\n');
                         }
                         command = require('./script/command.js')
