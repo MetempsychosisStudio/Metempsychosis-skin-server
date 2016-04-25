@@ -4,18 +4,7 @@ const userScript = require('./reg.js')
 
 module.exports = (io) => {
     io.on('connection', function(socket) {
-
-        let userIndex = sIM.find('ip', socket.conn.remoteAddress)
-        if (userIndex >= 0) {
-            sIM.onlineUsers[userIndex].connection++
-        } else {
-            sIM.onlineUsers.push({
-                ip: socket.conn.remoteAddress,
-                username: undefined,
-                hide: false,
-                connection: 1
-            })
-        }
+        sIM.online(socket)
 
         socket.on('isRegister', (msg, fn) => {
             userScript.check(msg).then(fn)

@@ -30,6 +30,20 @@ module.exports.find = (type, value) => online.findIndex((user) => {
     }
 })
 
+module.exports.online = (socket) => {
+    let userIndex = module.exports.find('ip', socket.conn.remoteAddress)
+    if (userIndex >= 0) {
+        module.exports.onlineUsers[userIndex].connection++
+    } else {
+        module.exports.onlineUsers.push({
+            ip: socket.conn.remoteAddress,
+            username: undefined,
+            hide: false,
+            connection: 1
+        })
+    }
+}
+
 module.exports.offline = (index) => {
     if (online[index]) {
         if (online[index].connection == 1) {
