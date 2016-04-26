@@ -9,5 +9,5 @@ node_js:
   - "4.0"
 
 before_script:
-  - npm install -g mocha
+  - npm install -g mocha istanbul
 script: mocha
