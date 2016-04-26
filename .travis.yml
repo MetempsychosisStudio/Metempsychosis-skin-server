@@ -10,4 +10,4 @@ node_js:
 
 before_script:
   - npm install -g mocha istanbul
-script: mocha
+script: npm test
