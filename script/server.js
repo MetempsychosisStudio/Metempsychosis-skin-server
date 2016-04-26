@@ -6,19 +6,13 @@ const responseTime = require('response-time')
 const favicon = require('serve-favicon');
 const parseUrl = require('parseurl')
 const morgan = require('morgan')
-const errno = require('./errno.js');
+const errno = require('./errno.js')
 const setting = require('./init.js')
 const userScript = require('./reg.js')
     //const pack = require("./package.json");
     //const readline = require('readline');
     //const rl = readline.createInterface(process.stdin, process.stdout)
     //const command = require('./command.js')
-let interfaceJS = `
-var element = document.createElement("title")
-element.innerHTML = "${setting.interface.title}"
-document.head.appendChild(element)
-ECCKey = "${userScript.getECC()}"
-`
 
 console.log('✓ 数据库: ' + setting.server.database.type)
 if (setting.dev.webLogger) {
@@ -61,10 +55,6 @@ app.get(/cslapi\//, (req, res, next) => {
 
 app.get(/usernamepng/, (req, res, next) => {
     //res.end(userScript.getJSON('simon3000'))
-});
-
-app.get(/indexsetting/, (req, res, next) => {
-    res.end(interfaceJS);
 });
 
 app.use(express.static('public'));

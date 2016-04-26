@@ -2,9 +2,21 @@
 const sIM = require('./serverInfoManager.js')
 const userScript = require('./reg.js')
 
+const setting = require('./init.js')
+let interfaceJS = `
+var element = document.createElement("title")
+element.innerHTML = "${setting.interface.title}"
+document.head.appendChild(element)
+ECCKey = "${userScript.getECC()}"
+`
+
 module.exports = (io) => {
     io.on('connection', function(socket) {
         sIM.online(socket)
+
+        socket.on('setting', (msg, fn) => {
+            fn(interfaceJS)
+        });
 
         socket.on('isRegister', (msg, fn) => {
             userScript.check(msg).then(fn)

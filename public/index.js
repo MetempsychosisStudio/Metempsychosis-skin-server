@@ -5,6 +5,11 @@ var password2Check = new ReactiveVar(undefined)
 
 var socket = io();
 
+socket.emit('setting', '', function(e) {
+    doneProgress();
+    eval(e);
+})
+
 function ECCencrypt(value) {
     return ecc.encrypt(ECCKey, value)
 }
