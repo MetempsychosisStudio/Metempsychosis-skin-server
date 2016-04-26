@@ -16,8 +16,8 @@ module.exports = (io) => {
             fn(interfaceJS)
         });
 
-        socket.on('isRegister', (msg, fn) => {
-            userScript.check(msg).then(fn)
+        socket.on('isRegister', (username, fn) => {
+            userScript.check(username).then(fn)
         });
 
         socket.on('register', (aec, fn) => {

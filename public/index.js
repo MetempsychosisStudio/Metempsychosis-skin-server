@@ -62,8 +62,8 @@ function checkUsername() {
         $('.usernameForm').popover('destroy')
         usernameCheck.set('post')
         socket.emit('isRegister', $('#username').val(), function(e) {
-            usernameCheck.set(JSON.parse(e))
-            if (e == 'false') {
+            usernameCheck.set(e)
+            if (e === false) {
                 $('.usernameForm').popover({
                     content: '用户名已被注册',
                     container: 'body',
@@ -75,7 +75,6 @@ function checkUsername() {
             } else {
                 $('.usernameForm').popover('destroy')
             }
-
         })
     }
 }
@@ -100,10 +99,10 @@ Template.login.helpers({
     usernameCheck: function() {
         if (usernameCheck.get() === undefined) {
             return ''
-        } else if (usernameCheck.get()) {
-            return 'has-success'
         } else if (usernameCheck.get() == 'post') {
             return 'has-warning'
+        } else if (usernameCheck.get()) {
+            return 'has-success'
         } else {
             return 'has-error'
         }
@@ -159,7 +158,7 @@ Template.login.events({
         $('.usernameForm').popover('destroy')
         $('.password2Form').popover('destroy')
     },
-    'change #username': function(e) {
+    'blur #username': function(e) {
         if (register.get()) {
             checkUsername()
         }
