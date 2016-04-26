@@ -3,12 +3,10 @@ const sIM = require('./serverInfoManager.js')
 const userScript = require('./reg.js')
 
 const setting = require('./init.js')
-let interfaceJS = `
-var element = document.createElement("title")
-element.innerHTML = "${setting.interface.title}"
-document.head.appendChild(element)
-ECCKey = "${userScript.getECC()}"
-`
+
+let interfaceJS = {}
+interfaceJS.title = setting.interface.title
+interfaceJS.ECCKey = userScript.getECC()
 
 module.exports = (io) => {
     io.on('connection', function(socket) {

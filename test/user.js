@@ -187,35 +187,15 @@ describe('interface', function() {
     });
     describe('Page setting', function() {
         it('Page title', function(done) {
-            request.get('/indexsetting').expect(200, function(err, res) {
-                should.not.exist(err)
-                var document = {}
-                document.head = {}
-                document.head.appendChild = function() {}
-                document.createElement = function() {
-                    return {
-                        innerHTML: 233
-                    }
-                }
-                eval(res.text)
-                element.innerHTML.should.containEql(setting.interface.title)
-                done()
+            client.emit('setting', '', function(e) {
+                e.title.should.containEql(setting.interface.title)
+                done();
             })
         })
         it('ECCKey', function(done) {
-            request.get('/indexsetting').expect(200, function(err, res) {
-                should.not.exist(err)
-                var document = {}
-                document.head = {}
-                document.head.appendChild = function() {}
-                document.createElement = function() {
-                    return {
-                        innerHTML: 233
-                    }
-                }
-                eval(res.text)
-                ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(ECCKey, 'hello world!')).should.containEql('hello world!')
-                done()
+            client.emit('setting', '', function(e) {
+                ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(e.ECCKey, 'hello world!')).should.containEql('hello world!')
+                done();
             })
         })
     })
