@@ -4,11 +4,11 @@
     "browser"
   ],
   "loadEagerly": [
-    "**/*.js",
-    "*.js"
+    "**/*.js"
   ],
   "plugins": {
     "node": {},
+    "lint": {},
     "modules": {},
     "es_modules": {}
   }

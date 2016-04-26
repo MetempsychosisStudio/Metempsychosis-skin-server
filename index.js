@@ -3,7 +3,7 @@
 const readline = require('readline');
 let command = require('./script/command.js')
 const sIM = require('./script/serverInfoManager.js')
-const enableDestroy = require('server-destroy');
+const enableDestroy = require('server-destroy')
 const http = require('http')
 
 console.log('\n「  ' + __dirname + '  」\n');

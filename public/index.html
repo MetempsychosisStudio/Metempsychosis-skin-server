@@ -26,7 +26,7 @@
                 setTimeout(function() {
                     $('.content').fadeIn()
                 }, 100);
-            } else {
+            } else if (loaded < 11) {
                 try {
                     NProgress.inc()
                 } catch (e) {}
