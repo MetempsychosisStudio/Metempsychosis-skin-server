@@ -187,13 +187,13 @@ describe('interface', function() {
     });
     describe('Page setting', function() {
         it('Page title', function(done) {
-            client.emit('setting', '', function(e) {
+            io.connect(socketURL, socketOptions).on('setting', function(e) {
                 e.title.should.containEql(setting.interface.title)
                 done();
             })
         })
         it('ECCKey', function(done) {
-            client.emit('setting', '', function(e) {
+            io.connect(socketURL, socketOptions).on('setting', function(e) {
                 ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(e.ECCKey, 'hello world!')).should.containEql('hello world!')
                 done();
             })
