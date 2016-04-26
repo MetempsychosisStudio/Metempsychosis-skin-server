@@ -12,9 +12,7 @@ module.exports = (io) => {
     io.on('connection', function(socket) {
         sIM.online(socket)
 
-        socket.on('setting', (msg, fn) => {
-            fn(interfaceJS)
-        });
+        socket.emit('setting', interfaceJS);
 
         socket.on('isRegister', (username, fn) => {
             userScript.check(username).then(fn)

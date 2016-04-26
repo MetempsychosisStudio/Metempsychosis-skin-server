@@ -5,7 +5,7 @@ var password2Check = new ReactiveVar(undefined)
 
 var socket = io();
 
-socket.emit('setting', '', function(e) {
+socket.on('setting', function(e) {
     var element = document.createElement("title")
     element.innerHTML = e.title
     document.head.appendChild(element)
