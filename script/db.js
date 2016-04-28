@@ -52,6 +52,10 @@ module.exports.get = (username) => new Promise((r, j) => {
     }
 })
 
+module.exports.hit = (username)=>{
+
+}
+
 module.exports.map = (type) => new Promise((r, j) => {
     if (dbType == 'lowdb') {
         r(lowDB('users').map(type))
@@ -99,8 +103,6 @@ module.exports.remove = (username) => new Promise((r, j) => {
         });
     }
 })
-
-//module.exports = lowDB
 
 module.exports.close = () => new Promise((r, j) => {
     if (dbType == 'lowdb') {
