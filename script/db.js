@@ -3,15 +3,20 @@ const _ = require('lodash')
 const setting = require('./init.js')
 const dbType = setting.server.database.type
 
-const lowDB = require('./ecc.js').db
+//const lowDB = require('./ecc.js').db
 
-let level
 let levelDB
+let lowDB
 
 if (dbType == 'leveldb') {
-    level = require('level')
-    levelDB = level('./levelDB', {
+    levelDB = require('level')('./levelDB', {
         valueEncoding: 'json'
+    })
+} else if (dbType == 'lowdb') {
+    const low = require('lowdb')
+    const storage = require('lowdb/file-sync')
+    lowDB = low('db.json', {
+        storage
     })
 }
 
@@ -52,7 +57,7 @@ module.exports.get = (username) => new Promise((r, j) => {
     }
 })
 
-module.exports.hit = (username)=>{
+module.exports.hit = (username) => {
 
 }
 

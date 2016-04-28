@@ -7,12 +7,8 @@ var assert = require("assert");
 var request = require('supertest')(require('../index'));
 var should = require("should");
 var ecc = require('eccjs');
-var db = require('lowdb')('db.json', {
-    storage: {
-        read: require('lowdb/file-sync').read
-    }
-})
 var setting = require('../script/init.js');
+var eccKey = require('../script/serverInfoManager').ecc
 var io = require('socket.io-client');
 var socketURL = 'http://0.0.0.0:' + setting.server.port;
 var socketOptions = {
@@ -23,7 +19,7 @@ var client = io.connect(socketURL, socketOptions);
 
 
 function enecc(e) {
-    return ecc.encrypt(db('eccKey').find().enc, e)
+    return ecc.encrypt(eccKey().enc, e)
 }
 
 describe('User', function() {
@@ -194,7 +190,7 @@ describe('interface', function() {
         })
         it('ECCKey', function(done) {
             io.connect(socketURL, socketOptions).on('setting', function(e) {
-                ecc.decrypt(db('eccKey').find().dec, ecc.encrypt(e.ECCKey, 'hello world!')).should.containEql('hello world!')
+                ecc.decrypt(eccKey().dec, ecc.encrypt(e.ECCKey, 'hello world!')).should.containEql('hello world!')
                 done();
             })
         })

@@ -9,6 +9,19 @@ module.exports = {
     onlineUsers: []
 }
 
+let ecc
+
+module.exports.ecc = (key) => {
+    if (key) {
+        return ((key) => {
+            ecc = key
+            return ecc
+        })(key)
+    } else {
+        return ecc
+    }
+}
+
 let online = module.exports.onlineUsers
 
 module.exports.list = (all) => {

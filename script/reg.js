@@ -2,7 +2,7 @@
 const SHA256 = require('./SHA256.js')
 const ecc = require('eccjs')
 const db = require('./db.js')
-const eccDB = require('./ecc.js')
+const eccDB = require('./serverInfoManager').ecc
 
 module.exports.check = (username) => new Promise((r, j) => {
     db.get(username).then((text) => r(!text))
@@ -122,7 +122,7 @@ module.exports.close = db.close
 module.exports.decrypt = (aec) => {
     let result
     try {
-        result = JSON.parse(ecc.decrypt(eccDB.find().dec, aec))
+        result = JSON.parse(ecc.decrypt(eccDB().dec, aec))
     } catch (e) {
         console.error('ECC err: ' + e);
         result = 'err'
@@ -130,4 +130,4 @@ module.exports.decrypt = (aec) => {
         return result
     }
 }
-module.exports.getECC = () => eccDB.find().enc
+module.exports.getECC = () => eccDB().enc
