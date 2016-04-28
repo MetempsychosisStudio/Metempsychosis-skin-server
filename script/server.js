@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 const express = require('express')
 const app = express()
 const compression = require('compression')
@@ -6,26 +6,26 @@ const responseTime = require('response-time')
 const favicon = require('serve-favicon')
 const parseUrl = require('parseurl')
 const morgan = require('morgan')
-const errno = require('./errno.js')
-const setting = require('./init.js')
-const userScript = require('./reg.js')
-    //const pack = require("./package.json");
-    //const readline = require('readline');
+const errno = require('./errno')
+const setting = require('./init')
+const userScript = require('./reg')
+    //const pack = require("./package.json")
+    //const readline = require('readline')
     //const rl = readline.createInterface(process.stdin, process.stdout)
     //const command = require('./command.js')
 
 console.log('✓ 数据库: ' + setting.server.database.type)
 if (setting.dev.webLogger) {
     app.use(morgan('combined'))
-    console.log('✓ morgan网页访问日志');
+    console.log('✓ morgan网页访问日志')
 }
 if (setting.dev.responseTime) {
     app.use(responseTime())
-    console.log('✓ 时间消耗');
+    console.log('✓ 时间消耗')
 }
 if (!setting.dev.noCompression) {
     app.use(compression())
-    console.log('✓ gzip压缩');
+    console.log('✓ gzip压缩')
 }
 app.use(favicon('public/favicon.ico'))
 app.use('/textures', express.static('data/textures'))
@@ -47,18 +47,18 @@ app.get(/uskapi\//, (req, res, next) => {
     }
     //replace(/\/*\.json$/,'')
     //res.end(userScript.getJSONUniSkinAPI('simon3000'))
-});
+})
 
 app.get(/cslapi\//, (req, res, next) => {
     //res.end(userScript.getJSON('simon3000'))
-});
+})
 
 app.get(/usernamepng/, (req, res, next) => {
     //res.end(userScript.getJSON('simon3000'))
-});
+})
 
-app.use(express.static('public'));
+app.use(express.static('public'))
 
-module.exports = app;
+module.exports = app
 module.exports.setting = setting
 module.exports.userScript = userScript

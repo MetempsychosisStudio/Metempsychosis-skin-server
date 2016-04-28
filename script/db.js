@@ -1,6 +1,6 @@
-"use strict";
+"use strict"
 const _ = require('lodash')
-const setting = require('./init.js')
+const setting = require('./init')
 const dbType = setting.server.database.type
 
 //const lowDB = require('./ecc.js').db
@@ -20,7 +20,7 @@ if (dbType == 'leveldb') {
     })
 }
 
-console.log('=> 数据库连接成功\n');
+console.log('=> 数据库连接成功\n')
 
 
 module.exports.set = (newUser) => new Promise((r, j) => {
@@ -105,7 +105,7 @@ module.exports.remove = (username) => new Promise((r, j) => {
         levelDB.del(username.toLowerCase(), function(err) {
             if (err) console.log('LevelDB!', err)
             r(username)
-        });
+        })
     }
 })
 

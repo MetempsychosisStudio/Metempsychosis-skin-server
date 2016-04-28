@@ -1,7 +1,7 @@
-"use strict";
-const SHA256 = require('./SHA256.js')
+"use strict"
+const SHA256 = require('./SHA256')
 const ecc = require('eccjs')
-const db = require('./db.js')
+const db = require('./db')
 const eccDB = require('./serverInfoManager').ecc
 
 module.exports.check = (username) => new Promise((r, j) => {
@@ -67,9 +67,9 @@ module.exports.login = (username, password) => new Promise((r, j) => {
 
 module.exports.changePassword = (username, password, newPassword) => new Promise((r, j) => {
     if (!username || !password || !newPassword) {
-        console.log(username);
-        console.log(password);
-        console.log(newPassword);
+        console.log(username)
+        console.log(password)
+        console.log(newPassword)
         r('lostElement')
     } else {
         module.exports.login(username, password).then((login) => {
@@ -124,7 +124,7 @@ module.exports.decrypt = (aec) => {
     try {
         result = JSON.parse(ecc.decrypt(eccDB().dec, aec))
     } catch (e) {
-        console.error('ECC err: ' + e);
+        console.error('ECC err: ' + e)
         result = 'err'
     } finally {
         return result

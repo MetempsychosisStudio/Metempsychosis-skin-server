@@ -1,8 +1,8 @@
-"use strict";
-const sIM = require('./serverInfoManager.js')
-const userScript = require('./reg.js')
+"use strict"
+const sIM = require('./serverInfoManager')
+const userScript = require('./reg')
 
-const setting = require('./init.js')
+const setting = require('./init')
 
 let interfaceJS = {}
 interfaceJS.title = setting.interface.title
@@ -12,11 +12,11 @@ module.exports = (io) => {
     io.on('connection', function(socket) {
         sIM.online(socket)
 
-        socket.emit('setting', interfaceJS);
+        socket.emit('setting', interfaceJS)
 
         socket.on('isRegister', (username, fn) => {
             userScript.check(username).then(fn)
-        });
+        })
 
         socket.on('register', (aec, fn) => {
             userScript.reg(userScript.decrypt(aec)).then(fn)
@@ -29,12 +29,12 @@ module.exports = (io) => {
 
         socket.on('disconnect', function(msg) {
             sIM.offline(sIM.find('ip', socket.conn.remoteAddress))
-        });
+        })
 
 
         socket.on('error', (e) => {
-            console.error('socket.io 出错: ' + e);
+            console.error('socket.io 出错: ' + e)
         })
-    });
+    })
 }
-console.log('✓ socket.io');
+console.log('✓ socket.io')

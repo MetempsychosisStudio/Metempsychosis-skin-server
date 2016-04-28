@@ -38,6 +38,7 @@
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
+    "eccrypto": "^1.0.3",
     "morgan": "^1.7.0",
     "should": "^8.3.0",
     "socket.io-client": "^1.4.5",

@@ -1,28 +1,28 @@
-"use strict";
-const fs = require('fs-extra');
-const errno = require('./errno.js');
-const ecc = require('eccjs');
+"use strict"
+const fs = require('fs-extra')
+const errno = require('./errno')
+const ecc = require('eccjs')
 const eccDB = require('./serverInfoManager').ecc
 
-console.log();
+console.log()
 let createECC = (log) => {
     console.log(log)
     eccDB(ecc.generate(ecc.ENC_DEC))
 }
 
 if (!eccDB()) {
-    createECC('=> 创建ECC加密密匙...');
+    createECC('=> 创建ECC加密密匙...')
 }
 
 try {
     ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!'))
 } catch (e) {
-    createECC('=> ECC密匙损坏, 重新创建...');
+    createECC('=> ECC密匙损坏, 重新创建...')
 } finally {
     if (ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!')) !== 'hello world!') {
-        createECC('=> ECC密匙损坏, 重新创建...');
+        createECC('=> ECC密匙损坏, 重新创建...')
     }
-    console.log('=> ECC密匙校验完成');
+    console.log('=> ECC密匙校验完成')
 }
 
 try {
@@ -40,7 +40,7 @@ try {
 try {
     fs.statSync('./config.json')
 } catch (e) {
-    console.log('=> 创建配置文件...');
+    console.log('=> 创建配置文件...')
     let setting = {}
 
     setting.server = {}
@@ -62,12 +62,12 @@ try {
     setting.dev.responseTime = true
 
 
-    fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2));
-    console.log('=> config.json 创建成功');
+    fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
+    console.log('=> config.json 创建成功')
 }
 
-module.exports = require('../config.json')
-console.log("=> 配置文件读取成功\n");
+module.exports = require('../config')
+console.log("=> 配置文件读取成功\n")
 
 module.exports.set = (setting) => {
     return 'niconiconi'
