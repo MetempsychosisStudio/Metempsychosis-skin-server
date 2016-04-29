@@ -54,13 +54,6 @@ module.exports = (input) => new Promise((r, j) => {
                             console.log('请输入要删除的用户名')
                             r()
                             break
-                        case '?':
-                        case 'help':
-                            console.log('删除用户')
-                            console.log('> ' + input.trim() + ' 用户名')
-                            console.log('🌰: ' + input.trim() + ' simon3000')
-                            r()
-                            break
                         default:
                             userScript.remove(cmd[2]).then((text) => {
                                 switch (text) {
@@ -81,13 +74,6 @@ module.exports = (input) => new Promise((r, j) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码')
-                            r()
-                            break
-                        case '?':
-                        case 'help':
-                            console.log('注册用户→_→')
-                            console.log('> ' + input.trim() + ' 用户名 密码')
-                            console.log('🌰: ' + input.trim() + ' simon3000 123456')
                             r()
                             break
                         default:
@@ -122,13 +108,6 @@ module.exports = (input) => new Promise((r, j) => {
                     switch (cmd[2]) {
                         case undefined:
                             console.log('请输入用户名和密码')
-                            r()
-                            break
-                        case '?':
-                        case 'help':
-                            console.log('改密码→_→')
-                            console.log('> ' + input.trim() + ' 用户名 密码')
-                            console.log('🌰: ' + input.trim() + ' simon3000 123456')
                             r()
                             break
                         default:
