@@ -9,7 +9,7 @@ let levelDB
 let lowDB
 
 if (dbType == 'leveldb') {
-    levelDB = require('level')('./levelDB', {
+    levelDB = require('levelup')('./levelDB', {
         valueEncoding: 'json'
     })
 } else if (dbType == 'lowdb') {
