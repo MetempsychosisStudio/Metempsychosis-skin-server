@@ -59,9 +59,9 @@ module.exports.get = (username) => new Promise((r, j) => {
     }
 })
 
-module.exports.map = (type) => new Promise((r, j) => {
+module.exports.map = () => new Promise((r, j) => {
     if (dbType == 'lowdb') {
-        r(lowDB('users').map(type))
+        r(lowDB('users').map('username'))
     } else if (dbType == 'leveldb') {
         let users = []
         levelDB.createKeyStream()

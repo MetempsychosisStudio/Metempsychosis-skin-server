@@ -9,7 +9,7 @@ module.exports.check = (username) => new Promise((r, j) => {
 })
 
 module.exports.find = () => new Promise((r, j) => {
-    db.map('username').then(r)
+    db.map().then(r)
 })
 
 module.exports.reg = (newUser, log) => new Promise((r, j) => {
