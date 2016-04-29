@@ -12,6 +12,10 @@ module.exports.find = () => new Promise((r, j) => {
     db.map().then(r)
 })
 
+module.exports.get =(username)=>new Promise((r,j)=>{
+    db.get(username).then(r)
+})
+
 module.exports.reg = (newUser, log) => new Promise((r, j) => {
     if (typeof newUser !== 'object') {
         r('error')

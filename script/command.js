@@ -6,6 +6,7 @@ const errno = require('./errno')
 const userScript = require('./reg')
 const pack = require("../package")
 const sIM = require('./serverInfoManager')
+let lastMap
 
 module.exports = (input) => new Promise((r, j) => {
     let cmd = input.trim().split(' ')
@@ -19,12 +20,32 @@ module.exports = (input) => new Promise((r, j) => {
             switch (cmd[1]) {
                 case 'f':
                 case 'find':
-                    userScript.find().then((users) => {
-                        for (var i = 0; i < users.length; i++) {
-                            console.log(i + '.  ' + users[i])
-                        }
-                        r()
-                    })
+                    switch (cmd[2]) {
+                        case undefined:
+                            userScript.find().then((users) => {
+                                lastMap = users
+                                for (var i = 0; i < users.length; i++) {
+                                    console.log(i + '.  ' + users[i])
+                                }
+                                r()
+                            })
+                            break
+                        default:
+                            userScript.get(cmd[2]).then((user) => {
+                                if (user) {
+                                    console.log(user);
+                                    r()
+                                } else if (lastMap[cmd[2]]) {
+                                    userScript.get(lastMap[cmd[2]]).then((user) => {
+                                        console.log(user);
+                                        r()
+                                    })
+                                } else {
+                                    console.log('找不到→_→');
+                                    r()
+                                }
+                            })
+                    }
                     break
                 case 'd':
                 case 'delete':
