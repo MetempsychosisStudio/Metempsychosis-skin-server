@@ -64,9 +64,9 @@ module.exports.map = () => new Promise((r, j) => {
         r(lowDB('users').map('username'))
     } else if (dbType == 'leveldb') {
         let users = []
-        levelDB.createKeyStream()
+        levelDB.createValueStream()
             .on('data', function(data) {
-                users.push(data)
+                users.push(data.username)
             })
             .on('error', function(err) {
                 console.log('LevelDB!', err)
