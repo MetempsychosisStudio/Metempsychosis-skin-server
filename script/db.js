@@ -75,6 +75,12 @@ module.exports.map = (type) => new Promise((r, j) => {
     }
 })
 
+/**
+ * 覆盖
+ * @param  {String} username target users
+ * @param  {Object} newValue things you want change
+ * @return {String}          done?
+ */
 module.exports.update = (username, newValue) => new Promise((r, j) => {
     if (dbType == 'lowdb') {
         lowDB('users').chain().find({
