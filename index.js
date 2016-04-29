@@ -11,6 +11,7 @@ let express = require('./script/server')
 let setting = express.setting
 let userScript = express.userScript
 let restart = false
+let reloadEcc = false
 
 const open = () => {
     const rl = readline.createInterface(process.stdin, process.stdout)
@@ -29,8 +30,11 @@ const open = () => {
             const input = e.trim()
             if (input.match(/^ *$/)) {
                 rl.prompt()
-            } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload$/)) {
-                if (input.match(/^reload$/)) {
+            } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload/)) {
+                if (input.match(/^reload/)) {
+                    if (input.match(/ *ecc *$/)) {
+                        reloadEcc = true
+                    }
                     restart = 1
                     console.log('重载...')
                 } else if (input.match(/^restart$/)) {
@@ -53,12 +57,16 @@ const open = () => {
                         process.exit(0)
                     } else {
                         if (restart === 1) {
-                            for (var i = 0; i < needReload.length; i++) {
+                            if (reloadEcc) {
+                                reloadEcc = false
+                                sIM.clean('ecc')
+                            }
+                            for (let i = 0; i < needReload.length; i++) {
                                 delete require.cache[require.resolve(needReload[i])]
                             }
                             console.log('\n------------------------------------ reload ------------------------------------\n')
                         } else if (restart === 2) {
-                            for (var cache in require.cache) {
+                            for (let cache in require.cache) {
                                 if (require.cache.hasOwnProperty(cache)) {
                                     delete require.cache[cache]
                                 }
