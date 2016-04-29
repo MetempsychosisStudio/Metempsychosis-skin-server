@@ -64,6 +64,17 @@ module.exports.login = (username, password) => new Promise((r, j) => {
     })
 })
 
+module.exports.hit = (username) => new Promise((r, j) => {
+    db.get(username).then((user) => {
+        if (user) {
+            db.update(username, {
+                hit: user.hit + 1
+            }).then(r)
+        } else {
+            r(user)
+        }
+    })
+})
 
 module.exports.changePassword = (username, password, newPassword) => new Promise((r, j) => {
     if (!username || !password || !newPassword) {

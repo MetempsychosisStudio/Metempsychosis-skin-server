@@ -110,7 +110,7 @@ describe('User', function() {
             });
             it('kbc_000', function(done) {
                 client.emit('register', enecc(JSON.stringify({
-                    username: 'kbc_000',
+                    username: 'kBc_000',
                     password: '233-=<<./sNDBd',
                     rPassword: '233-=<<./sNDBd'
                 })), function(e) {

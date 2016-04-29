@@ -29,14 +29,16 @@ module.exports.set = (newUser) => new Promise((r, j) => {
             username: newUser.username,
             password: newUser.password,
             _username: newUser.username.toLowerCase(),
-            update: new Date().getTime()
+            update: new Date().getTime(),
+            hit: 0
         })
         r(newUser.username)
     } else if (dbType == 'leveldb') {
         levelDB.put(newUser.username.toLowerCase(), {
             username: newUser.username,
             password: newUser.password,
-            update: new Date().getTime()
+            update: new Date().getTime(),
+            hit: 0
         }, (err) => {
             if (err) console.log('LevelDB!', err)
             r(newUser.username)
