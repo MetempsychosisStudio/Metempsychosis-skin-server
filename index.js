@@ -44,7 +44,7 @@ const open = () => {
             }
         })
         rl.on('close', () => {
-            console.log('\n=> 关闭服务器...')
+            console.log('\n=> 关闭网络服务器...')
             server.destroy(() => {
                 console.log('=> 保存数据...')
                 userScript.close().then(() => {
