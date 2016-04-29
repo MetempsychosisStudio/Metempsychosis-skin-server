@@ -22,7 +22,7 @@ module.exports.reg = (newUser, log) => new Promise((r, j) => {
     } else if (!newUser.username.match(/^\w+$/)) {
         r('illegalUsername')
     } else {
-        module.exports.check(newUser.username).then((text) => {
+        this.check(newUser.username).then((text) => {
             if (text) {
                 db.set(newUser).then((text) => {
                     console.log('新用户: ' + text)
@@ -36,7 +36,7 @@ module.exports.reg = (newUser, log) => new Promise((r, j) => {
 })
 
 module.exports.remove = (username) => new Promise((r, j) => {
-    module.exports.check(username).then((text) => {
+    this.check(username).then((text) => {
         if (text) {
             r('userNotExist')
         } else {
@@ -49,7 +49,7 @@ module.exports.remove = (username) => new Promise((r, j) => {
 })
 
 module.exports.login = (username, password) => new Promise((r, j) => {
-    module.exports.check(username).then((text) => {
+    this.check(username).then((text) => {
         if (text) {
             r('userNotExist')
         } else {
@@ -72,9 +72,9 @@ module.exports.changePassword = (username, password, newPassword) => new Promise
         console.log(newPassword)
         r('lostElement')
     } else {
-        module.exports.login(username, password).then((login) => {
+        this.login(username, password).then((login) => {
             if (login === 'good') {
-                module.exports.check(username).then((text) => {
+                this.check(username).then((text) => {
                     if (text) {
                         r('userNotExist')
                     } else {
