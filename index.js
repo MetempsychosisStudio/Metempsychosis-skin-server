@@ -4,6 +4,7 @@ let command = require('./script/command')
 const sIM = require('./script/serverInfoManager')
 const enableDestroy = require('server-destroy')
 const http = require('http')
+const socketio = require('socket.io')
 
 console.log('\n「  ' + __dirname + '  」\n')
 let express = require('./script/server')
@@ -14,7 +15,7 @@ let reloadEcc = false
 
 const open = () => {
     const server = http.createServer(express)
-    const io = require('socket.io')(server)
+    const io = socketio(server)
     require('./script/socket')(io)
     server.listen(setting.server.port, () => {
         enableDestroy(server)
