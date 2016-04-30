@@ -6,6 +6,8 @@ const errno = require('./errno')
 const userScript = require('./reg')
 const pack = require("../package")
 const sIM = require('./serverInfoManager')
+const ecc = require('eccjs')
+const eccDB = sIM.ecc
 let lastMap
 
 module.exports = (input) => new Promise((r, j) => {
@@ -142,6 +144,11 @@ module.exports = (input) => new Promise((r, j) => {
                     module.exports(cmd[0] + ' ?').then(() => r())
             }
             break
+        case 'ecc':
+            console.log('重置ECCkey');
+            eccDB(ecc.generate(ecc.ENC_DEC))
+            r()
+            break;
         case 'stop':
             process.emit('stopServer', 'stop')
             r()
