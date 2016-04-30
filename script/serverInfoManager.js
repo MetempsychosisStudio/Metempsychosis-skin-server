@@ -23,7 +23,6 @@ module.exports.ecc = (key) => {
 }
 
 module.exports.clean = (type) => {
-    console.log(type);
     switch (type) {
         case 'ecc':
             ecc = undefined
