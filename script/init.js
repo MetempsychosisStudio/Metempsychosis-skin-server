@@ -60,6 +60,7 @@ try {
     setting.dev.webLogger = false
     setting.dev.noCompression = false
     setting.dev.responseTime = true
+    setting.dev.softError = false
 
 
     fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
@@ -68,6 +69,13 @@ try {
 
 module.exports = require('../config')
 console.log("=> 配置文件读取成功\n")
+
+if (module.exports.dev.softError) {
+    process.on('uncaughtException', (err) => {
+        console.log('Caught exception');
+        console.error(err);
+    });
+}
 
 module.exports.set = (setting) => {
     return 'niconiconi'
