@@ -1,5 +1,10 @@
 "use strict"
 
+process.on('uncaughtException', (err) => {
+    console.log('Caught exception');
+    console.log(err);
+});
+
 const readline = require('readline')
 let command = require('./script/command')
 const sIM = require('./script/serverInfoManager')
