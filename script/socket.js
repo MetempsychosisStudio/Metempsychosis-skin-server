@@ -30,11 +30,6 @@ module.exports = (io) => {
         socket.on('disconnect', function(msg) {
             sIM.offline(sIM.find('ip', socket.conn.remoteAddress))
         })
-
-
-        socket.on('error', (e) => {
-            console.error('socket.io 出错: ' + e)
-        })
     })
 
     process.on('socket', (type) => {
