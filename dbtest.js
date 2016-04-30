@@ -1,11 +1,24 @@
 "use strict";
 
+/*
+var http = require('http');
+http.createServer(function(request, response) {
+   response.writeHead(200, {
+       'Content-Type': 'text/plain'
+   });
+   response.end('Hello World\n');
+}).listen(1337);
+console.log('Server running at http://127.0.0.1:1337/');
+ */
+
+/*
 const level = require('level')
 const db = level('./levelDB', {
     valueEncoding: 'json'
 });
 
 db.put('simon', [1, 2, 3])
+*/
 
 /*
 let www = () => new Promise((r, j) => {
