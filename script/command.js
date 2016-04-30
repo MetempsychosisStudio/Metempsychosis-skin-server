@@ -145,12 +145,7 @@ module.exports = (input) => new Promise((r, j) => {
         case 'help':
         case '?':
             console.log(pack.name + '@' + pack.version)
-            console.log('└─┬ user (u)')
-            console.log('  ├── find (f)')
-            console.log('  ├── register (r)')
-            console.log('  ├── delete (d)')
-            console.log('  └── changepassword (c)')
-            console.log('输入 "指令 ' + cmd[0] + '" 来查看详细帮助')
+            console.log(commands)
             console.log('\n「  ' + __dirname + '  」\n')
             r()
             break
@@ -160,3 +155,12 @@ module.exports = (input) => new Promise((r, j) => {
             break
     }
 })
+
+let commands = `├─┬ user (u)
+│ ├── find (f)
+│ ├── register (r)
+│ ├── delete (d)
+│ ├── changepassword (c)
+│ └─── help (?)
+└─┬ reload
+  └── ecc`
