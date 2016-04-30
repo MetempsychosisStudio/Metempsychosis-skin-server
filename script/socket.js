@@ -36,5 +36,12 @@ module.exports = (io) => {
             console.error('socket.io 出错: ' + e)
         })
     })
+
+    process.on('socket', (type) => {
+        if (type == 'send') {
+            interfaceJS.ECCKey = userScript.getECC()
+            io.emit('setting', interfaceJS)
+        }
+    })
 }
 console.log('✓ socket.io')

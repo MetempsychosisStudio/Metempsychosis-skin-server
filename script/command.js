@@ -149,6 +149,11 @@ module.exports = (input) => new Promise((r, j) => {
             eccDB(ecc.generate(ecc.ENC_DEC))
             r()
             break;
+        case 'socket':
+            console.log('刷新ECC');
+            process.emit('socket', 'send')
+            r()
+            break;
         case 'stop':
             process.emit('stopServer', 'stop')
             r()
