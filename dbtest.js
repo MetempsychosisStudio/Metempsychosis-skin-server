@@ -1,5 +1,18 @@
 "use strict";
 
+process.on('233', () => console.log(i+'0'))
+
+let i = 0
+
+let w = () => {
+    i++
+    process.emit('233')
+    setTimeout(function() {
+        w()
+    }, 0);
+}
+w()
+
 /*
 var http = require('http');
 http.createServer(function(request, response) {

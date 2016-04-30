@@ -142,6 +142,18 @@ module.exports = (input) => new Promise((r, j) => {
                     module.exports(cmd[0] + ' ?').then(() => r())
             }
             break
+        case 'stop':
+            process.emit('stopServer', 'stop')
+            r()
+            break;
+        case 'reload':
+            if (cmd[1] == 'ecc') {
+                process.emit('stopServer', 'ecc')
+            } else {
+                process.emit('stopServer', 'reload')
+            }
+            r()
+            break;
         case 'help':
         case '?':
             console.log(pack.name + '@' + pack.version)

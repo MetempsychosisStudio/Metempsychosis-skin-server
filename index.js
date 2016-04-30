@@ -26,22 +26,19 @@ const open = () => {
         enableDestroy(server)
         rl.setPrompt('=> ')
         rl.prompt()
+        process.on('stopServer', (type) => {
+            if (type == 'reload') {
+                restart = 1
+            } else if (type == 'ecc') {
+                reloadEcc = true
+                restart = 1
+            }
+            rl.close()
+        })
         rl.on('line', (e) => {
             const input = e.trim()
             if (input.match(/^ *$/)) {
                 rl.prompt()
-            } else if (input === 'stop' || input.match(/^restart$/) || input.match(/^reload/)) {
-                if (input.match(/^reload/)) {
-                    if (input.match(/ *ecc *$/)) {
-                        reloadEcc = true
-                    }
-                    restart = 1
-                    console.log('重载...')
-                } else if (input.match(/^restart$/)) {
-                    restart = 2
-                    console.log('重启...')
-                }
-                rl.close()
             } else {
                 console.log()
                 command(e).then(() => rl.prompt())
@@ -60,6 +57,9 @@ const open = () => {
                             if (reloadEcc) {
                                 reloadEcc = false
                                 sIM.clean('ecc')
+                                console.log('重载... (重置ECC)')
+                            } else {
+                                console.log('重载...')
                             }
                             for (let i = 0; i < needReload.length; i++) {
                                 delete require.cache[require.resolve(needReload[i])]
