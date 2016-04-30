@@ -2,6 +2,7 @@ var fs = require('fs-extra');
 
 fs.removeSync('./db.json')
 fs.removeSync('./levelDB')
+fs.removeSync('./config.json')
 
 var assert = require("assert");
 var request = require('supertest')(require('../index'));
