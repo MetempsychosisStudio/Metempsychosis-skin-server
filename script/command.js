@@ -174,5 +174,6 @@ let commands = `├─┬ user (u)
 │ ├── delete (d)
 │ ├── changepassword (c)
 │ └─── help (?)
-└─┬ reload
-  └── ecc`
+├─┬ reload
+│ └── ecc
+└── stop`
