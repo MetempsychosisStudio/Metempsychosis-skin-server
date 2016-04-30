@@ -45,7 +45,7 @@ module.exports.remove = (username) => new Promise((r, j) => {
             r('userNotExist')
         } else {
             db.remove(username).then((username) => {
-                console.log('删除用户: ' + db.remove(username))
+                console.log('删除用户: ' + username)
                 r('done')
             })
         }

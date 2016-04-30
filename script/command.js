@@ -8,7 +8,7 @@ const pack = require("../package")
 const sIM = require('./serverInfoManager')
 const ecc = require('eccjs')
 const eccDB = sIM.ecc
-let lastMap
+let lastMap = []
 
 module.exports = (input) => new Promise((r, j) => {
     let cmd = input.trim().split(' ')
@@ -28,6 +28,9 @@ module.exports = (input) => new Promise((r, j) => {
                                 lastMap = users
                                 for (var i = 0; i < users.length; i++) {
                                     console.log(i + '.  ' + users[i])
+                                }
+                                if (users.length === 0) {
+                                    console.log('并没有人来注册╮(╯▽╰)╭');
                                 }
                                 r()
                             })
