@@ -19,7 +19,6 @@ let restart = false
 let reloadEcc = false
 
 const open = () => {
-    const rl = readline.createInterface(process.stdin, process.stdout)
     const server = http.createServer(express)
     const io = require('socket.io')(server)
     require('./script/socket')(io)
@@ -29,6 +28,7 @@ const open = () => {
         console.log(`\n=> 服务器开启 http://:${host}${port}`)
         console.log('\n输入help或?来查看帮助')
         enableDestroy(server)
+        const rl = readline.createInterface(process.stdin, process.stdout)
         rl.setPrompt('=> ')
         rl.prompt()
         process.on('stopServer', (type) => {
