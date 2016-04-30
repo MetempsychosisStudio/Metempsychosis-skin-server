@@ -105,17 +105,17 @@ describe('User', function() {
                     password: '123456',
                     rPassword: '123456'
                 })), function(e) {
-                    e.should.equal('done');
+                    e.should.be.an.instanceOf(Object)
                     done();
                 })
             });
-            it('kbc_000', function(done) {
+            it('kBc_000', function(done) {
                 client.emit('register', enecc(JSON.stringify({
                     username: 'kBc_000',
                     password: '233-=<<./sNDBd',
                     rPassword: '233-=<<./sNDBd'
                 })), function(e) {
-                    e.should.equal('done');
+                    e.should.be.an.instanceOf(Object)
                     done();
                 })
             });

@@ -22,6 +22,21 @@ module.exports = (io) => {
             userScript.reg(userScript.decrypt(aec)).then(fn)
         })
 
+        socket.on('login', (aec, fn) => {
+            let user = userScript.decrypt(aec)
+            if (user == 'err') {
+                fn('error')
+            } else {
+                userScript.login(user.username, user.password).then((result) => {
+                    if (result == 'good') {
+                        userScript.get(user.username).then(fn)
+                    } else {
+                        fn('bad')
+                    }
+                })
+            }
+        })
+
         socket.on('changePassword', (aec, fn) => {
             let userInfo = userScript.decrypt(aec)
             userScript.changePassword(userInfo.username, userInfo.password, userInfo.newPassword).then(fn)

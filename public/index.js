@@ -1,6 +1,6 @@
-var currentUser = new ReactiveVar({});
+var currentUser = new ReactiveVar(undefined);
 var register = new ReactiveVar(false);
-var usernameCheck = new ReactiveVar(undefined);
+var usernameCheck = new ReactiveVar(undefined)
 var password2Check = new ReactiveVar(undefined)
 
 var socket = io();
@@ -15,6 +15,40 @@ socket.on('setting', function(e) {
 
 function ECCencrypt(value) {
     return ecc.encrypt(ECCKey, value)
+}
+
+function closeLoginForm(e) {
+    e.preventDefault()
+    $('.content').css('animation-name', 'blurout')
+    $('.content').css('animation-duration', '220ms')
+    $('.content').css('-webkit-animation-name', 'blurout')
+    $('.content').css('-webkit-animation-duration', '220ms')
+    $('.cover').fadeOut(250)
+    $('.usernameForm').popover('destroy')
+    $('.passwordForm').popover('destroy')
+    $('.password2Form').popover('destroy')
+}
+
+function login(aec) {
+    socket.emit('login', aec, function(e) {
+        if (typeof e == 'object') {
+            password2Check.set(true)
+            usernameCheck.set(true)
+            currentUser.set(e)
+            $('#closeLogin').click()
+        } else if (e == 'bad') {
+            password2Check.set(false)
+            usernameCheck.set(false)
+            $('.passwordForm').popover({
+                content: '用户名或密码错误',
+                container: 'body',
+                trigger: 'manual',
+                placement: 'up',
+                animation: false
+            })
+            $('.passwordForm').popover('show')
+        }
+    })
 }
 
 function checkPassword() {
@@ -33,6 +67,14 @@ function checkPassword() {
         $('.password2Form').popover('show')
     }
     return false
+}
+
+function lock(ele) {
+    $(ele).attr('disabled', '')
+}
+
+function unlock(ele) {
+    $(ele).removeAttr('disabled')
 }
 
 function checkUsername() {
@@ -81,7 +123,7 @@ function checkUsername() {
 
 Template.header.helpers({
     loginBtn: function() {
-        if (!currentUser.get().username) {
+        if (!currentUser.get()) {
             return '注册/登陆'
         } else {
             return currentUser.get().username
@@ -91,7 +133,7 @@ Template.header.helpers({
 
 Template.login.helpers({
     notLogin: function() {
-        return !currentUser.get().username
+        return !currentUser.get()
     },
     register: function() {
         return register.get()
@@ -136,28 +178,11 @@ Template.main.events({
 });
 
 Template.cover.events({
-    'click .cover': function(e) {
-        $('.content').css('animation-name', 'blurout')
-        $('.content').css('animation-duration', '220ms')
-        $('.content').css('-webkit-animation-name', 'blurout')
-        $('.content').css('-webkit-animation-duration', '220ms')
-        $('.cover').fadeOut(250)
-        $('.usernameForm').popover('destroy')
-        $('.password2Form').popover('destroy')
-    }
+    'click .cover': closeLoginForm
 });
 
 Template.login.events({
-    'click #closeLogin': function(e) {
-        e.preventDefault()
-        $('.content').css('animation-name', 'blurout')
-        $('.content').css('animation-duration', '220ms')
-        $('.content').css('-webkit-animation-name', 'blurout')
-        $('.content').css('-webkit-animation-duration', '220ms')
-        $('.cover').fadeOut(250)
-        $('.usernameForm').popover('destroy')
-        $('.password2Form').popover('destroy')
-    },
+    'click #closeLogin': closeLoginForm,
     'blur #username': function(e) {
         if (register.get()) {
             checkUsername()
@@ -189,16 +214,29 @@ Template.login.events({
             if (!$('#username').val().match(/^\w+$/)) {
                 checkUsername()
             } else if (checkPassword()) {
+                ['#username', '#password', '#password2', '#submitLogin'].forEach(lock)
                 socket.emit('register', ECCencrypt(JSON.stringify({
                     username: $('#username').val(),
                     password: $('#password').val(),
                     rPassword: $('#password2').val()
                 })), function(e) {
-                    console.log(e);
+                    ['#username', '#password', '#password2', '#submitLogin'].forEach(unlock)
+                    if (typeof e == 'object') {
+                        storage.setItem('login', ECCencrypt(JSON.stringify({
+                            username: $('#username').val(),
+                            password: $('#password').val()
+                        })))
+                        currentUser.set(e)
+                        $('#closeLogin').click()
+                    }
                 })
             }
         } else {
-
+            storage.setItem('login', ECCencrypt(JSON.stringify({
+                username: $('#username').val(),
+                password: $('#password').val()
+            })))
+            login(storage.login)
         }
     }
 });

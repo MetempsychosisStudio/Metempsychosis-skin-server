@@ -12,8 +12,18 @@ module.exports.find = () => new Promise((r, j) => {
     db.map().then(r)
 })
 
-module.exports.get =(username)=>new Promise((r,j)=>{
-    db.get(username).then(r)
+module.exports.get = (username) => new Promise((r, j) => {
+    db.get(username).then((result) => {
+        let user = {}
+        for (var variable in result) {
+            if (result.hasOwnProperty(variable)) {
+                if (variable != 'password') {
+                    user[variable] = result[variable]
+                }
+            }
+        }
+        r(user)
+    })
 })
 
 module.exports.reg = (newUser, log) => new Promise((r, j) => {
@@ -30,7 +40,7 @@ module.exports.reg = (newUser, log) => new Promise((r, j) => {
             if (text) {
                 db.set(newUser).then((text) => {
                     console.log('新用户: ' + text)
-                    r('done')
+                    this.get(newUser.username).then(r)
                 })
             } else {
                 r('repeat')
