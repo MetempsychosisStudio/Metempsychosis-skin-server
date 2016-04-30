@@ -23,11 +23,9 @@ const open = () => {
     const io = require('socket.io')(server)
     require('./script/socket')(io)
     server.listen(setting.server.port, () => {
-        const host = server.address().address
-        const port = server.address().port
-        console.log(`\n=> 服务器开启 http://:${host}${port}`)
-        console.log('\n输入help或?来查看帮助')
         enableDestroy(server)
+        console.log(`\n=> 服务器开启 http://:${server.address().address}${server.address().port}`)
+        console.log('\n输入help或?来查看帮助')
         const rl = readline.createInterface(process.stdin, process.stdout)
         rl.setPrompt('=> ')
         rl.prompt()
