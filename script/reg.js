@@ -117,32 +117,6 @@ module.exports.changePassword = (username, password, newPassword) => new Promise
     }
 })
 
-/*
-module.exports.getJSONUniSkinAPI = (username) => {
-    let json = {}
-    json.errno = 1
-    json.msg = '找不到皮肤'
-    return json
-
-    for (var i = 0; i < userInfo.length; i++) {
-        if (userInfo[i].name == username) {
-            if (userInfo[i].skins != undefined || userInfo[i].cape != undefined) {
-                delete JSONFile.msg
-                JSONFile.player_name = username
-                JSONFile.last_update = userInfo[i].update
-                JSONFile.model_preference = []
-                JSONFile.skins = {}
-                return JSON.stringify(JSONFile)
-            } else {
-                JSONFile.msg = '未上传皮肤'
-                return JSON.stringify(JSONFile)
-            }
-        }
-    }
-    return JSON.stringify(JSONFile)
-}
-*/
-
 module.exports.close = db.close
 module.exports.decrypt = (aec) => {
     let result
