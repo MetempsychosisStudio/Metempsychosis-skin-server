@@ -5,6 +5,7 @@ const sIM = require('./script/serverInfoManager')
 const enableDestroy = require('server-destroy')
 const http = require('http')
 const socketio = require('socket.io')
+//process.stdin.resume();
 
 console.log('\n「  ' + __dirname + '  」\n')
 let express = require('./script/server')
@@ -22,6 +23,9 @@ const open = () => {
         console.log(`\n=> 服务器开启 http://:${server.address().address}${server.address().port}`)
         console.log('\n输入help或?来查看帮助')
         const rl = readline.createInterface(process.stdin, process.stdout)
+        process.on('SIGINT', function() {
+            rl.close()
+        });
         rl.setPrompt('=> ')
         rl.prompt()
         process.on('stopServer', (type) => {
