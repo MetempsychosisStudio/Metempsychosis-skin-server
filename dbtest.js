@@ -1,5 +1,25 @@
 "use strict";
 
+
+/*
+let obj = {
+    a: 2,
+    f: 4,
+    v: 3
+}
+
+for (var a in obj) {
+    if (obj.hasOwnProperty(a)) {
+        console.log(a);
+    }
+}
+
+for (var b of [1,2,3]) {
+    console.log(b);
+}
+ */
+
+/*
 process.on('233', () => console.log(i+'0'))
 
 let i = 0
@@ -12,6 +32,7 @@ let w = () => {
     }, 0);
 }
 w()
+*/
 
 /*
 var http = require('http');
