@@ -7,7 +7,6 @@ const http = require('http')
 const socketio = require('socket.io')
 //process.stdin.resume();
 
-console.log('\n「  ' + __dirname + '  」\n')
 let express = require('./script/server')
 let setting = express.setting
 let userScript = express.userScript

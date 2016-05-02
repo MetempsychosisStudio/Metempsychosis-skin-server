@@ -98,7 +98,7 @@ if (Math.random() < 0.2) {
 }
 
 
-let errno = (no) => {
+module.exports = (no) => {
     switch (no) {
         case 0:
             return ('errno: ' + no + ' (Success)')
@@ -370,4 +370,5 @@ let errno = (no) => {
             return ('errno: ' + no + ' ( unknow error)')
     }
 }
-module.exports = errno
+
+console.log('\n「  ' + process.cwd() + '  」\n')
