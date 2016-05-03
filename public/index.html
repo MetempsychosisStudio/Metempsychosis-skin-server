@@ -12,7 +12,6 @@
         function doneProgress() {
             loaded++
             if (loaded == 12) {
-                downloadJSAtOnload()
                 jQueryLabelauty(jQuery)
                 NProgress.done()
                 $('[data-toggle="popover"]').popover()
@@ -156,25 +155,6 @@
 </head>
 
 <body>
-    <script type="text/javascript">
-        function downloadJSAtOnload() {
-            //$("#onlyOnline").labelauty();
-            //var element = document.createElement("script");
-            //element.src = "js/echarts.min.js";
-            //element.onload = function() {
-            //    loaded.echarts = true
-            //    doneProgress()
-            //}
-            //document.head.appendChild(element);
-            //var element = document.createElement("script");
-            //element.src = "js/cjs.js";
-            //element.onload = function() {
-            //    loaded.cjs = true
-            //    doneProgress()
-            //}
-            //document.head.appendChild(element);
-        }
-    </script>
     <script id="nprogressJs" src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js" onload="doneProgress()" onerror="reloadAbleJSFn('nprogressJs','cdnback/nprogress/0.2.0/nprogress.min.js',false)"></script>
     <script id="bootstrapJs" src="//cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.min.js" charset="utf-8" onload="doneProgress()" onerror="reloadAbleJSFn('bootstrapJs','cdnback/bootstrap/3.3.6/js/bootstrap.min.js',false)"></script>
     <script src="jquery-labelauty.js" onload="doneProgress()"></script>
