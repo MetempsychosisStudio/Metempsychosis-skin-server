@@ -46,12 +46,5 @@ module.exports = (io) => {
             sIM.offline(sIM.find('ip', socket.conn.remoteAddress))
         })
     })
-
-    process.on('socket', (type) => {
-        if (type == 'send') {
-            interfaceJS.ECCKey = userScript.getECC()
-            io.emit('setting', interfaceJS)
-        }
-    })
 }
 console.log('✓ socket.io')

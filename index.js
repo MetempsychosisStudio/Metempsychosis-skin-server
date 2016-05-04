@@ -5,7 +5,7 @@ const sIM = require('./script/serverInfoManager')
 const enableDestroy = require('server-destroy')
 const http = require('http')
 const socketio = require('socket.io')
-//process.stdin.resume();
+    //process.stdin.resume();
 
 let express = require('./script/server')
 let setting = express.setting
@@ -46,6 +46,8 @@ const open = () => {
             }
         })
         rl.on('close', () => {
+            process.removeAllListeners('SIGINT')
+            process.removeAllListeners('stopServer')
             console.log('\n=> 关闭网络服务器...')
             server.destroy(() => {
                 console.log('=> 保存数据...')
