@@ -5,25 +5,6 @@ const ecc = require('eccjs')
 const eccDB = require('./serverInfoManager').ecc
 
 console.log()
-let createECC = (log) => {
-    console.log(log)
-    eccDB(ecc.generate(ecc.ENC_DEC))
-}
-
-if (!eccDB()) {
-    createECC('=> 创建ECC加密密匙...')
-}
-
-try {
-    ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!'))
-} catch (e) {
-    createECC('=> ECC密匙损坏, 重新创建...')
-} finally {
-    if (ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!')) !== 'hello world!') {
-        createECC('=> ECC密匙损坏, 重新创建...')
-    }
-    console.log('=> ECC密匙校验完成')
-}
 
 try {
     fs.statSync('./data')
@@ -58,6 +39,7 @@ try {
 
     setting.dev = {}
     setting.dev.webLogger = false
+    setting.dev.eccLevel = 1
     setting.dev.noCompression = false
     setting.dev.responseTime = true
     setting.dev.softError = false
@@ -69,6 +51,43 @@ try {
 
 module.exports = require('../config')
 console.log("=> 配置文件读取成功\n")
+
+switch (module.exports.dev.eccLevel) {
+    case 1:
+        eccDB.level(192)
+        break;
+    case 2:
+        eccDB.level(224)
+        break;
+    case 3:
+        eccDB.level(256)
+        break;
+    case 4:
+        eccDB.level(384)
+        break;
+    default:
+        eccDB.level(192)
+}
+
+let createECC = (log) => {
+    console.log(log)
+    eccDB(ecc.generate(ecc.ENC_DEC, eccDB.level()))
+}
+
+if (!eccDB()) {
+    createECC('=> 创建ECC加密密匙...')
+}
+
+try {
+    ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!'))
+} catch (e) {
+    createECC('=> ECC密匙损坏, 重新创建...')
+} finally {
+    if (ecc.decrypt(eccDB().dec, ecc.encrypt(eccDB().enc, 'hello world!')) !== 'hello world!') {
+        createECC('=> ECC密匙损坏, 重新创建...')
+    }
+    console.log('=> ECC密匙校验完成')
+}
 
 if (module.exports.dev.softError) {
     process.on('uncaughtException', (err) => {

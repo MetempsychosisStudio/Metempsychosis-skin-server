@@ -1,6 +1,16 @@
 "use strict";
-
-
+const ecc = require('eccjs')
+for (var i = 0; i < 10000; i++) {
+    let a
+    try {
+        let result = ecc.generate(ecc.ENC_DEC, i)
+    } catch (e) {
+        a = e.toString() == "INVALID: no such curve"
+    }
+    if (a !== true) {
+        console.log(i);    
+    }
+}
 /*
 let obj = {
     a: 2,

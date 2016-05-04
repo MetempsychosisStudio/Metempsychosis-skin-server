@@ -149,7 +149,7 @@ module.exports = (input) => new Promise((r, j) => {
             break
         case 'ecc':
             console.log('重置ECCkey');
-            eccDB(ecc.generate(ecc.ENC_DEC))
+            eccDB(ecc.generate(ecc.ENC_DEC, eccDB.level()))
             r()
             break;
         case 'socket':
