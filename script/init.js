@@ -38,8 +38,8 @@ function setConfig(config) {
     if (config.server.port === undefined) {
         config.server.port = 2333
     } else if (typeof config.server.port !== 'number' || config.server.port > 65536 || config.server.port < 1) {
-        console.log('=> config.server.port 错误, 已重置');
         config.server.port = 2333
+        console.log('=> config.server.port 错误, 已重置');
     }
 
     if (typeof config.server.database != 'object') {
@@ -53,6 +53,11 @@ function setConfig(config) {
             config.server.database.type = 'leveldb'
         }
     } else if (config.server.database.type != 'lowdb' && config.server.database.type != 'leveldb') {
+        if (process.platform == 'win32') {
+            config.server.database.type = 'lowdb'
+        } else {
+            config.server.database.type = 'leveldb'
+        }
         console.log('=> config.server.database.type 错误, 已重置');
     }
 
@@ -60,8 +65,8 @@ function setConfig(config) {
     if (typeof config.interface.title === undefined) {
         config.interface.title = '皮肤服务器'
     } else if (typeof config.interface.title != 'string') {
-        console.log('=> config.interface.title 错误, 已重置');
         config.interface.title = '皮肤服务器'
+        console.log('=> config.interface.title 错误, 已重置');
     }
 
 
