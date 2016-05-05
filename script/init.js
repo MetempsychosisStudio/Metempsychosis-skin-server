@@ -39,7 +39,7 @@ try {
 
     setting.dev = {}
     setting.dev.webLogger = false
-    setting.dev.eccLevel = 1
+    setting.dev.eccLevel = 4
     setting.dev.noCompression = false
     setting.dev.responseTime = true
     setting.dev.softError = false

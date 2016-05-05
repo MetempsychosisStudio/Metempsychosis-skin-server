@@ -1,5 +1,87 @@
 "use strict";
 const ecc = require('eccjs')
+
+console.time('ge192')
+for (let i = 0; i < 100; i++) {
+    ecc.generate(ecc.ENC_DEC, 192)
+}
+console.timeEnd('ge192')
+
+console.time('ge224')
+for (let i = 0; i < 100; i++) {
+    ecc.generate(ecc.ENC_DEC, 224)
+}
+console.timeEnd('ge224')
+
+console.time('ge256')
+for (let i = 0; i < 100; i++) {
+    ecc.generate(ecc.ENC_DEC, 256)
+}
+console.timeEnd('ge256')
+
+console.time('ge384')
+for (let i = 0; i < 100; i++) {
+    ecc.generate(ecc.ENC_DEC, 384)
+}
+console.timeEnd('ge384')
+
+/*
+let key
+let enc
+
+enc = ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+console.time('en192')
+for (let i = 0; i < 10000; i++) {
+    ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+}
+console.timeEnd('en192')
+console.time('de192')
+for (let i = 0; i < 10000; i++) {
+    ecc.decrypt(key.dec, enc)
+}
+console.timeEnd('de192')
+
+key = ecc.generate(ecc.ENC_DEC, 224)
+enc = ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+console.time('en224')
+for (let i = 0; i < 10000; i++) {
+    ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+}
+console.timeEnd('en224')
+console.time('de224')
+for (let i = 0; i < 10000; i++) {
+    ecc.decrypt(key.dec, enc)
+}
+console.timeEnd('de224')
+
+key = ecc.generate(ecc.ENC_DEC, 256)
+enc = ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+console.time('en256')
+for (let i = 0; i < 10000; i++) {
+    ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+}
+console.timeEnd('en256')
+console.time('de256')
+for (let i = 0; i < 10000; i++) {
+    ecc.decrypt(key.dec, enc)
+}
+console.timeEnd('de256')
+
+key = ecc.generate(ecc.ENC_DEC, 384)
+enc = ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+console.time('en384')
+for (let i = 0; i < 10000; i++) {
+    ecc.encrypt(key.enc, "我不服, 你这个坑爹货, 233333, ╮(╯▽╰)╭, →_→")
+}
+console.timeEnd('en384')
+console.time('de384')
+for (let i = 0; i < 10000; i++) {
+    ecc.decrypt(key.dec, enc)
+}
+console.timeEnd('de384')
+*/
+
+/*
 for (var i = 0; i < 10000; i++) {
     let a
     try {
@@ -8,9 +90,11 @@ for (var i = 0; i < 10000; i++) {
         a = e.toString() == "INVALID: no such curve"
     }
     if (a !== true) {
-        console.log(i);    
+        console.log(i);
     }
 }
+*/
+
 /*
 let obj = {
     a: 2,
