@@ -18,104 +18,93 @@ try {
     fs.mkdirSync('./data/textures')
 }
 
+function setConfig(config) {
+    if (typeof config != 'object') {
+        config = {}
+    }
+
+    //Main
+    if (typeof config.server != 'object') {
+        config.server = {}
+    }
+    if (typeof config.interface != 'object') {
+        config.interface = {}
+    }
+    if (typeof config.dev != 'object') {
+        config.dev = {}
+    }
+
+
+    if (config.server.port === undefined) {
+        config.server.port = 2333
+    } else if (typeof config.server.port !== 'number' || config.server.port > 65536 || config.server.port < 1) {
+        console.log('=> config.server.port 错误, 已重置');
+        config.server.port = 2333
+    }
+
+    if (typeof config.server.database != 'object') {
+        config.server.database = {}
+    }
+
+    if (config.server.database.type === undefined) {
+        if (process.platform == 'win32') {
+            config.server.database.type = 'lowdb'
+        } else {
+            config.server.database.type = 'leveldb'
+        }
+    } else if (config.server.database.type != 'lowdb' && config.server.database.type != 'leveldb') {
+        console.log('=> config.server.database.type 错误, 已重置');
+    }
+
+
+    if (typeof config.interface.title === undefined) {
+        config.interface.title = '皮肤服务器'
+    } else if (typeof config.interface.title != 'string') {
+        console.log('=> config.interface.title 错误, 已重置');
+        config.interface.title = '皮肤服务器'
+    }
+
+
+    if (config.dev.webLogger === undefined) {
+        config.dev.webLogger = false
+    } else if (typeof config.dev.webLogger != 'boolean') {
+        config.dev.webLogger = false
+        console.log('=> config.dev.webLogger 错误, 已重置');
+    }
+    if (config.dev.eccLevel === undefined) {
+        config.dev.eccLevel = 4
+    } else if (typeof config.dev.eccLevel != 'number') {
+        config.dev.eccLevel = 4
+        console.log('=> config.dev.eccLevel 错误, 已重置');
+    }
+    if (config.dev.noCompression === undefined) {
+        config.dev.noCompression = false
+    } else if (typeof config.dev.noCompression != 'boolean') {
+        config.dev.noCompression = false
+        console.log('=> config.dev.noCompression 错误, 已重置');
+    }
+    if (config.dev.responseTime === undefined) {
+        config.dev.responseTime = true
+    } else if (typeof config.dev.responseTime != 'boolean') {
+        config.dev.responseTime = true
+        console.log('=> config.dev.responseTime 错误, 已重置');
+    }
+    if (config.dev.softError === undefined) {
+        config.dev.softError = false
+    } else if (typeof config.dev.softError != 'boolean') {
+        config.dev.softError = false
+        console.log('=> config.dev.softError 错误, 已重置');
+    }
+    return config
+}
+
 try {
     fs.statSync('./config.json')
 } catch (e) {
-    console.log('=> 创建配置文件...')
-    let setting = {}
-
-    setting.server = {}
-    setting.server.port = 2333
-
-    setting.server.database = {}
-    if (process.platform == 'win32') {
-        setting.server.database.type = 'lowdb'
-    } else {
-        setting.server.database.type = 'leveldb'
-    }
-
-    setting.interface = {}
-    setting.interface.title = '皮肤服务器'
-
-    setting.dev = {}
-    setting.dev.webLogger = false
-    setting.dev.eccLevel = 4
-    setting.dev.noCompression = false
-    setting.dev.responseTime = true
-    setting.dev.softError = false
-
-
-    fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
+    fs.writeFileSync('./config.json', JSON.stringify(setConfig(), null, 2))
     console.log('=> config.json 创建成功')
 } finally {
-    let setting = require('../config')
-    if (setting.server === undefined) {
-        setting.server = {}
-        setting.server.port = 2333
-
-        setting.server.database = {}
-        if (process.platform == 'win32') {
-            setting.server.database.type = 'lowdb'
-        } else {
-            setting.server.database.type = 'leveldb'
-        }
-    } else {
-        if (setting.server.port === undefined) {
-            setting.server.port = 2333
-        }
-        if (setting.server.database === undefined) {
-            setting.server.database = {}
-            if (process.platform == 'win32') {
-                setting.server.database.type = 'lowdb'
-            } else {
-                setting.server.database.type = 'leveldb'
-            }
-        } else {
-            if (setting.server.port.type === undefined) {
-                if (process.platform == 'win32') {
-                    setting.server.database.type = 'lowdb'
-                } else {
-                    setting.server.database.type = 'leveldb'
-                }
-            }
-        }
-    }
-
-    if (setting.interface === undefined) {
-        setting.interface = {}
-        setting.interface.title = '皮肤服务器'
-    } else {
-        if (setting.interface.title === undefined) {
-            setting.interface.title = '皮肤服务器'
-        }
-    }
-
-    if (setting.dev === undefined) {
-        setting.dev = {}
-        setting.dev.webLogger = false
-        setting.dev.eccLevel = 4
-        setting.dev.noCompression = false
-        setting.dev.responseTime = true
-        setting.dev.softError = false
-    } else {
-        if (setting.dev.webLogger === undefined) {
-            setting.dev.webLogger = false
-        }
-        if (setting.dev.eccLevel === undefined) {
-            setting.dev.eccLevel = 4
-        }
-        if (setting.dev.noCompression === undefined) {
-            setting.dev.noCompression = false
-        }
-        if (setting.dev.responseTime === undefined) {
-            setting.dev.responseTime = true
-        }
-        if (setting.dev.softError === undefined) {
-            setting.dev.softError = false
-        }
-    }
-
-    fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
+    fs.writeFileSync('./config.json', JSON.stringify(setConfig(require('../config')), null, 2))
 }
 
 module.exports = require('../config')
@@ -165,7 +154,7 @@ if (module.exports.dev.softError) {
     });
 }
 
-module.exports.set = (setting) => {
+module.exports.set = (config) => {
     return 'niconiconi'
         // TODO: set config.json
 }
