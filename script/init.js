@@ -47,6 +47,75 @@ try {
 
     fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
     console.log('=> config.json 创建成功')
+} finally {
+    let setting = require('../config')
+    if (setting.server === undefined) {
+        setting.server = {}
+        setting.server.port = 2333
+
+        setting.server.database = {}
+        if (process.platform == 'win32') {
+            setting.server.database.type = 'lowdb'
+        } else {
+            setting.server.database.type = 'leveldb'
+        }
+    } else {
+        if (setting.server.port === undefined) {
+            setting.server.port = 2333
+        }
+        if (setting.server.database === undefined) {
+            setting.server.database = {}
+            if (process.platform == 'win32') {
+                setting.server.database.type = 'lowdb'
+            } else {
+                setting.server.database.type = 'leveldb'
+            }
+        } else {
+            if (setting.server.port.type === undefined) {
+                if (process.platform == 'win32') {
+                    setting.server.database.type = 'lowdb'
+                } else {
+                    setting.server.database.type = 'leveldb'
+                }
+            }
+        }
+    }
+
+    if (setting.interface === undefined) {
+        setting.interface = {}
+        setting.interface.title = '皮肤服务器'
+    } else {
+        if (setting.interface.title === undefined) {
+            setting.interface.title = '皮肤服务器'
+        }
+    }
+
+    if (setting.dev === undefined) {
+        setting.dev = {}
+        setting.dev.webLogger = false
+        setting.dev.eccLevel = 4
+        setting.dev.noCompression = false
+        setting.dev.responseTime = true
+        setting.dev.softError = false
+    } else {
+        if (setting.dev.webLogger === undefined) {
+            setting.dev.webLogger = false
+        }
+        if (setting.dev.eccLevel === undefined) {
+            setting.dev.eccLevel = 4
+        }
+        if (setting.dev.noCompression === undefined) {
+            setting.dev.noCompression = false
+        }
+        if (setting.dev.responseTime === undefined) {
+            setting.dev.responseTime = true
+        }
+        if (setting.dev.softError === undefined) {
+            setting.dev.softError = false
+        }
+    }
+
+    fs.writeFileSync('./config.json', JSON.stringify(setting, null, 2))
 }
 
 module.exports = require('../config')
