@@ -1,4 +1,20 @@
 "use strict";
+
+/*
+(function() {
+    "use strict";
+    let a = document.getElementsByClassName('cl')[26].children
+    for (var i = 0; i < a.length; i++) {
+        let e = a[i]
+        let url = e.children[1].href.replace('http://www.mcbbs.net/home.php?mod=space&uid=', '')
+        e.children[0].height = 16
+        e.children[0].width = 16
+        e.children[0].src = "http://www.mcbbs.net/uc_server/avatar.php?uid=" + url + "&size=big"
+    }
+})()
+*/
+
+/*
 const ecc = require('eccjs')
 
 console.time('ge192')
@@ -24,6 +40,7 @@ for (let i = 0; i < 100; i++) {
     ecc.generate(ecc.ENC_DEC, 384)
 }
 console.timeEnd('ge384')
+*/
 
 /*
 let key

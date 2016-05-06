@@ -13,6 +13,26 @@ socket.on('setting', function(e) {
     doneProgress();
 })
 
+if (sessionStorage.login) {
+    login(sessionStorage.login, function(e) {
+        if (typeof e == 'object') {
+            afterLogin(e)
+        } else if (localStorage.login) {
+            login(localStorage.login, function(e) {
+                if (typeof e == 'object') {
+                    afterLogin(e)
+                }
+            })
+        }
+    })
+} else if (localStorage.login) {
+    login(localStorage.login, function(e) {
+        if (typeof e == 'object') {
+            afterLogin(e)
+        }
+    })
+}
+
 function ECCencrypt(value) {
     return ecc.encrypt(ECCKey, value)
 }
@@ -29,26 +49,28 @@ function closeLoginForm(e) {
     $('.password2Form').popover('destroy')
 }
 
-function login(aec) {
-    socket.emit('login', aec, function(e) {
-        if (typeof e == 'object') {
-            password2Check.set(true)
-            usernameCheck.set(true)
-            currentUser.set(e)
-            $('#closeLogin').click()
-        } else if (e == 'bad') {
-            password2Check.set(false)
-            usernameCheck.set(false)
-            $('.passwordForm').popover({
-                content: '用户名或密码错误',
-                container: 'body',
-                trigger: 'manual',
-                placement: 'up',
-                animation: false
-            })
-            $('.passwordForm').popover('show')
-        }
-    })
+function login(aec, callback) {
+    socket.emit('login', aec, callback)
+}
+
+function afterLogin(e) {
+    if (typeof e == 'object') {
+        password2Check.set(true)
+        usernameCheck.set(true)
+        currentUser.set(e)
+        $('#closeLogin').click()
+    } else if (e == 'bad') {
+        password2Check.set(false)
+        usernameCheck.set(false)
+        $('.passwordForm').popover({
+            content: '用户名或密码错误',
+            container: 'body',
+            trigger: 'manual',
+            placement: 'up',
+            animation: false
+        })
+        $('.passwordForm').popover('show')
+    }
 }
 
 function checkPassword() {
@@ -195,7 +217,7 @@ Template.login.events({
         usernameCheck.set(undefined)
     },
     'input .password': function(e) {
-        if ($('#password2').val() !== '' && $('#password').val() !== '') {
+        if ($('#password2').val() !== '' && $('#password').val() !== '' && register.get()) {
             checkPassword()
         } else {
             password2Check.set(undefined)
@@ -236,7 +258,7 @@ Template.login.events({
                 username: $('#username').val(),
                 password: $('#password').val()
             })))
-            login(storage.login)
+            login(storage.login, afterLogin)
         }
     }
 });
