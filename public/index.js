@@ -9,7 +9,12 @@ socket.on('setting', function(e) {
     var element = document.createElement("title")
     element.innerHTML = e.title
     document.head.appendChild(element)
-    ECCKey = e.ECCKey
+    if (localStorage.ECCKey !== e.ECCKey) {
+        localStorage.ECCKey = e.ECCKey
+        currentUser.set(undefined)
+        delete localStorage.login
+        delete sessionStorage.login
+    }
     doneProgress();
 })
 
@@ -34,7 +39,7 @@ if (sessionStorage.login) {
 }
 
 function ECCencrypt(value) {
-    return ecc.encrypt(ECCKey, value)
+    return ecc.encrypt(localStorage.ECCKey, value)
 }
 
 function closeLoginForm(e) {
@@ -254,10 +259,10 @@ Template.login.events({
                 })
             }
         } else {
-            storage.setItem('login', ECCencrypt(JSON.stringify({
+            storage.login = ECCencrypt(JSON.stringify({
                 username: $('#username').val(),
                 password: $('#password').val()
-            })))
+            }))
             login(storage.login, afterLogin)
         }
     }
