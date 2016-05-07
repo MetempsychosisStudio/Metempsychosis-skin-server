@@ -92,8 +92,6 @@ module.exports = (input) => new Promise((r, j) => {
                                     rPassword: cmd[3]
                                 }).then((text) => {
                                     switch (text) {
-                                        case 'done':
-                                            break
                                         case 'illegalUsername':
                                             console.log('非法用户名')
                                             break
@@ -101,7 +99,9 @@ module.exports = (input) => new Promise((r, j) => {
                                             console.log('用户已存在')
                                             break
                                         default:
-                                            console.log('不明原因错误')
+                                            if (typeof text != 'object') {
+                                                console.log('不明原因错误')
+                                            }
                                     }
                                     r()
                                 })

@@ -97,7 +97,7 @@ function checkPassword() {
 }
 
 function lock(ele) {
-    $(ele).attr('disabled', '')
+    $(ele).attr('disabled')
 }
 
 function unlock(ele) {
