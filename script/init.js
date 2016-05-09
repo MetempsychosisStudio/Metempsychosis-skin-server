@@ -62,7 +62,7 @@ function setConfig(config) {
     }
 
 
-    if (typeof config.interface.title === undefined) {
+    if (typeof config.interface.title === 'undefined') {
         config.interface.title = '皮肤服务器'
     } else if (typeof config.interface.title != 'string') {
         config.interface.title = '皮肤服务器'
