@@ -75,6 +75,17 @@ function afterLogin(e) {
             animation: false
         })
         $('.passwordForm').popover('show')
+    }else {
+        password2Check.set(false)
+        usernameCheck.set(false)
+        $('.passwordForm').popover({
+            content: '未知错误',
+            container: 'body',
+            trigger: 'manual',
+            placement: 'up',
+            animation: false
+        })
+        $('.passwordForm').popover('show')
     }
 }
 
