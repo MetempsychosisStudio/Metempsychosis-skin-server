@@ -76,6 +76,7 @@
 
     <script type="text/spacebars" name="login">
         <div class="loginControl cover">
+            {{#if notLogin}}
             <form class="form-horizontal loginForm">
                 <div class="usernameForm form-group {{usernameCheck}}">
                     <label for="username" class="col-sm-2 control-label">用户名</label>
@@ -109,6 +110,7 @@
                     </div>
                 </div>
             </form>
+            {{else}}{{/if}}
         </div>
     </script>
 

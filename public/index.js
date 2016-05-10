@@ -2,6 +2,7 @@ var currentUser = new ReactiveVar(undefined);
 var register = new ReactiveVar(false);
 var usernameCheck = new ReactiveVar(undefined)
 var password2Check = new ReactiveVar(undefined)
+var notLogin = new ReactiveVar(true)
 
 var socket = io();
 
@@ -63,6 +64,9 @@ function afterLogin(e) {
         password2Check.set(true)
         usernameCheck.set(true)
         currentUser.set(e)
+        setTimeout(function() {
+            notLogin.set(false)
+        }, 250);
         $('#closeLogin').click()
     } else if (e == 'bad') {
         password2Check.set(false)
@@ -160,7 +164,7 @@ Template.header.helpers({
 
 Template.login.helpers({
     notLogin: function() {
-        return !currentUser.get()
+        return notLogin.get()
     },
     register: function() {
         return register.get()
