@@ -1,4 +1,38 @@
 "use strict";
+/*
+let globalVar = 1;
+let globalVar2 = 1;
+
+function myCallback(info) {
+    for (let i = 1000000; i > 0; i--) {
+        globalVar += i;
+    }
+    for (let i = 1000000; i > 0; i--) {
+        globalVar += i;
+    }
+}
+
+function myCallback2(info) {
+    let localVar = globalVar2;
+    for (let i = 1000000; i > 0; i--) {
+        localVar += i;
+    }
+    for (let i = 1000000; i > 0; i--) {
+        localVar += i;
+    }
+    globalVar2 = localVar;
+}
+
+console.time('global')
+myCallback()
+myCallback()
+console.timeEnd('global')
+console.time('local')
+myCallback2()
+myCallback2()
+console.timeEnd('local')
+console.log(globalVar === globalVar2);
+*/
 
 /*
 (function() {
