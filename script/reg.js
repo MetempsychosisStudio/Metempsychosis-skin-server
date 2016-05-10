@@ -123,7 +123,9 @@ module.exports.decrypt = (aec) => {
     try {
         result = JSON.parse(ecc.decrypt(eccDB().dec, aec))
     } catch (e) {
-        console.trace(e)
+        if (eccDB.log()) {
+            console.trace(e)
+        }
         result = 'err'
     } finally {
         return result

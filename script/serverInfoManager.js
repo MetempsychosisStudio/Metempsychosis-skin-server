@@ -11,6 +11,7 @@ module.exports = {
 
 let ecc
 let eccLevel
+let eccLog
 
 module.exports.ecc = (key) => {
     if (key) {
@@ -28,6 +29,13 @@ module.exports.ecc.level = (num) => {
         eccLevel = num
     }
     return eccLevel
+}
+
+module.exports.ecc.log = (log) => {
+    if (log !== undefined) {
+        eccLog = log
+    }
+    return eccLog
 }
 
 module.exports.clean = (type) => {

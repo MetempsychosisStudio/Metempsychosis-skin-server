@@ -82,6 +82,12 @@ function setConfig(config) {
         config.dev.eccLevel = 4
         console.log('=> config.dev.eccLevel 错误, 已重置');
     }
+    if (config.dev.eccLog === undefined) {
+        config.dev.eccLog = false
+    } else if (typeof config.dev.eccLog != 'boolean') {
+        config.dev.eccLog = false
+        console.log('=> config.dev.eccLog 错误, 已重置');
+    }
     if (config.dev.noCompression === undefined) {
         config.dev.noCompression = false
     } else if (typeof config.dev.noCompression != 'boolean') {
@@ -114,6 +120,8 @@ try {
 
 module.exports = require('../config')
 console.log("=> 配置文件读取成功\n")
+
+eccDB.log(module.exports.dev.eccLog)
 
 switch (module.exports.dev.eccLevel) {
     case 1:
