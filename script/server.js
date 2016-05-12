@@ -23,7 +23,7 @@ if (setting.dev.responseTime) {
     app.use(responseTime())
     console.log('✓ 时间消耗')
 }
-if (!setting.dev.noCompression) {
+if (setting.dev.compression) {
     app.use(compression())
     console.log('✓ gzip压缩')
 }

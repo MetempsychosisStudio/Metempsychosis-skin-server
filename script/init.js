@@ -88,11 +88,11 @@ function setConfig(config) {
         config.dev.eccLog = false
         console.log('=> config.dev.eccLog 错误, 已重置');
     }
-    if (config.dev.noCompression === undefined) {
-        config.dev.noCompression = false
-    } else if (typeof config.dev.noCompression != 'boolean') {
-        config.dev.noCompression = false
-        console.log('=> config.dev.noCompression 错误, 已重置');
+    if (config.dev.compression === undefined) {
+        config.dev.compression = true
+    } else if (typeof config.dev.compression != 'boolean') {
+        config.dev.compression = true
+        console.log('=> config.dev.compression 错误, 已重置');
     }
     if (config.dev.responseTime === undefined) {
         config.dev.responseTime = true
