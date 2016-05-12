@@ -14,13 +14,19 @@ module.exports.find = () => new Promise((r, j) => {
 
 module.exports.get = (username) => new Promise((r, j) => {
     db.get(username).then((result) => {
-        let user = {}
-        for (var variable in result) {
-            if (result.hasOwnProperty(variable)) {
-                if (variable != 'password') {
-                    user[variable] = result[variable]
+        let user
+        if (result) {
+            let userInfo = {}
+            for (let variable in result) {
+                if (result.hasOwnProperty(variable)) {
+                    if (variable != 'password') {
+                        userInfo[variable] = result[variable]
+                    }
                 }
             }
+            user = userInfo
+        } else {
+            user = undefined
         }
         r(user)
     })
