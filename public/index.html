@@ -27,18 +27,18 @@
         }
 
         function reloadAbleJSFn(id, newJS, css) {
-            var oldjs = null;
             var t = null;
             var oldjs = document.getElementById(id);
             var onload = oldjs.onload
             var parent = oldjs.parentNode
+            var scriptObj
             if (oldjs) oldjs.parentNode.removeChild(oldjs);
             if (css) {
-                var scriptObj = document.createElement("link");
+                scriptObj = document.createElement("link");
                 scriptObj.href = newJS;
                 scriptObj.rel = "stylesheet";
             } else {
-                var scriptObj = document.createElement("script");
+                scriptObj = document.createElement("script");
                 scriptObj.src = newJS;
                 scriptObj.type = "text/javascript";
             }
