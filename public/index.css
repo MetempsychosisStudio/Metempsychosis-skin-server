@@ -20,6 +20,11 @@ body {
     display: none;
 }
 
+.upDownMid {
+    display: flex;
+    align-items: center;
+}
+
 .loginControl {
     border-style: solid;
     border-color: rgb(91, 167, 153);
@@ -42,6 +47,9 @@ body {
         width: 86%;
         left: 7%;
         right: 7%;
+    }
+    .upDownMid {
+        flex-direction: column;
     }
 }
 
