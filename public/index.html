@@ -15,10 +15,10 @@
                 jQueryLabelauty(jQuery)
                 NProgress.done()
                 $('[data-toggle="popover"]').popover()
-                $("#jizhu").labelauty();
+                $("#jizhu").labelauty()
                 setTimeout(function() {
                     $('.content').fadeIn()
-                }, 100);
+                }, 100)
             } else if (loaded < 12) {
                 try {
                     NProgress.inc()
@@ -27,24 +27,24 @@
         }
 
         function reloadAbleJSFn(id, newJS, css) {
-            var oldjs = null;
-            var t = null;
-            var oldjs = document.getElementById(id);
+            var t = null
+            var oldjs = document.getElementById(id)
             var onload = oldjs.onload
             var parent = oldjs.parentNode
-            if (oldjs) oldjs.parentNode.removeChild(oldjs);
+            var scriptObj
+            if (oldjs) oldjs.parentNode.removeChild(oldjs)
             if (css) {
-                var scriptObj = document.createElement("link");
-                scriptObj.href = newJS;
-                scriptObj.rel = "stylesheet";
+                scriptObj = document.createElement("link")
+                scriptObj.href = newJS
+                scriptObj.rel = "stylesheet"
             } else {
-                var scriptObj = document.createElement("script");
-                scriptObj.src = newJS;
-                scriptObj.type = "text/javascript";
+                scriptObj = document.createElement("script")
+                scriptObj.src = newJS
+                scriptObj.type = "text/javascript"
             }
-            scriptObj.id = id;
+            scriptObj.id = id
             scriptObj.onload = onload
-            parent.appendChild(scriptObj);
+            parent.appendChild(scriptObj)
         }
     </script>
     <script src="/socket.io/socket.io.js" onload="doneProgress()"></script>
@@ -76,6 +76,7 @@
 
     <script type="text/spacebars" name="login">
         <div class="loginControl cover">
+            {{#if notLogin}}
             <form class="form-horizontal loginForm">
                 <div class="usernameForm form-group {{usernameCheck}}">
                     <label for="username" class="col-sm-2 control-label">用户名</label>
@@ -109,6 +110,31 @@
                     </div>
                 </div>
             </form>
+            {{else}}
+            <div class="row upDownMid">
+                <div class="col-xs-4 text-center">
+                    <img src="" alt="用户头像" class="img-thumbnail userPhoto">
+                    <br> {{username}}
+                    <button class="btn btn-danger" id="logout">退出</button>
+                </div>
+                <div class="col-xs-8">
+                    233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>233
+                    <br>
+                </div>
+            </div>
+            {{/if}}
         </div>
     </script>
 
@@ -126,13 +152,17 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
+                        <li class="active"><a href="">Home</a></li>
                         <li>
-                            <a href="#"></a>
+                            <a href=""></a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="" class="loginBtn">{{loginBtn}}</a></li>
+                        <li>
+                            <a href="" class="loginBtn">
+                            {{#if isLogin}}
+                            <img src="" height="20px" alt="用户头像" class="img-circle userPhoto"> {{/if}}
+                            {{loginBtn}}</a></li>
                     </ul>
                 </div>
             </div>
