@@ -1,10 +1,10 @@
-var currentUser = new ReactiveVar(undefined);
-var register = new ReactiveVar(false);
+var currentUser = new ReactiveVar(undefined)
+var register = new ReactiveVar(false)
 var usernameCheck = new ReactiveVar(undefined)
 var password2Check = new ReactiveVar(undefined)
 var notLogin = new ReactiveVar(true)
 
-var socket = io();
+var socket = io()
 
 socket.on('setting', function(e) {
     var element = document.createElement("title")
@@ -16,7 +16,7 @@ socket.on('setting', function(e) {
         delete localStorage.login
         delete sessionStorage.login
     }
-    doneProgress();
+    doneProgress()
 })
 
 if (sessionStorage.login) {
@@ -66,7 +66,7 @@ function afterLogin(e) {
         currentUser.set(e)
         setTimeout(function() {
             notLogin.set(false)
-        }, 250);
+        }, 250)
         $('#closeLogin').click()
     } else if (e == 'bad') {
         password2Check.set(false)
@@ -159,8 +159,11 @@ Template.header.helpers({
         } else {
             return currentUser.get().username
         }
+    },
+    isLogin: function() {
+        return !notLogin.get()
     }
-});
+})
 
 Template.login.helpers({
     notLogin: function() {
@@ -188,8 +191,14 @@ Template.login.helpers({
         } else {
             return 'has-error'
         }
+    },
+    username: function() {
+        if (currentUser.get()) {
+            return currentUser.get().username
+        }
+        return undefined
     }
-});
+})
 
 Template.main.events({
     'click .loginBtn': function(e) {
@@ -206,11 +215,11 @@ Template.main.events({
         $('.content').css('-webkit-animation-fill-mode', 'forwards')
         $('.cover').fadeIn(220)
     }
-});
+})
 
 Template.cover.events({
     'click .cover': closeLoginForm
-});
+})
 
 Template.login.events({
     'click #closeLogin': closeLoginForm,
@@ -218,6 +227,22 @@ Template.login.events({
         if (register.get()) {
             checkUsername()
         }
+    },
+    'click #logout': function(e) {
+        closeLoginForm(e)
+        if (sessionStorage.login) {
+            delete sessionStorage.login
+        } else if (localStorage.login) {
+            delete localStorage.login
+        }
+        setTimeout(function() {
+            notLogin.set(true)
+            currentUser.set(undefined)
+            $('.cover').fadeOut(250)
+            setTimeout(function() {
+                $("#jizhu").labelauty()
+            }, 0)
+        }, 250)
     },
     'click .newUser': function(e) {
         e.preventDefault()
@@ -270,4 +295,4 @@ Template.login.events({
             login(storage.login, afterLogin)
         }
     }
-});
+})

@@ -20,6 +20,10 @@ body {
     display: none;
 }
 
+.loginBtn{
+    height: 50px;
+}
+
 .upDownMid {
     display: flex;
     align-items: center;
