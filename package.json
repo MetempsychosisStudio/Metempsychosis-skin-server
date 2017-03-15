@@ -47,5 +47,10 @@
   },
   "directories": {
     "test": "test"
+  },
+  "eslintConfig": {
+    "env": {
+    "node": true
+    }
   }
 }
